@@ -1,1 +1,728 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiftCardSurvey - Share Your Lifestyle Preferences</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --light-green: #d5f4e6;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --medium-gray: #777777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: var(--dark-green);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .hamburger-menu:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Modal Menu */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: flex-end;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            width: 300px;
+            height: 100%;
+            background-color: var(--white);
+            padding: 30px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: translateX(0);
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            color: var(--dark-green);
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+        
+        .modal-menu {
+            list-style: none;
+            margin-top: 40px;
+        }
+        
+        .modal-menu li {
+            margin-bottom: 20px;
+        }
+        
+        .modal-menu a {
+            display: flex;
+            align-items: center;
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-menu a:hover {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+        
+        .modal-menu i {
+            margin-right: 15px;
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Guide Section */
+        .guide {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--dark-green);
+            margin-bottom: 50px;
+        }
+        
+        .guide-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--light-gray);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .guide-content h3 {
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .guide-content p {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .guide-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .guide-content li {
+            margin-bottom: 10px;
+        }
+        
+        /* Survey Section */
+        .survey {
+            padding: 80px 0;
+            background-color: var(--light-green);
+        }
+        
+        .survey-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .survey-intro p {
+            font-size: 18px;
+            color: var(--medium-gray);
+        }
+        
+        .survey-intro a {
+            color: var(--dark-green);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .survey-intro a:hover {
+            text-decoration: underline;
+        }
+        
+        .survey-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 120px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .form-group textarea:focus {
+            border-color: var(--primary-green);
+            outline: none;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--primary-green);
+            outline: none;
+        }
+        
+        .word-count {
+            font-size: 14px;
+            color: var(--medium-gray);
+            margin-top: 5px;
+        }
+        
+        .word-count.error {
+            color: #e74c3c;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-green);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--dark-green);
+        }
+        
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .submit-btn.validating::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: validating 1.5s infinite;
+        }
+        
+        @keyframes validating {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-green);
+        }
+        
+        .copyright {
+            font-size: 14px;
+            color: #cccccc;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+            
+            .guide-content, .survey-form {
+                padding: 30px 20px;
+            }
+            
+            .modal-content {
+                width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" onclick="window.location.href='about.html'">
+                    <img src="images/001" alt="GiftCardSurvey Logo">
+                    <span class="logo-text">GiftCardSurvey</span>
+                </div>
+                <div class="hamburger-menu" id="hamburgerMenu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal Menu -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </div>
+            <ul class="modal-menu">
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <li><a href="subscribe.html"><i class="fas fa-bell"></i> Subscribe for Updates</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>GiftCardSurvey</h1>
+            <p>Share your lifestyle and entertainment preferences to help shape the future of gift card offerings</p>
+            <a href="#survey" class="btn">Begin Now</a>
+        </div>
+    </section>
+
+    <!-- Guide Section -->
+    <section class="guide">
+        <div class="container">
+            <h2 class="section-title">How to Answer Surveys</h2>
+            <div class="guide-content">
+                <h3>Getting the Most Out of Your Survey Experience</h3>
+                <p>At GiftCardSurvey, we value your opinions and want to ensure your feedback is meaningful and impactful. Follow these guidelines to provide the best responses:</p>
+                
+                <ol>
+                    <li><strong>Be Thoughtful:</strong> Take your time to consider each question carefully before responding.</li>
+                    <li><strong>Be Specific:</strong> Provide detailed answers that clearly express your preferences and experiences.</li>
+                    <li><strong>Be Honest:</strong> Your genuine opinions help us create better gift card options for everyone.</li>
+                    <li><strong>Consider Context:</strong> Think about different scenarios where you might use gift cards.</li>
+                    <li><strong>Think About Variety:</strong> Consider different types of retailers, services, and experiences.</li>
+                </ol>
+                
+                <p>Remember, each survey response must contain at least 5 words to ensure quality feedback. Your insights directly influence the gift card marketplace and help create options that better suit consumer needs.</p>
+                
+                <p>Thank you for participating and helping shape the future of gift card offerings!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section class="survey" id="survey">
+        <div class="container">
+            <h2 class="section-title">Lifestyle & Entertainment Survey</h2>
+            <div class="survey-intro">
+                <p>Survey composed by <a href="xavier.html">Xavier Baron</a></p>
+            </div>
+            
+            <form class="survey-form" id="surveyForm">
+                <div class="form-group">
+                    <label for="question1">1. What types of entertainment experiences do you most enjoy spending gift cards on?</label>
+                    <textarea id="question1" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="wordCount1">Words: 0</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="question2">2. How do gift cards influence your lifestyle choices and shopping habits?</label>
+                    <textarea id="question2" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="wordCount2">Words: 0</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="question3">3. What improvements would make gift cards more valuable to your lifestyle?</label>
+                    <textarea id="question3" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="wordCount3">Words: 0</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email to receive survey results">
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Survey</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">GiftCardSurvey</div>
+                <div class="footer-links">
+                    <a href="about.html">About Us</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 GiftCardSurvey. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCE1xpImFiMixhddUp3Ic0htXv1IVKKdv4",
+            authDomain: "giftcardsurvey-e358a.firebaseapp.com",
+            projectId: "giftcardsurvey-e358a",
+            storageBucket: "giftcardsurvey-e358a.firebasestorage.app",
+            messagingSenderId: "508562654130",
+            appId: "1:508562654130:web:a08f4218155c811b119aab"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make Firebase available globally
+        window.firebaseApp = app;
+        window.firestoreDb = db;
+        window.addDocToFirestore = addDoc;
+        window.firestoreCollection = collection;
+    </script>
+
+    <!-- JavaScript -->
+    <script>
+        // Modal Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const closeModal = document.getElementById('closeModal');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                modalOverlay.classList.add('active');
+            });
+            
+            closeModal.addEventListener('click', function() {
+                modalOverlay.classList.remove('active');
+            });
+            
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
+            
+            // Word Count and Validation
+            const textareas = document.querySelectorAll('textarea');
+            const submitBtn = document.getElementById('submitBtn');
+            const emailInput = document.getElementById('email');
+            
+            textareas.forEach((textarea, index) => {
+                const wordCountElement = document.getElementById(`wordCount${index + 1}`);
+                
+                textarea.addEventListener('input', function() {
+                    const wordCount = countWords(this.value);
+                    wordCountElement.textContent = `Words: ${wordCount}`;
+                    
+                    if (wordCount < 5) {
+                        wordCountElement.classList.add('error');
+                    } else {
+                        wordCountElement.classList.remove('error');
+                    }
+                    
+                    validateForm();
+                });
+            });
+            
+            emailInput.addEventListener('input', validateForm);
+            
+            function countWords(text) {
+                return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            }
+            
+            function validateForm() {
+                let allValid = true;
+                
+                // Check all textareas have at least 5 words
+                textareas.forEach(textarea => {
+                    if (countWords(textarea.value) < 5) {
+                        allValid = false;
+                    }
+                });
+                
+                // Check email is valid
+                const email = emailInput.value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    allValid = false;
+                }
+                
+                submitBtn.disabled = !allValid;
+            }
+            
+            // Form Submission
+            const surveyForm = document.getElementById('surveyForm');
+            
+            surveyForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show validating animation
+                submitBtn.textContent = 'Validating...';
+                submitBtn.classList.add('validating');
+                submitBtn.disabled = true;
+                
+                try {
+                    // Get email
+                    const email = emailInput.value;
+                    
+                    // Store only email in Firebase
+                    await window.addDocToFirestore(window.firestoreCollection(window.firestoreDb, "survey_emails"), {
+                        email: email,
+                        timestamp: new Date()
+                    });
+                    
+                    // Simulate processing time
+                    setTimeout(() => {
+                        alert('Thank you for completing our survey! Your responses have been recorded.');
+                        
+                        // Clear form
+                        surveyForm.reset();
+                        textareas.forEach((textarea, index) => {
+                            document.getElementById(`wordCount${index + 1}`).textContent = 'Words: 0';
+                            document.getElementById(`wordCount${index + 1}`).classList.remove('error');
+                        });
+                        
+                        // Reset button
+                        submitBtn.textContent = 'Submit Survey';
+                        submitBtn.classList.remove('validating');
+                        submitBtn.disabled = true;
+                    }, 1500);
+                    
+                } catch (error) {
+                    console.error("Error storing email: ", error);
+                    alert('There was an error submitting your survey. Please try again.');
+                    
+                    // Reset button
+                    submitBtn.textContent = 'Submit Survey';
+                    submitBtn.classList.remove('validating');
+                    validateForm();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
