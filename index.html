@@ -684,20 +684,19 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Share Your Lifestyle Preferences</h1>
-            <p class="subtitle">Help us understand entertainment trends and get a chance to win exclusive gift cards</p>
-            <a href="#survey" class="btn" id="beginNowBtn">Begin Now</a>
+            <h1>Welcome To Giftcard Survey</h1>
+            <p class="subtitle">“Help us understand entertainment & lifestyle trends — you may receive a gift card for your participation.”            <a href="#survey" class="btn" id="beginNowBtn">Begin Now</a>
         </div>
     </section>
 
     <!-- How to Answer Section -->
     <section class="how-to-section">
         <div class="container">
-            <h2 class="section-title">How to Answer the Survey</h2>
+            <h2 class="section-title">How to Participate Organic</h2>
             <div class="guide-cards">
                 <div class="guide-card">
                     <h3><i class="fas fa-pencil-alt"></i> Be Detailed</h3>
-                    <p>Provide thoughtful and detailed answers. Each response should be at least 5 words to ensure we capture your complete perspective.</p>
+                    <p>Please provide thoughtful responses — longer, more detailed feedback helps us improve.”</p>
                 </div>
                 <div class="guide-card">
                     <h3><i class="fas fa-clock"></i> Take Your Time</h3>
@@ -715,7 +714,7 @@
     <section class="survey-section" id="survey">
         <div class="container">
             <div class="survey-intro">
-                <h2 class="section-title">Lifestyle & Entertainment Survey</h2>
+                <h2 class="section-title">Lifestyle & Entertainment </h2>
                 <p>Survey composed by <a href="about.html" class="survey-creator">Xavier & teams</a></p>
             </div>
             
@@ -757,13 +756,13 @@
                 <div class="gift-icon">
                     <i class="fas fa-gift"></i>
                 </div>
-                <h2>Claim Your Gift Card</h2>
-                <p>Subscribe now to receive a special gift card and stay updated on our latest surveys and exclusive offers!</p>
+                <h2>Your $25 giftcard is on the way💃</h2>
+                <p>note: we review your responses first to ensure they are organic and not spammy before a giftcard is sent to your email. </p>
                 
                 <form class="subscribe-form" id="subscribeForm">
                     <input type="email" class="email-input" id="emailInput" placeholder="Enter your email address" required>
                     <button type="submit" class="btn subscribe-btn" id="subscribeBtn">
-                        <span class="btn-text">Get My Gift Card</span>
+                        <span class="btn-text">Subscribe</span>
                         <span class="processing-text">Processing...</span>
                     </button>
                 </form>
@@ -801,7 +800,7 @@
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#subscribe">Subscribe</a></li>
+                        <li><a href="#">Subscribe</a></li>
                     </ul>
                 </div>
                 
@@ -967,7 +966,7 @@
                 .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
                         subscribeBtn.classList.remove('processing');
-                        showSubscribeMessage("This email is already subscribed.", "error");
+                        showSubscribeMessage("This email is already subscribed,but still eligible", "error");
                         return;
                     }
                     
