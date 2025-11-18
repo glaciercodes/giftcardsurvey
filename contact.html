@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - GiftCardSurvey</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --light-green: #d5f4e6;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark-gray);
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            max-width: 300px;
+        }
+
+        /* Modal Menu */
+        .modal-menu {
+            position: relative;
+        }
+
+        .modal-trigger {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-trigger:hover {
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .modal-content a {
+            color: var(--dark-gray);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal-content a:hover {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        .modal-menu.active .modal-content {
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            min-height: calc(100vh - 200px);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .contact-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .processing {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .processing .btn-text {
+            opacity: 0;
+        }
+
+        .processing .processing-text {
+            opacity: 1;
+        }
+
+        .processing-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .response-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .error {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            border: 1px solid #ff9999;
+        }
+
+        .previous-submission {
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .previous-submission h3 {
+            color: var(--dark-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .previous-submission h3 i {
+            margin-right: 10px;
+        }
+
+        .submission-content {
+            background-color: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .no-submission {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 30px 20px;
+            }
+            
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-image {
+                height: 50px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 40px;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <!-- Replace with your logo image -->
+                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="GiftCardSurvey" class="logo-image">
+                </a>
+                
+                <div class="modal-menu" id="modalMenu">
+                    <button class="modal-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="modal-content">
+                        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                        <a href="about.html"><i class="fas fa-users"></i> About Us</a>
+                        <a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                        <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h1>Contact Our Support Team</h1>
+                    <p>We're here to help with any questions or issues you may have regarding our surveys or gift cards.</p>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" placeholder="Brief description of your issue" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">How Can We Help You?</label>
+                        <textarea id="message" class="form-control" placeholder="Please describe your issue or question in detail..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-full" id="submitBtn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="processing-text">Sending...</span>
+                    </button>
+                    
+                    <div class="response-message" id="responseMessage"></div>
+                </form>
+                
+                <div class="previous-submission">
+                    <h3><i class="fas fa-history"></i> Your Previous Submission</h3>
+                    <div class="submission-content" id="previousSubmission">
+                        <div class="no-submission">You haven't submitted any messages yet.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftCardSurvey</h3>
+                    <p>Understanding lifestyle and entertainment preferences to enhance user experiences.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GiftCardSurvey. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        let db;
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        db = firebase.firestore();
+
+        // DOM Elements
+        const modalMenu = document.getElementById('modalMenu');
+        const modalTrigger = document.querySelector('.modal-trigger');
+        const contactForm = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseMessage = document.getElementById('responseMessage');
+        const previousSubmission = document.getElementById('previousSubmission');
+
+        // Modal Menu Toggle
+        modalTrigger.addEventListener('click', function() {
+            modalMenu.classList.toggle('active');
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!modalMenu.contains(event.target)) {
+                modalMenu.classList.remove('active');
+            }
+        });
+
+        // Load previous submission from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedSubmission = localStorage.getItem('lastContactSubmission');
+            if (savedSubmission) {
+                const submission = JSON.parse(savedSubmission);
+                displayPreviousSubmission(submission);
+            }
+        });
+
+        // Contact Form Submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Validate form
+            if (!name || !email || !subject || !message) {
+                showResponseMessage('Please fill in all required fields.', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showResponseMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Show processing state
+            submitBtn.classList.add('processing');
+            
+            // Create submission object
+            const submission = {
+                name: name,
+                email: email,
+                subject: subject,
+                message: message,
+                submittedAt: new Date().toISOString()
+            };
+            
+            // Save to localStorage to show as previous submission
+            localStorage.setItem('lastContactSubmission', JSON.stringify(submission));
+            
+            // Save to Firestore
+            db.collection("contactSubmissions").add(submission)
+                .then((docRef) => {
+                    console.log("Document written with ID: ", docRef.id);
+                    
+                    // Simulate email sending (in a real implementation, you'd use a server-side function)
+                    simulateEmailSending(submission)
+                        .then(() => {
+                            // Show success message
+                            showResponseMessage('Your message has been sent successfully! Our team will respond within 24 hours.', 'success');
+                            
+                            // Display the submission as previous
+                            displayPreviousSubmission(submission);
+                            
+                            // Reset form
+                            contactForm.reset();
+                        })
+                        .catch((error) => {
+                            console.error("Error sending email: ", error);
+                            showResponseMessage('Your message has been saved, but there was an issue sending the email. We will still process your request.', 'success');
+                            
+                            // Display the submission as previous
+                            displayPreviousSubmission(submission);
+                            
+                            // Reset form
+                            contactForm.reset();
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                    showResponseMessage('There was an error submitting your message. Please try again.', 'error');
+                })
+                .finally(() => {
+                    // Remove processing state
+                    submitBtn.classList.remove('processing');
+                });
+        });
+
+        // Function to simulate email sending
+        function simulateEmailSending(submission) {
+            return new Promise((resolve, reject) => {
+                // In a real implementation, this would be a server-side call to an email service
+                // For this demo, we'll simulate a network request with a timeout
+                
+                setTimeout(() => {
+                    // Simulate 90% success rate
+                    if (Math.random() > 0.1) {
+                        resolve();
+                    } else {
+                        reject(new Error('Email service temporarily unavailable'));
+                    }
+                }, 1500);
+            });
+        }
+
+        // Function to display previous submission
+        function displayPreviousSubmission(submission) {
+            const formattedDate = new Date(submission.submittedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            previousSubmission.innerHTML = `
+                <p><strong>Date:</strong> ${formattedDate}</p>
+                <p><strong>Subject:</strong> ${submission.subject}</p>
+                <p><strong>Message:</strong> ${submission.message}</p>
+            `;
+        }
+
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Show response message
+        function showResponseMessage(message, type) {
+            responseMessage.textContent = message;
+            responseMessage.className = `response-message ${type}`;
+            responseMessage.style.display = 'block';
+            
+            // Scroll to message
+            responseMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide message after 7 seconds for errors, keep success messages visible
+            if (type === 'error') {
+                setTimeout(() => {
+                    responseMessage.style.display = 'none';
+                }, 7000);
+            }
+        }
+    </script>
+</body>
+</html>
