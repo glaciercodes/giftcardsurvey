@@ -686,7 +686,7 @@
         <div class="container">
             <h1>Share Your Lifestyle Preferences</h1>
             <p class="subtitle">Help us understand entertainment trends and get a chance to win exclusive gift cards</p>
-            <a href="#survey" class="btn">Begin Now</a>
+            <a href="#survey" class="btn" id="beginNowBtn">Begin Now</a>
         </div>
     </section>
 
@@ -854,6 +854,15 @@
         const retakeBtn = document.getElementById('retakeBtn');
         const answerInputs = document.querySelectorAll('.answer-input');
         const wordCounts = document.querySelectorAll('.word-count');
+        const beginNowBtn = document.getElementById('beginNowBtn');
+
+        // Begin Now Button - Scroll to Survey Section
+        beginNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('survey').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
 
         // Modal Menu Toggle
         modalTrigger.addEventListener('click', function() {
