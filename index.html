@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GiftCardSurvey - Share Your Lifestyle Preferences</title>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Base Styles */
         :root {
             --primary-green: #2ecc71;
             --dark-green: #27ae60;
@@ -14,29 +17,29 @@
             --white: #ffffff;
             --light-gray: #f5f5f5;
             --dark-gray: #333333;
-            --medium-gray: #777777;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--white);
             color: var(--dark-gray);
             line-height: 1.6;
         }
-        
+
         .container {
-            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* Header Styles */
         header {
             background-color: var(--white);
@@ -45,139 +48,118 @@
             top: 0;
             z-index: 100;
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
-            cursor: pointer;
+            text-decoration: none;
+            color: var(--dark-gray);
         }
-        
-        .logo img {
-            height: 50px;
-            width: auto;
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-green);
+            border-radius: 8px;
             margin-right: 10px;
-        }
-        
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--dark-green);
-        }
-        
-        .hamburger-menu {
-            font-size: 24px;
-            color: var(--dark-green);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .hamburger-menu:hover {
-            transform: scale(1.1);
-        }
-        
-        /* Modal Menu */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: flex-end;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            width: 300px;
-            height: 100%;
-            background-color: var(--white);
-            padding: 30px 20px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-        }
-        
-        .modal-overlay.active .modal-content {
-            transform: translateX(0);
-        }
-        
-        .close-modal {
-            font-size: 24px;
-            color: var(--dark-green);
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
-        
-        .modal-menu {
-            list-style: none;
-            margin-top: 40px;
-        }
-        
-        .modal-menu li {
-            margin-bottom: 20px;
-        }
-        
-        .modal-menu a {
             display: flex;
             align-items: center;
-            color: var(--dark-gray);
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
         }
-        
-        .modal-menu a:hover {
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--primary-green);
+        }
+
+        /* Modal Menu */
+        .modal-menu {
+            position: relative;
+        }
+
+        .modal-trigger {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-trigger:hover {
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .modal-content a {
+            color: var(--dark-gray);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal-content a:hover {
             background-color: var(--light-green);
             color: var(--dark-green);
         }
-        
-        .modal-menu i {
-            margin-right: 15px;
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
+
+        .modal-menu.active .modal-content {
+            display: block;
         }
-        
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
             padding: 80px 0;
             text-align: center;
         }
-        
+
         .hero h1 {
-            font-size: 48px;
-            color: var(--dark-green);
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
         }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--medium-gray);
-            max-width: 700px;
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
             margin: 0 auto 30px;
         }
-        
+
         .btn {
             display: inline-block;
             background-color: var(--primary-green);
@@ -186,275 +168,493 @@
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             border: none;
             cursor: pointer;
+            font-size: 1rem;
         }
-        
+
         .btn:hover {
             background-color: var(--dark-green);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        /* Guide Section */
-        .guide {
-            padding: 80px 0;
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        /* How to Answer Section */
+        .how-to-section {
+            padding: 60px 0;
             background-color: var(--white);
         }
-        
+
         .section-title {
             text-align: center;
-            font-size: 36px;
-            color: var(--dark-green);
-            margin-bottom: 50px;
-        }
-        
-        .guide-content {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--light-gray);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .guide-content h3 {
-            color: var(--dark-green);
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-        
-        .guide-content p {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             color: var(--dark-gray);
         }
-        
-        .guide-content ol {
-            margin-left: 20px;
-            margin-bottom: 20px;
+
+        .guide-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
         }
-        
-        .guide-content li {
-            margin-bottom: 10px;
-        }
-        
-        /* Survey Section */
-        .survey {
-            padding: 80px 0;
+
+        .guide-card {
             background-color: var(--light-green);
+            border-radius: 10px;
+            padding: 25px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            transition: transform 0.3s;
         }
-        
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .guide-card h3 {
+            color: var(--dark-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .guide-card h3 i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* Survey Section */
+        .survey-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
         .survey-intro {
             text-align: center;
             margin-bottom: 40px;
         }
-        
-        .survey-intro p {
-            font-size: 18px;
-            color: var(--medium-gray);
-        }
-        
-        .survey-intro a {
-            color: var(--dark-green);
+
+        .survey-creator {
+            color: var(--primary-green);
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s;
         }
-        
-        .survey-intro a:hover {
+
+        .survey-creator:hover {
+            color: var(--dark-green);
             text-decoration: underline;
         }
-        
+
         .survey-form {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             background-color: var(--white);
-            padding: 40px;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
-        .form-group {
+
+        .question-group {
             margin-bottom: 30px;
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
+
+        .question-group h3 {
+            margin-bottom: 15px;
             color: var(--dark-gray);
         }
-        
-        .form-group textarea {
+
+        .answer-input {
             width: 100%;
-            padding: 15px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            font-size: 1rem;
             resize: vertical;
-            min-height: 120px;
-            font-size: 16px;
-            transition: border 0.3s ease;
+            min-height: 100px;
+            transition: border-color 0.3s;
         }
-        
-        .form-group textarea:focus {
+
+        .answer-input:focus {
             border-color: var(--primary-green);
             outline: none;
         }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border 0.3s ease;
-        }
-        
-        .form-group input:focus {
-            border-color: var(--primary-green);
-            outline: none;
-        }
-        
+
         .word-count {
-            font-size: 14px;
-            color: var(--medium-gray);
+            font-size: 0.8rem;
+            color: #888;
             margin-top: 5px;
+            text-align: right;
         }
-        
-        .word-count.error {
-            color: #e74c3c;
-        }
-        
+
         .submit-btn {
             width: 100%;
-            padding: 15px;
-            background-color: var(--primary-green);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-top: 20px;
             position: relative;
             overflow: hidden;
         }
-        
-        .submit-btn:hover {
-            background-color: var(--dark-green);
-        }
-        
+
         .submit-btn:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
-        
-        .submit-btn.validating::after {
-            content: '';
+
+        .submit-btn .btn-text {
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn .validating {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn.validating .btn-text {
+            opacity: 0;
+        }
+
+        .submit-btn.validating .validating {
+            opacity: 1;
+        }
+
+        .response-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-green);
+            border-radius: 5px;
+            color: var(--dark-green);
+            display: none;
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            padding: 80px 0;
+            background-color: var(--white);
+            text-align: center;
+        }
+
+        .subscribe-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--light-green) 0%, #e8f8ef 100%);
+            padding: 50px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(46, 204, 113, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscribe-container::before {
+            content: "";
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: validating 1.5s infinite;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green), var(--dark-green), var(--primary-green));
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
         }
-        
-        @keyframes validating {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
-        
+
+        .gift-icon {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subscribe-container h2 {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+        }
+
+        .subscribe-container p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .subscribe-form {
+            display: flex;
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .email-input:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        .subscribe-btn {
+            border-radius: 0 8px 8px 0;
+            padding: 0 30px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscribe-btn.processing {
+            background-color: var(--dark-green);
+            pointer-events: none;
+        }
+
+        .subscribe-btn .btn-text {
+            transition: opacity 0.3s;
+        }
+
+        .subscribe-btn .processing-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .subscribe-btn.processing .btn-text {
+            opacity: 0;
+        }
+
+        .subscribe-btn.processing .processing-text {
+            opacity: 1;
+        }
+
+        .subscribe-message {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .error {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            border: 1px solid #ff9999;
+        }
+
+        .gift-card-animation {
+            margin-top: 25px;
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .gift-card {
+            width: 280px;
+            height: 160px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--silver) 100%);
+            border-radius: 12px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .gift-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+            background-size: 200% 200%;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: -100% -100%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        .gift-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .gift-card p {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .gift-card .value {
+            font-size: 1.8rem;
+            color: #e74c3c;
+            margin: 5px 0;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .congrats-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .retake-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark-gray);
             color: var(--white);
-            padding: 40px 0;
+            padding: 40px 0 20px;
             text-align: center;
         }
-        
+
         .footer-content {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
         }
-        
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--white);
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
             margin-bottom: 20px;
         }
-        
-        .footer-links {
-            display: flex;
-            gap: 20px;
+
+        .footer-column h3 {
             margin-bottom: 20px;
-        }
-        
-        .footer-links a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
             color: var(--primary-green);
         }
-        
-        .copyright {
-            font-size: 14px;
-            color: #cccccc;
+
+        .footer-column ul {
+            list-style: none;
         }
-        
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.2rem;
             }
             
-            .hero p {
-                font-size: 18px;
+            .guide-cards {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .section-title {
-                font-size: 30px;
+            .subscribe-form {
+                flex-direction: column;
             }
             
-            .guide-content, .survey-form {
+            .email-input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .subscribe-btn {
+                border-radius: 8px;
+                width: 100%;
+            }
+
+            .subscribe-container {
                 padding: 30px 20px;
             }
-            
-            .modal-content {
+
+            .gift-card {
                 width: 250px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 60px 0;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .section-title {
-                font-size: 24px;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 10px;
+                height: 140px;
             }
         }
     </style>
@@ -464,98 +664,130 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo" onclick="window.location.href='about.html'">
-                    <img src="images/001" alt="GiftCardSurvey Logo">
-                    <span class="logo-text">GiftCardSurvey</span>
-                </div>
-                <div class="hamburger-menu" id="hamburgerMenu">
-                    <i class="fas fa-bars"></i>
+                <a href="about.html" class="logo">
+                    <div class="logo-icon">001</div>
+                    <div class="logo-text">GiftCard<span>Survey</span></div>
+                </a>
+                
+                <div class="modal-menu" id="modalMenu">
+                    <button class="modal-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="modal-content">
+                        <a href="about.html"><i class="fas fa-users"></i> About Us</a>
+                        <a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                        <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                        <a href="#subscribe"><i class="fas fa-bell"></i> Subscribe for Updates</a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Modal Menu -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <div class="close-modal" id="closeModal">
-                <i class="fas fa-times"></i>
-            </div>
-            <ul class="modal-menu">
-                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
-                <li><a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a></li>
-                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                <li><a href="subscribe.html"><i class="fas fa-bell"></i> Subscribe for Updates</a></li>
-            </ul>
-        </div>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>GiftCardSurvey</h1>
-            <p>Share your lifestyle and entertainment preferences to help shape the future of gift card offerings</p>
+            <h1>Share Your Lifestyle Preferences</h1>
+            <p class="subtitle">Help us understand entertainment trends and get a chance to win exclusive gift cards</p>
             <a href="#survey" class="btn">Begin Now</a>
         </div>
     </section>
 
-    <!-- Guide Section -->
-    <section class="guide">
+    <!-- How to Answer Section -->
+    <section class="how-to-section">
         <div class="container">
-            <h2 class="section-title">How to Answer Surveys</h2>
-            <div class="guide-content">
-                <h3>Getting the Most Out of Your Survey Experience</h3>
-                <p>At GiftCardSurvey, we value your opinions and want to ensure your feedback is meaningful and impactful. Follow these guidelines to provide the best responses:</p>
-                
-                <ol>
-                    <li><strong>Be Thoughtful:</strong> Take your time to consider each question carefully before responding.</li>
-                    <li><strong>Be Specific:</strong> Provide detailed answers that clearly express your preferences and experiences.</li>
-                    <li><strong>Be Honest:</strong> Your genuine opinions help us create better gift card options for everyone.</li>
-                    <li><strong>Consider Context:</strong> Think about different scenarios where you might use gift cards.</li>
-                    <li><strong>Think About Variety:</strong> Consider different types of retailers, services, and experiences.</li>
-                </ol>
-                
-                <p>Remember, each survey response must contain at least 5 words to ensure quality feedback. Your insights directly influence the gift card marketplace and help create options that better suit consumer needs.</p>
-                
-                <p>Thank you for participating and helping shape the future of gift card offerings!</p>
+            <h2 class="section-title">How to Answer the Survey</h2>
+            <div class="guide-cards">
+                <div class="guide-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Be Detailed</h3>
+                    <p>Provide thoughtful and detailed answers. Each response should be at least 5 words to ensure we capture your complete perspective.</p>
+                </div>
+                <div class="guide-card">
+                    <h3><i class="fas fa-clock"></i> Take Your Time</h3>
+                    <p>There's no time limit. Take as much time as you need to reflect on each question and provide authentic responses.</p>
+                </div>
+                <div class="guide-card">
+                    <h3><i class="fas fa-heart"></i> Be Honest</h3>
+                    <p>Your genuine opinions matter most. There are no right or wrong answers - we value your authentic perspective.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Survey Section -->
-    <section class="survey" id="survey">
+    <section class="survey-section" id="survey">
         <div class="container">
-            <h2 class="section-title">Lifestyle & Entertainment Survey</h2>
             <div class="survey-intro">
-                <p>Survey composed by <a href="xavier.html">Xavier Baron</a></p>
+                <h2 class="section-title">Lifestyle & Entertainment Survey</h2>
+                <p>Survey composed by <a href="about.html" class="survey-creator">Xavier & teams</a></p>
             </div>
             
             <form class="survey-form" id="surveyForm">
-                <div class="form-group">
-                    <label for="question1">1. What types of entertainment experiences do you most enjoy spending gift cards on?</label>
-                    <textarea id="question1" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
-                    <div class="word-count" id="wordCount1">Words: 0</div>
+                <div class="question-group">
+                    <h3>What types of entertainment activities do you most enjoy during your leisure time, and why do these activities appeal to you?</h3>
+                    <textarea class="answer-input" id="answer1" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="count1">Word count: 0</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="question2">2. How do gift cards influence your lifestyle choices and shopping habits?</label>
-                    <textarea id="question2" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
-                    <div class="word-count" id="wordCount2">Words: 0</div>
+                <div class="question-group">
+                    <h3>How has your approach to entertainment and leisure activities changed over the past few years, and what factors influenced these changes?</h3>
+                    <textarea class="answer-input" id="answer2" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="count2">Word count: 0</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="question3">3. What improvements would make gift cards more valuable to your lifestyle?</label>
-                    <textarea id="question3" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
-                    <div class="word-count" id="wordCount3">Words: 0</div>
+                <div class="question-group">
+                    <h3>If you had a $100 gift card to spend on any form of entertainment, how would you use it and what would influence your decision?</h3>
+                    <textarea class="answer-input" id="answer3" placeholder="Please provide your answer here (minimum 5 words)"></textarea>
+                    <div class="word-count" id="count3">Word count: 0</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email to receive survey results">
-                </div>
+                <button type="submit" class="btn submit-btn" id="submitBtn" disabled>
+                    <span class="btn-text">Submit Survey</span>
+                    <span class="validating">Validating...</span>
+                </button>
                 
-                <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Survey</button>
+                <div class="response-message" id="responseMessage">
+                    Response recorded. Thank you for participating!
+                </div>
             </form>
+        </div>
+    </section>
+
+    <!-- Subscribe Section -->
+    <section class="subscribe-section" id="subscribe">
+        <div class="container">
+            <div class="subscribe-container">
+                <div class="gift-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h2>Claim Your Gift Card</h2>
+                <p>Subscribe now to receive a special gift card and stay updated on our latest surveys and exclusive offers!</p>
+                
+                <form class="subscribe-form" id="subscribeForm">
+                    <input type="email" class="email-input" id="emailInput" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn subscribe-btn" id="subscribeBtn">
+                        <span class="btn-text">Get My Gift Card</span>
+                        <span class="processing-text">Processing...</span>
+                    </button>
+                </form>
+                
+                <div class="subscribe-message" id="subscribeMessage"></div>
+                
+                <div class="gift-card-animation" id="giftCardAnimation">
+                    <div class="gift-card">
+                        <h3>Gift Card</h3>
+                        <p>Congratulations!</p>
+                        <div class="value">$25</div>
+                        <p>Redeemable at popular retailers</p>
+                    </div>
+                    <div class="congrats-text">
+                        Congrats for subscribing! We are currently processing a gift card for you 🎊🎁
+                    </div>
+                    <div class="retake-container">
+                        <button class="btn btn-outline" id="retakeBtn">Retake Survey</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -563,166 +795,226 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">GiftCardSurvey</div>
-                <div class="footer-links">
-                    <a href="about.html">About Us</a>
-                    <a href="terms.html">Terms of Service</a>
-                    <a href="contact.html">Contact Us</a>
-                    <a href="privacy.html">Privacy Policy</a>
+                <div class="footer-column">
+                    <h3>GiftCardSurvey</h3>
+                    <p>Understanding lifestyle and entertainment preferences to enhance user experiences.</p>
                 </div>
-                <div class="copyright">
-                    &copy; 2023 GiftCardSurvey. All rights reserved.
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#subscribe">Subscribe</a></li>
+                    </ul>
                 </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GiftCardSurvey. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-        // Your web app's Firebase configuration
+    <script>
+        // Firebase configuration from realinsightreport (working example)
         const firebaseConfig = {
-            apiKey: "AIzaSyCE1xpImFiMixhddUp3Ic0htXv1IVKKdv4",
-            authDomain: "giftcardsurvey-e358a.firebaseapp.com",
-            projectId: "giftcardsurvey-e358a",
-            storageBucket: "giftcardsurvey-e358a.firebasestorage.app",
-            messagingSenderId: "508562654130",
-            appId: "1:508562654130:web:a08f4218155c811b119aab"
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // Initialize Firebase (using the same pattern as the working example)
+        let db;
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        db = firebase.firestore();
 
-        // Make Firebase available globally
-        window.firebaseApp = app;
-        window.firestoreDb = db;
-        window.addDocToFirestore = addDoc;
-        window.firestoreCollection = collection;
-    </script>
+        // DOM Elements
+        const modalMenu = document.getElementById('modalMenu');
+        const modalTrigger = document.querySelector('.modal-trigger');
+        const surveyForm = document.getElementById('surveyForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const responseMessage = document.getElementById('responseMessage');
+        const subscribeForm = document.getElementById('subscribeForm');
+        const subscribeBtn = document.getElementById('subscribeBtn');
+        const subscribeMessage = document.getElementById('subscribeMessage');
+        const giftCardAnimation = document.getElementById('giftCardAnimation');
+        const retakeBtn = document.getElementById('retakeBtn');
+        const answerInputs = document.querySelectorAll('.answer-input');
+        const wordCounts = document.querySelectorAll('.word-count');
 
-    <!-- JavaScript -->
-    <script>
-        // Modal Menu Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const modalOverlay = document.getElementById('modalOverlay');
-            const closeModal = document.getElementById('closeModal');
-            
-            hamburgerMenu.addEventListener('click', function() {
-                modalOverlay.classList.add('active');
-            });
-            
-            closeModal.addEventListener('click', function() {
-                modalOverlay.classList.remove('active');
-            });
-            
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.remove('active');
-                }
-            });
-            
-            // Word Count and Validation
-            const textareas = document.querySelectorAll('textarea');
-            const submitBtn = document.getElementById('submitBtn');
-            const emailInput = document.getElementById('email');
-            
-            textareas.forEach((textarea, index) => {
-                const wordCountElement = document.getElementById(`wordCount${index + 1}`);
-                
-                textarea.addEventListener('input', function() {
-                    const wordCount = countWords(this.value);
-                    wordCountElement.textContent = `Words: ${wordCount}`;
-                    
-                    if (wordCount < 5) {
-                        wordCountElement.classList.add('error');
-                    } else {
-                        wordCountElement.classList.remove('error');
-                    }
-                    
-                    validateForm();
-                });
-            });
-            
-            emailInput.addEventListener('input', validateForm);
-            
-            function countWords(text) {
-                return text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+        // Modal Menu Toggle
+        modalTrigger.addEventListener('click', function() {
+            modalMenu.classList.toggle('active');
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!modalMenu.contains(event.target)) {
+                modalMenu.classList.remove('active');
             }
-            
-            function validateForm() {
-                let allValid = true;
+        });
+
+        // Word Count and Validation
+        answerInputs.forEach((input, index) => {
+            input.addEventListener('input', function() {
+                const wordCount = this.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+                wordCounts[index].textContent = `Word count: ${wordCount}`;
                 
-                // Check all textareas have at least 5 words
-                textareas.forEach(textarea => {
-                    if (countWords(textarea.value) < 5) {
-                        allValid = false;
-                    }
-                });
-                
-                // Check email is valid
-                const email = emailInput.value;
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    allValid = false;
-                }
-                
-                submitBtn.disabled = !allValid;
-            }
-            
-            // Form Submission
-            const surveyForm = document.getElementById('surveyForm');
-            
-            surveyForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Show validating animation
-                submitBtn.textContent = 'Validating...';
-                submitBtn.classList.add('validating');
-                submitBtn.disabled = true;
-                
-                try {
-                    // Get email
-                    const email = emailInput.value;
-                    
-                    // Store only email in Firebase
-                    await window.addDocToFirestore(window.firestoreCollection(window.firestoreDb, "survey_emails"), {
-                        email: email,
-                        timestamp: new Date()
-                    });
-                    
-                    // Simulate processing time
-                    setTimeout(() => {
-                        alert('Thank you for completing our survey! Your responses have been recorded.');
-                        
-                        // Clear form
-                        surveyForm.reset();
-                        textareas.forEach((textarea, index) => {
-                            document.getElementById(`wordCount${index + 1}`).textContent = 'Words: 0';
-                            document.getElementById(`wordCount${index + 1}`).classList.remove('error');
-                        });
-                        
-                        // Reset button
-                        submitBtn.textContent = 'Submit Survey';
-                        submitBtn.classList.remove('validating');
-                        submitBtn.disabled = true;
-                    }, 1500);
-                    
-                } catch (error) {
-                    console.error("Error storing email: ", error);
-                    alert('There was an error submitting your survey. Please try again.');
-                    
-                    // Reset button
-                    submitBtn.textContent = 'Submit Survey';
-                    submitBtn.classList.remove('validating');
-                    validateForm();
-                }
+                // Update submit button state
+                validateForm();
             });
         });
+
+        // Validate all answers have at least 5 words
+        function validateForm() {
+            let allValid = true;
+            
+            answerInputs.forEach(input => {
+                const wordCount = input.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+                if (wordCount < 5) {
+                    allValid = false;
+                }
+            });
+            
+            submitBtn.disabled = !allValid;
+            return allValid;
+        }
+
+        // Survey Form Submission
+        surveyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                alert('Please ensure all answers contain at least 5 words.');
+                return;
+            }
+            
+            // Show validating animation
+            submitBtn.classList.add('validating');
+            
+            // Simulate processing delay
+            setTimeout(function() {
+                // Show response message
+                responseMessage.style.display = 'block';
+                
+                // Reset form
+                surveyForm.reset();
+                
+                // Reset word counts
+                wordCounts.forEach(count => {
+                    count.textContent = 'Word count: 0';
+                });
+                
+                // Reset button state
+                submitBtn.disabled = true;
+                submitBtn.classList.remove('validating');
+                
+                // Scroll to subscribe section
+                document.getElementById('subscribe').scrollIntoView({ behavior: 'smooth' });
+                
+                // Hide response message after 5 seconds
+                setTimeout(function() {
+                    responseMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+
+        // Email Subscription (using the same approach as the working example)
+        subscribeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value.trim();
+            
+            if (!email) {
+                showSubscribeMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showSubscribeMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Show processing state
+            subscribeBtn.classList.add('processing');
+            
+            // Check if email already exists (same as working example)
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        subscribeBtn.classList.remove('processing');
+                        showSubscribeMessage("This email is already subscribed.", "error");
+                        return;
+                    }
+                    
+                    // Save to Firebase (same approach as working example)
+                    return db.collection("subscribers").add({
+                        email: email,
+                        subscribedAt: new Date().toISOString(),
+                        source: "GiftCardSurvey"
+                    });
+                })
+                .then(() => {
+                    // Hide the form and show success animation
+                    subscribeForm.style.display = 'none';
+                    giftCardAnimation.style.display = 'block';
+                    
+                    // Scroll to the gift card animation
+                    giftCardAnimation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    subscribeBtn.classList.remove('processing');
+                    showSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        });
+
+        // Retake button functionality
+        retakeBtn.addEventListener('click', function() {
+            // Refresh the page
+            location.reload();
+        });
+
+        // Email validation (same function as working example)
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Show subscription message (same approach as working example)
+        function showSubscribeMessage(message, type) {
+            subscribeMessage.textContent = message;
+            subscribeMessage.className = `subscribe-message ${type}`;
+            subscribeMessage.style.display = 'block';
+            
+            // Scroll to message
+            subscribeMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                subscribeMessage.style.display = 'none';
+            }, 5000);
+        }
     </script>
 </body>
 </html>
