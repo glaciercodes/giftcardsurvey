@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - GiftCardSurvey</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --light-green: #d5f4e6;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark-gray);
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            max-width: 300px;
+        }
+
+        /* Modal Menu */
+        .modal-menu {
+            position: relative;
+        }
+
+        .modal-trigger {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-trigger:hover {
+            color: var(--primary-green);
+        }
+
+        .modal-content {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .modal-content a {
+            color: var(--dark-gray);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal-content a:hover {
+            background-color: var(--light-green);
+            color: var(--dark-green);
+        }
+
+        .modal-menu.active .modal-content {
+            display: block;
+        }
+
+        /* Hero Section */
+        .about-hero {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        /* About Content */
+        .about-content {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark-gray);
+        }
+
+        .content-block {
+            margin-bottom: 40px;
+        }
+
+        .content-block h2 {
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .content-block h2 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .content-block p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .founder-section {
+            background-color: var(--light-green);
+            padding: 40px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .founder-section h2 {
+            color: var(--dark-green);
+            margin-bottom: 20px;
+        }
+
+        .founder-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid var(--primary-green);
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            text-align: center;
+            max-width: 200px;
+        }
+
+        .team-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid var(--primary-green);
+        }
+
+        .team-member h3 {
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+
+        .team-member p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .founder-section {
+                padding: 30px 20px;
+            }
+
+            .logo-image {
+                height: 50px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 40px;
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="GiftCardSurvey" class="logo-image">
+                </a>
+                
+                <div class="modal-menu" id="modalMenu">
+                    <button class="modal-trigger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="modal-content">
+                        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                        <a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
+                        <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+                        <a href="index.html#subscribe"><i class="fas fa-bell"></i> Subscribe for Updates</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About GiftCardSurvey</h1>
+            <p>Connecting entertainment insights with meaningful rewards through philanthropic data collection</p>
+            <a href="index.html" class="btn">Take Our Survey</a>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <h2 class="section-title">Our Mission & Vision</h2>
+            
+            <div class="content-block">
+                <h2><i class="fas fa-bullseye"></i> Our Philanthropic Mission</h2>
+                <p>GiftCardSurvey was founded on a simple yet powerful principle: to bridge the gap between entertainment industry insights and consumer benefits. In an era where data has become the new currency, we believe that individuals should be fairly compensated for sharing their preferences and experiences.</p>
+                <p>Our platform serves as a philanthropic bridge connecting entertainment companies seeking authentic consumer insights with individuals willing to share their perspectives. By participating in our surveys, you're not just answering questions - you're helping shape the future of entertainment while being rewarded for your valuable input.</p>
+            </div>
+            
+            <div class="content-block">
+                <h2><i class="fas fa-chart-line"></i> Measuring Entertainment Liveliness</h2>
+                <p>At the heart of our operation is a sophisticated methodology for estimating "liveliness" in the entertainment and lifestyle industry. We define liveliness as the dynamic interplay between consumer engagement, satisfaction, and evolving preferences across various entertainment sectors.</p>
+                <p>Through carefully crafted surveys, we measure multiple dimensions of entertainment engagement: frequency of participation, emotional connection to activities, willingness to recommend experiences, and adaptability to new entertainment formats. This multi-faceted approach allows us to create a comprehensive liveliness index that helps entertainment providers understand what truly resonates with today's consumers.</p>
+                <p>Our data helps streaming services optimize content recommendations, enables event organizers to design more engaging experiences, and assists gaming companies in creating more immersive worlds. By capturing the pulse of consumer sentiment, we're helping the entertainment industry stay vibrant, relevant, and responsive to audience needs.</p>
+            </div>
+            
+            <div class="founder-section">
+                <h2>Our Founder</h2>
+                <img src="images/xavier-baron.jpg" alt="Xavier Baron" class="founder-image">
+                <h3>Xavier Baron</h3>
+                <p>Founder & Visionary</p>
+                <p>Xavier Baron established GiftCardSurvey with a vision to create a fair exchange between data contributors and the entertainment industry. With over a decade of experience in market research and consumer analytics, Xavier recognized the untapped potential in creating a platform that values and rewards genuine consumer insights.</p>
+                <p>"Every opinion shared through our platform helps create better entertainment experiences for everyone. We're building a community where insights flow both ways - benefiting both the industry and the individuals who power it with their perspectives."</p>
+            </div>
+            
+            <div class="content-block">
+                <h2><i class="fas fa-users"></i> Our Team</h2>
+                <p>While Xavier Baron leads our vision, we're supported by a dedicated team of data analysts, user experience specialists, and entertainment industry experts who work tirelessly to ensure our platform delivers value to both participants and industry partners.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="images/team1.jpg" alt="Sarah Chen" class="team-image">
+                        <h3>Sarah Chen</h3>
+                        <p>Data Analytics Lead</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/team2.jpg" alt="Marcus Johnson" class="team-image">
+                        <h3>Marcus Johnson</h3>
+                        <p>User Experience Designer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/team3.jpg" alt="Elena Rodriguez" class="team-image">
+                        <h3>Elena Rodriguez</h3>
+                        <p>Entertainment Industry Liaison</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h2><i class="fas fa-gift"></i> Reward System</h2>
+                <p>Our commitment to fair compensation is at the core of our operations. Participants who provide complete, thoughtful, and genuine responses to our surveys receive automatic entry into our weekly $25 gift card drawings. We believe that quality insights deserve quality rewards.</p>
+                <p>Each week, we randomly select multiple winners from our pool of qualified respondents. The selection process prioritizes participants who demonstrate thoughtful engagement with our surveys, ensuring that those who invest time in providing meaningful feedback have the strongest chance of being rewarded.</p>
+                <p>Our gift cards are redeemable at popular entertainment and lifestyle retailers, allowing winners to enjoy the very experiences they're helping to shape. This creates a virtuous cycle where your insights directly contribute to improving the entertainment landscape while giving you opportunities to enjoy it even more.</p>
+            </div>
+            
+            <div class="cta-section">
+                <a href="index.html" class="btn">Start Sharing Your Insights</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftCardSurvey</h3>
+                    <p>Connecting entertainment insights with meaningful rewards.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="index.html#subscribe">Subscribe</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GiftCardSurvey. All rights reserved. Founded by Xavier Baron.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Menu Toggle
+        const modalMenu = document.getElementById('modalMenu');
+        const modalTrigger = document.querySelector('.modal-trigger');
+
+        modalTrigger.addEventListener('click', function() {
+            modalMenu.classList.toggle('active');
+        });
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!modalMenu.contains(event.target)) {
+                modalMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
