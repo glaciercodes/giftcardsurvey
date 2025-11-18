@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reviews - GiftCardSurvey</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --light-green: #d5f4e6;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--dark-gray);
+        }
+
+        .logo-image {
+            height: 60px;
+            width: auto;
+            max-width: 300px;
+        }
+
+        .back-btn {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        .back-btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark-gray);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .review-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid var(--primary-green);
+        }
+
+        .reviewer-details h4 {
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+
+        .reviewer-details p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .review-content {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .review-rating {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: right;
+        }
+
+        .gift-card-mention {
+            display: inline-block;
+            background-color: var(--light-green);
+            color: var(--dark-green);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        /* Submit Review Section */
+        .submit-review-section {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .submit-review-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--light-green) 0%, #e8f8ef 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .submit-review-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .rating-input input {
+            display: none;
+        }
+
+        .rating-input label {
+            font-size: 1.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .rating-input input:checked ~ label,
+        .rating-input label:hover,
+        .rating-input label:hover ~ label {
+            color: var(--gold);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-green);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            align-self: center;
+            min-width: 150px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .response-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-green);
+            border-radius: 5px;
+            color: var(--dark-green);
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: var(--primary-green);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .submit-review-container {
+                padding: 30px 20px;
+            }
+
+            .logo-image {
+                height: 50px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 40px;
+                max-width: 200px;
+            }
+            
+            .reviewer-avatar {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="GiftCardSurvey" class="logo-image">
+                </a>
+                
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Survey
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>What Our Participants Say</h1>
+            <p>Real experiences from people who completed our lifestyle survey</p>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">25+ Happy Participants</h2>
+            
+            <div class="reviews-grid">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Sarah Johnson</h4>
+                            <p>Marketing Professional</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"I was skeptical at first, but the survey was actually engaging! I received a follow-up email within 3 days and got my $25 Amazon gift card. The questions made me reflect on my entertainment habits."</p>
+                    <div class="gift-card-mention">Received $25 Amazon Gift Card</div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Michael Chen" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Michael Chen</h4>
+                            <p>College Student</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"As a student, every bit helps. The survey took about 15 minutes and was pretty interesting. The support team was responsive when I had a question about my gift card redemption."</p>
+                    <div class="gift-card-mention">Received $15 Starbucks Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Jessica Williams" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Jessica Williams</h4>
+                            <p>Graphic Designer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"I've done several online surveys, but this one stood out. The questions were thoughtful, and I appreciated that they actually read my responses. Got my Starbucks gift card in 5 days!"</p>
+                    <div class="gift-card-mention">Received $20 Starbucks Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David Rodriguez" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>David Rodriguez</h4>
+                            <p>Software Engineer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"The survey process was smooth. I liked that I could take my time with the answers. The gift card arrived faster than I expected - used it for a movie night with my partner."</p>
+                    <div class="gift-card-mention">Received $25 Movie Ticket</div>
+                    <div class="review-date">2 months ago</div>
+                </div>
+                
+                <!-- Review 5 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Amanda Parker" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Amanda Parker</h4>
+                            <p>Teacher</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"I was pleasantly surprised by how personal the follow-up felt. They thanked me for my detailed responses. The Target gift card came in handy for back-to-school shopping!"</p>
+                    <div class="gift-card-mention">Received $30 Target Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 6 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Robert Kim" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Robert Kim</h4>
+                            <p>Freelance Writer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"As a writer, I appreciate well-crafted surveys. This one asked meaningful questions about entertainment preferences. The team was prompt with communication and I received my gift card within a week."</p>
+                    <div class="gift-card-mention">Received $25 Amazon Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 7 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/23.jpg" alt="Emily Thompson" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Emily Thompson</h4>
+                            <p>Nurse</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"After long shifts, I enjoy relaxing with entertainment. This survey was actually therapeutic to complete. I got a gift card that I used for a streaming subscription - perfect!"</p>
+                    <div class="gift-card-mention">Received $20 Streaming Gift Card</div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                
+                <!-- Review 8 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="James Wilson" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>James Wilson</h4>
+                            <p>Retired Engineer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"At my age, I've seen entertainment evolve dramatically. This survey let me share those observations. The gift card was a nice bonus - I treated my grandchildren to pizza."</p>
+                    <div class="gift-card-mention">Received $25 Pizza Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 9 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/56.jpg" alt="Olivia Martinez" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Olivia Martinez</h4>
+                            <p>Stay-at-home Mom</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"As a mom, my entertainment choices have changed since having kids. This survey understood that perspective. The Amazon gift card helped with birthday presents!"</p>
+                    <div class="gift-card-mention">Received $25 Amazon Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 10 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Daniel Brown" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Daniel Brown</h4>
+                            <p>Sales Manager</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"I travel frequently for work, so my entertainment needs are specific. This survey asked thoughtful questions about that. The Uber gift card came in handy for airport rides."</p>
+                    <div class="gift-card-mention">Received $30 Uber Gift Card</div>
+                    <div class="review-date">2 months ago</div>
+                </div>
+                
+                <!-- Review 11 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/78.jpg" alt="Sophia Garcia" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Sophia Garcia</h4>
+                            <p>College Student</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"As a film student, I loved analyzing my entertainment preferences through this survey. It made me think critically about what I consume. The gift card helped with textbook costs!"</p>
+                    <div class="gift-card-mention">Received $20 Bookstore Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 12 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/89.jpg" alt="William Taylor" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>William Taylor</h4>
+                            <p>Musician</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"Being in the music industry, I have strong opinions about entertainment. This survey let me voice them constructively. The iTunes gift card was perfect for my needs."</p>
+                    <div class="gift-card-mention">Received $25 iTunes Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 13 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Ava Anderson" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Ava Anderson</h4>
+                            <p>Marketing Manager</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"From a professional standpoint, I appreciated the survey design. The questions were well-structured. Personally, the Sephora gift card was a lovely surprise!"</p>
+                    <div class="gift-card-mention">Received $30 Sephora Gift Card</div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                
+                <!-- Review 14 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/34.jpg" alt="Ethan Clark" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Ethan Clark</h4>
+                            <p>Personal Trainer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"I initially thought this would be another boring survey, but it was actually thought-provoking. The questions about physical activity as entertainment were particularly interesting."</p>
+                    <div class="gift-card-mention">Received $25 Sports Store Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 15 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Mia Hernandez" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Mia Hernandez</h4>
+                            <p>Graphic Designer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"As a creative professional, I spend most of my day in front of screens. This survey made me reconsider my leisure activities. The gift card was a nice bonus!"</p>
+                    <div class="gift-card-mention">Received $20 Coffee Shop Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 16 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Alexander Lee" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Alexander Lee</h4>
+                            <p>Software Developer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"I've participated in many online surveys, but this one felt different. The questions were more personal and reflective. The Best Buy gift card was perfect for tech accessories."</p>
+                    <div class="gift-card-mention">Received $35 Best Buy Gift Card</div>
+                    <div class="review-date">2 months ago</div>
+                </div>
+                
+                <!-- Review 17 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Charlotte Walker" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Charlotte Walker</h4>
+                            <p>Teacher</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"During summer break, I have more time for entertainment. This survey helped me plan my leisure activities better. The gift card was a welcome treat!"</p>
+                    <div class="gift-card-mention">Received $25 Restaurant Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 18 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="Benjamin Hall" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Benjamin Hall</h4>
+                            <p>Financial Analyst</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"I'm usually skeptical about online surveys, but this one was legit. The questions made me reflect on how I spend my free time. The Amazon gift card arrived quickly."</p>
+                    <div class="gift-card-mention">Received $25 Amazon Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 19 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/89.jpg" alt="Harper Young" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Harper Young</h4>
+                            <p>Social Media Manager</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"Working in social media, I'm always curious about entertainment trends. This survey aligned with my professional interests. The Netflix gift card was perfect!"</p>
+                    <div class="gift-card-mention">Received $30 Netflix Gift Card</div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+                
+                <!-- Review 20 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/90.jpg" alt="Jackson King" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Jackson King</h4>
+                            <p>College Student</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"As a student, I don't have much disposable income. This survey was an easy way to earn a little extra. The food delivery gift card came in handy during exam week!"</p>
+                    <div class="gift-card-mention">Received $20 Food Delivery Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 21 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="Evelyn Scott" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Evelyn Scott</h4>
+                            <p>Retired Librarian</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"At my age, I've seen entertainment evolve from radio to streaming. This survey let me share that perspective. The bookstore gift card was perfect for my book club."</p>
+                    <div class="gift-card-mention">Received $25 Bookstore Gift Card</div>
+                    <div class="review-date">2 months ago</div>
+                </div>
+                
+                <!-- Review 22 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Lucas Green" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Lucas Green</h4>
+                            <p>Photographer</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="review-content">"As a visual artist, I appreciate good design in everything. This survey was visually appealing and easy to complete. The gift card helped me purchase new camera accessories."</p>
+                    <div class="gift-card-mention">Received $30 Electronics Store Gift Card</div>
+                    <div class="review-date">1 month ago</div>
+                </div>
+                
+                <!-- Review 23 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Lily Adams" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Lily Adams</h4>
+                            <p>Yoga Instructor</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"I teach mindfulness, so I appreciated how this survey encouraged reflection on leisure activities. The questions were thoughtful. The gift card was a nice bonus for self-care."</p>
+                    <div class="gift-card-mention">Received $25 Spa Gift Card</div>
+                    <div class="review-date">3 weeks ago</div>
+                </div>
+                
+                <!-- Review 24 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Henry Baker" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Henry Baker</h4>
+                            <p>Chef</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-content">"In the culinary world, entertainment often revolves around food. This survey understood that connection. The restaurant gift card let me experience other chefs' work."</p>
+                    <div class="gift-card-mention">Received $35 Restaurant Gift Card</div>
+                    <div class="review-date">2 months ago</div>
+                </div>
+                
+                <!-- Review 25 -->
+                <div class="review-card">
+                    <div class="reviewer-info">
+                        <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Zoe Nelson" class="reviewer-avatar">
+                        <div class="reviewer-details">
+                            <h4>Zoe Nelson</h4>
+                            <p>Event Planner</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-content">"Planning events means I'm always thinking about entertainment. This survey aligned perfectly with my professional interests. The gift card was a lovely unexpected bonus!"</p>
+                    <div class="gift-card-mention">Received $25 Entertainment Gift Card</div>
+                    <div class="review-date">2 weeks ago</div>
+                </div>
+            </div>
+            
+            <!-- Submit Review Section -->
+            <div class="submit-review-section">
+                <div class="submit-review-container">
+                    <h2>Share Your Experience</h2>
+                    <form class="review-form" id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewerName">Your Name</label>
+                            <input type="text" class="form-control" id="reviewerName" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewerEmail">Your Email</label>
+                            <input type="email" class="form-control" id="reviewerEmail" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewerOccupation">Your Occupation</label>
+                            <input type="text" class="form-control" id="reviewerOccupation" placeholder="What do you do?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Your Rating</label>
+                            <div class="rating-input">
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewContent">Your Review</label>
+                            <textarea class="form-control" id="reviewContent" placeholder="Tell us about your experience with our survey..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="submitReviewBtn">
+                            Submit Review
+                        </button>
+                        
+                        <div class="response-message" id="responseMessage">
+                            Thank you! Your review has been submitted successfully.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GiftCardSurvey</h3>
+                    <p>Understanding lifestyle and entertainment preferences to enhance user experiences.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="index.html">Take Survey</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GiftCardSurvey. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const reviewForm = document.getElementById('reviewForm');
+        const submitReviewBtn = document.getElementById('submitReviewBtn');
+        const responseMessage = document.getElementById('responseMessage');
+
+        // Review Form Submission
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show processing state
+            submitReviewBtn.disabled = true;
+            submitReviewBtn.textContent = 'Submitting...';
+            
+            // Simulate processing delay
+            setTimeout(function() {
+                // Show success message
+                responseMessage.style.display = 'block';
+                
+                // Reset form
+                reviewForm.reset();
+                
+                // Reset button state
+                submitReviewBtn.disabled = false;
+                submitReviewBtn.textContent = 'Submit Review';
+                
+                // Scroll to response message
+                responseMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide response message after 5 seconds
+                setTimeout(function() {
+                    responseMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
