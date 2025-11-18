@@ -63,26 +63,10 @@
             color: var(--dark-gray);
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-green);
-            border-radius: 8px;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo-text span {
-            color: var(--primary-green);
+        .logo-image {
+            height: 60px; /* Adjusted for better header fit */
+            width: auto;
+            max-width: 300px; /* Limit width for header */
         }
 
         /* Modal Menu */
@@ -567,9 +551,9 @@
             100% { transform: scale(1); }
         }
 
-        .retake-container {
-            margin-top: 30px;
-            text-align: center;
+        .retake-btn {
+            margin-top: 25px;
+            display: none;
         }
 
         /* Footer */
@@ -656,6 +640,18 @@
                 width: 250px;
                 height: 140px;
             }
+
+            .logo-image {
+                height: 50px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-image {
+                height: 40px;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -665,8 +661,8 @@
         <div class="container">
             <div class="header-content">
                 <a href="about.html" class="logo">
-                    <div class="logo-icon">001</div>
-                    <div class="logo-text">GiftCard<span>Survey</span></div>
+                    <!-- Replace with your 705x180 image -->
+                    <img src="images/001" alt="GiftCardSurvey" class="logo-image">
                 </a>
                 
                 <div class="modal-menu" id="modalMenu">
@@ -783,9 +779,7 @@
                     <div class="congrats-text">
                         Congrats for subscribing! We are currently processing a gift card for you 🎊🎁
                     </div>
-                    <div class="retake-container">
-                        <button class="btn btn-outline" id="retakeBtn">Retake Survey</button>
-                    </div>
+                    <button class="btn retake-btn btn-outline" id="retakeBtn">Retake Survey</button>
                 </div>
             </div>
         </div>
@@ -978,6 +972,7 @@
                     // Hide the form and show success animation
                     subscribeForm.style.display = 'none';
                     giftCardAnimation.style.display = 'block';
+                    retakeBtn.style.display = 'block';
                     
                     // Scroll to the gift card animation
                     giftCardAnimation.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -989,10 +984,15 @@
                 });
         });
 
-        // Retake button functionality
+        // Retake Button - Refresh page and scroll to top
         retakeBtn.addEventListener('click', function() {
-            // Refresh the page
-            location.reload();
+            // Scroll to top first
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Refresh the page after a short delay
+            setTimeout(function() {
+                location.reload();
+            }, 500);
         });
 
         // Email validation (same function as working example)
