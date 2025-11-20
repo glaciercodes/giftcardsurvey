@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GiftCardSurvey - Share Your Lifestyle Preferences</title>
+    <title>Lifestyle & Entertainment Survey</title>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -315,6 +315,18 @@
             margin-bottom: 15px;
         }
 
+        .article-questions {
+            margin-top: 30px;
+            border-top: 2px solid var(--primary-green);
+            padding-top: 20px;
+        }
+
+        .article-questions h4 {
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
         /* Survey Section */
         .survey-section {
             padding: 60px 0;
@@ -342,6 +354,7 @@
         .question-group h3 {
             margin-bottom: 15px;
             color: var(--dark-gray);
+            font-size: 1.2rem;
         }
 
         .answer-input {
@@ -767,7 +780,7 @@
             <div class="header-content">
                 <a href="about.html" class="logo">
                     <!-- Replace with your 705x180 image -->
-                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="GiftCardSurvey" class="logo-image">
+                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="Lifestyle Survey" class="logo-image">
                 </a>
                 
                 <div class="modal-menu" id="modalMenu">
@@ -789,13 +802,13 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Welcome To Lifestyle and Entertaining Survey</h1>
-            <p class="subtitle">“Share your perspectives on lifestyle and entertainment topics — your insights help shape future experiences.”</p>
+            <h1>Welcome To Lifestyle & Entertaining Surveys</h1>
+            <p class="subtitle">"Share your thoughts on lifestyle and entertainment topics — your insights help us understand what people really enjoy."</p>
             <a href="#articles" class="btn" id="beginNowBtn">Explore Articles</a>
             
             <!-- Reviews Section -->
             <div class="reviews-section">
-                <h2 class="section-title">What Our Participants Say</h2>
+                <h2 class="section-title">What People Are Saying</h2>
                 <div class="reviews-container">
                     <div class="reviews-track">
                         <!-- Review 1 -->
@@ -814,7 +827,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <p class="review-content">"The articles were thought-provoking and relevant to my daily life. I appreciated how the questions made me reflect on my own habits and preferences. The whole experience felt meaningful."</p>
+                            <p class="review-content">"The articles were really interesting and made me think about my own habits. I loved sharing my opinions on these everyday topics."</p>
                             <div class="review-date">2 weeks ago</div>
                         </div>
                         
@@ -834,7 +847,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <p class="review-content">"As someone interested in media trends, I found the articles insightful. The questions prompted me to think critically about my entertainment choices and how they shape my worldview."</p>
+                            <p class="review-content">"As someone who loves entertainment, I found the questions really relatable. It was fun to think about my viewing habits."</p>
                             <div class="review-date">1 month ago</div>
                         </div>
                         
@@ -854,7 +867,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <p class="review-content">"I enjoyed reading the articles and sharing my perspectives. The questions were well-crafted and made me consider aspects of my lifestyle I hadn't thought about before."</p>
+                            <p class="review-content">"I enjoyed reading the articles and sharing my perspective. The questions made me think about things I usually take for granted."</p>
                             <div class="review-date">3 weeks ago</div>
                         </div>
                         
@@ -874,7 +887,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="far fa-star"></i>
                             </div>
-                            <p class="review-content">"The articles covered diverse topics that resonated with my interests. I appreciated the opportunity to contribute my thoughts on evolving entertainment trends."</p>
+                            <p class="review-content">"The articles covered topics I actually care about. It felt good to share my thoughts on entertainment trends."</p>
                             <div class="review-date">2 months ago</div>
                         </div>
                         
@@ -894,7 +907,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <p class="review-content">"Reading the articles felt like having a thoughtful conversation about modern lifestyle choices. The questions encouraged introspection and genuine responses."</p>
+                            <p class="review-content">"Reading the articles felt like having a conversation about everyday life. The questions encouraged honest answers."</p>
                             <div class="review-date">3 weeks ago</div>
                         </div>
                         
@@ -914,7 +927,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <p class="review-content">"The content was engaging and contemporary. As a writer, I appreciated the thoughtful approach to understanding how people interact with entertainment today."</p>
+                            <p class="review-content">"The content was engaging and relevant. I appreciated how the questions made me reflect on my entertainment choices."</p>
                             <div class="review-date">1 month ago</div>
                         </div>
                         
@@ -935,7 +948,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <p class="review-content">"The articles were thought-provoking and relevant to my daily life. I appreciated how the questions made me reflect on my own habits and preferences. The whole experience felt meaningful."</p>
+                            <p class="review-content">"The articles were really interesting and made me think about my own habits. I loved sharing my opinions on these everyday topics."</p>
                             <div class="review-date">2 weeks ago</div>
                         </div>
                         
@@ -955,7 +968,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
                             </div>
-                            <p class="review-content">"As someone interested in media trends, I found the articles insightful. The questions prompted me to think critically about my entertainment choices and how they shape my worldview."</p>
+                            <p class="review-content">"As someone who loves entertainment, I found the questions really relatable. It was fun to think about my viewing habits."</p>
                             <div class="review-date">1 month ago</div>
                         </div>
                     </div>
@@ -971,78 +984,78 @@
             
             <!-- Article 1 -->
             <div class="article">
-                <h3 class="article-title">The Evolution of Binge-Watching: How Streaming Changed Our Viewing Habits</h3>
-                <div class="article-meta">By Maria Thompson | Entertainment Journalist | Published: March 15, 2023</div>
+                <h3 class="article-title">How Binge-Watching Changed the Way We Enjoy TV</h3>
+                <div class="article-meta">By Maria Thompson | Entertainment Writer | Published: March 15, 2023</div>
                 <div class="article-content">
-                    <p>Remember the days of waiting anxiously each week for the next episode of your favorite show? That ritual of anticipation has largely disappeared in the streaming era. The ability to consume entire seasons in one sitting has fundamentally transformed not just how we watch television, but how stories are told and how we connect with content.</p>
+                    <p>Remember when we used to wait a whole week for the next episode of our favorite show? Those days are mostly gone now. Thanks to streaming services, we can watch entire seasons in one sitting if we want to. This has completely changed not just how we watch TV, but how we talk about it with friends too.</p>
                     
-                    <p>When Netflix introduced binge-watching as we know it today by releasing entire seasons at once, it created a cultural shift. Suddenly, watercooler conversations changed from "Did you see what happened last night?" to "What episode are you on?" with careful spoiler-avoidance dances becoming the new social norm. This shift has influenced everything from production schedules to marketing strategies, with studios now considering how their content will play when consumed in marathon sessions rather than weekly installments.</p>
+                    <p>When Netflix started releasing full seasons at once, it created a new way of watching. Suddenly, conversations changed from "Did you see what happened last night?" to "What episode are you on?" We all became careful about spoilers, not wanting to ruin the experience for others.</p>
                     
-                    <p>The psychological impact of binge-watching is complex. On one hand, it offers unparalleled immersion in narrative worlds. The emotional arcs of characters feel more immediate when experienced in quick succession. On the other hand, some critics argue that the practice diminishes the reflective space between episodes—that valuable time to sit with what you've seen and anticipate what might come next. The weekly model allowed for fan theories to flourish and communities to build around shared anticipation, elements that some feel are lost in the binge model.</p>
+                    <p>Binge-watching has its good and bad sides. On one hand, it's amazing to get completely lost in a story without waiting. The characters feel more real when you follow their journey closely. On the other hand, some people miss the excitement of waiting each week and talking about what might happen next with friends.</p>
                     
-                    <p>Content creators have adapted to this new reality. Many shows now feature tighter narrative structures with more cliffhangers at the end of each episode to encourage continued viewing. Some streaming services have even experimented with hybrid models, releasing a few episodes at once then switching to weekly releases, attempting to capture the benefits of both approaches.</p>
+                    <p>TV shows have changed because of this too. Many now end each episode with a big moment that makes you want to keep watching right away. Some streaming services even try mixing both approaches - releasing a few episodes at once, then switching to weekly releases.</p>
                     
-                    <p>As we look to the future, the evolution of viewing habits continues. The rise of short-form content on platforms like TikTok and YouTube has created new consumption patterns, with some viewers preferring bite-sized entertainment. Yet the appeal of immersive, long-form storytelling remains strong. The question isn't whether binge-watching will disappear, but how it will continue to evolve alongside other viewing habits in our increasingly fragmented media landscape.</p>
+                    <p>As we look ahead, our viewing habits keep changing. Short videos on TikTok and YouTube are popular now too. But there's still something special about getting lost in a good long story. The future will likely bring even more ways to watch what we love.</p>
                 </div>
                 
                 <div class="article-questions">
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
-                        <h3>How has your television viewing changed with the rise of streaming services compared to traditional broadcast television?</h3>
+                        <h3>How has streaming changed the way you watch TV compared to traditional channels?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What do you see as the main advantages and disadvantages of binge-watching entire seasons versus weekly episode releases?</h3>
+                        <h3>What do you like and dislike about watching full seasons at once versus waiting weekly?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you decide when to binge-watch a series versus watching it gradually over time?</h3>
+                        <h3>How do you decide whether to binge-watch a show or take your time with it?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What role does social conversation play in your decision to watch a series all at once or spread it out?</h3>
+                        <h3>Do you talk with friends about shows you're binge-watching? How does that work?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>Have you noticed any changes in how you emotionally connect with characters when binge-watching versus weekly viewing?</h3>
+                        <h3>Do you feel differently about characters when you watch many episodes quickly versus weekly?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What factors make a series particularly suitable for binge-watching in your opinion?</h3>
+                        <h3>What makes a show perfect for binge-watching in your opinion?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has the ability to watch entire seasons at once affected your patience for slower-paced storytelling?</h3>
+                        <h3>Has binge-watching made you more or less patient with slower-paced shows?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>Do you find yourself remembering details better or worse when binge-watching compared to weekly viewing?</h3>
+                        <h3>Do you remember show details better or worse when binge-watching?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you balance binge-watching with other responsibilities and activities in your life?</h3>
+                        <h3>How do you fit binge-watching into your daily life and responsibilities?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What changes would you like to see in how streaming services release content in the future?</h3>
+                        <h3>What would you like streaming services to do differently with how they release shows?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
@@ -1051,80 +1064,80 @@
             
             <!-- Article 2 -->
             <div class="article">
-                <h3 class="article-title">The Wellness Revolution: Beyond Yoga and Green Juice</h3>
-                <div class="article-meta">By Dr. James Wilson | Lifestyle Researcher | Published: April 2, 2023</div>
+                <h3 class="article-title">Finding Balance: Simple Ways to Feel Your Best Every Day</h3>
+                <div class="article-meta">By Dr. James Wilson | Wellness Coach | Published: April 2, 2023</div>
                 <div class="article-content">
-                    <p>Wellness has evolved from a niche interest to a multi-trillion dollar global industry, but what does it truly mean to be "well" in our modern world? Beyond the Instagram-friendly images of yoga poses and vibrant smoothie bowls lies a complex landscape of physical, mental, and emotional health practices that reflect our changing understanding of what it means to live well.</p>
+                    <p>Wellness used to be about yoga classes and green smoothies, but today it means so much more. Being truly well is about finding balance in all parts of your life - not just eating right and exercising, but also managing stress, sleeping well, and connecting with others.</p>
                     
-                    <p>The contemporary wellness movement has expanded to encompass digital detoxes, sleep optimization, mental health awareness, and community connection. Where previous generations might have focused primarily on physical fitness and nutrition, today's approach recognizes the interconnectedness of all aspects of our lives. This holistic perspective acknowledges that a rigorous workout routine means little if you're chronically stressed, sleep-deprived, or socially isolated.</p>
+                    <p>Today's approach to wellness understands that all parts of our lives are connected. You can exercise every day, but if you're always stressed or lonely, you won't feel your best. True wellness means taking care of your mind, body, and relationships.</p>
                     
-                    <p>Technology plays a paradoxical role in modern wellness. On one hand, fitness trackers, meditation apps, and online wellness communities have made health resources more accessible than ever. On the other hand, the constant connectivity and information overload contribute significantly to the stress and anxiety that wellness practices aim to alleviate. This has given rise to the "digital wellness" movement, with people consciously creating boundaries around their technology use.</p>
+                    <p>Technology plays a mixed role in our wellness journey. On one hand, fitness trackers and meditation apps can be really helpful. On the other hand, being constantly connected to our devices can add to our stress. That's why many people are now setting boundaries around their screen time.</p>
                     
-                    <p>Another significant shift is the move away from one-size-fits-all solutions toward personalized approaches to wellness. Genetic testing, microbiome analysis, and detailed health tracking allow individuals to understand their unique bodies and needs. This personalization extends to mental health as well, with people recognizing that different stress management techniques work for different personalities and lifestyles.</p>
+                    <p>The best wellness routines are the ones made just for you. What works for your friend might not work for you. Some people love intense workouts, while others prefer quiet walks. Some find peace in meditation, while others feel better after talking with friends.</p>
                     
-                    <p>The social dimension of wellness has also gained prominence. Where fitness was once often a solitary pursuit, many people now recognize the importance of community and social connection to overall wellbeing. Group activities, whether in-person or virtual, provide both accountability and the psychological benefits of shared experience. This represents a return to more traditional ways of living, where health practices were often embedded in community rituals.</p>
+                    <p>Wellness is also about community. While some activities are solo, many people find that doing things with others - whether in person or online - makes the experience better. Having people to share the journey with can keep you motivated and make it more enjoyable.</p>
                     
-                    <p>As we look forward, the challenge will be to maintain the valuable aspects of the wellness movement while avoiding its potential pitfalls—commercialization, elitism, and wellness anxiety. The most sustainable approach may be one that integrates wellness seamlessly into daily life rather than treating it as yet another achievement to master or product to consume.</p>
+                    <p>The most important thing is to find what truly makes you feel good - not what looks good on social media. The best wellness habits are the simple ones you can stick with every day.</p>
                 </div>
                 
                 <div class="article-questions">
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
-                        <h3>How has your personal definition of "wellness" evolved over the past few years?</h3>
+                        <h3>What does "wellness" mean to you in your daily life?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What aspects of wellness (physical, mental, social, etc.) do you prioritize in your daily life and why?</h3>
+                        <h3>Which parts of wellness (physical, mental, social) matter most to you and why?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you balance technology use with your wellness goals?</h3>
+                        <h3>How do you manage your technology use to support your wellness goals?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What role does community or social connection play in your approach to wellness?</h3>
+                        <h3>How do friends or community help you stay well?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you personalize wellness practices to fit your unique needs and lifestyle?</h3>
+                        <h3>What personal touches have you added to your wellness routine?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What challenges do you face in maintaining consistent wellness practices?</h3>
+                        <h3>What makes it hard to stick with wellness habits sometimes?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you distinguish between genuinely beneficial wellness practices and passing trends?</h3>
+                        <h3>How do you tell the difference between helpful wellness tips and passing trends?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What simple daily habits contribute most to your overall sense of wellbeing?</h3>
+                        <h3>What simple daily habits help you feel your best?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has your approach to wellness been influenced by your cultural background or personal experiences?</h3>
+                        <h3>How have your background or experiences shaped your approach to wellness?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What changes would you like to see in how society approaches wellness in the future?</h3>
+                        <h3>What would you like to see change in how we think about wellness?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
@@ -1133,80 +1146,80 @@
             
             <!-- Article 3 -->
             <div class="article">
-                <h3 class="article-title">The Resurgence of Analog: Why Vinyl, Film Cameras and Notebooks Are Making a Comeback</h3>
-                <div class="article-meta">By Elena Rodriguez | Culture Writer | Published: May 10, 2023</div>
+                <h3 class="article-title">The Joy of Simple Things: Why We're Returning to Analog</h3>
+                <div class="article-meta">By Elena Rodriguez | Lifestyle Writer | Published: May 10, 2023</div>
                 <div class="article-content">
-                    <p>In an increasingly digital world, a curious counter-trend has emerged: the return of analog technologies. Vinyl records, film photography, paper notebooks, and other "obsolete" technologies are experiencing a remarkable resurgence, particularly among younger generations who grew up entirely in the digital age. This movement represents more than nostalgia—it's a meaningful response to the limitations of our digital lives.</p>
+                    <p>In our digital world, something interesting is happening - people are rediscovering the simple pleasure of analog things. Vinyl records, film cameras, and paper notebooks are making a comeback, especially among younger people who grew up with smartphones. This isn't just about nostalgia - it's about finding balance.</p>
                     
-                    <p>The appeal of analog lies partly in its tangible nature. In a world of intangible data and cloud storage, physical objects provide a sense of permanence and substance. A vinyl record is not just a music delivery system—it's a large-format art object with liner notes to read and a ritual of care involved in playing it. Similarly, a film photograph exists as a physical negative and print, not just pixels on a screen that might be deleted or lost in a technological upgrade.</p>
+                    <p>There's something special about holding a physical object. A vinyl record isn't just music - it's large artwork with notes to read and a careful process to play it. A film photo becomes a physical print you can hold, not just pixels on a screen that might get deleted.</p>
                     
-                    <p>Analog technologies also force a slower, more intentional pace. You can't rapidly scroll through film photos the way you can digital images. Writing by hand slows down your thoughts, often leading to more reflection and better retention. The limitations of analog formats—a finite number of shots on a roll of film, the side A and B of a record—create boundaries that can paradoxically enhance creativity rather than restrict it.</p>
+                    <p>Analog things make us slow down. You can't quickly scroll through film photos like digital ones. Writing by hand makes you think more carefully about your words. The limits of analog - like only having 24 shots on a roll of film - can actually make you more creative.</p>
                     
-                    <p>There's also an element of digital fatigue driving this trend. The constant connectivity, notifications, and screen time associated with digital technologies have created a desire for experiences that are fully present and uninterrupted. Listening to a record requires your attention—you can't easily skip tracks or multitask in the same way you can with streaming music. This enforced focus can make the experience more immersive and satisfying.</p>
+                    <p>Many of us feel tired from being always connected to our devices. The constant notifications and screen time make us appreciate experiences that demand our full attention. Listening to a record requires you to really listen - you can't easily skip tracks or check your phone at the same time.</p>
                     
-                    <p>The analog revival isn't about rejecting technology entirely, but about finding balance. Many people who enjoy vinyl records also stream music on their phones when convenience is priority. Film photographers often digitize their negatives. The ideal seems to be a hybrid approach that takes advantage of digital efficiency while preserving the meaningful qualities of analog experiences.</p>
+                    <p>This doesn't mean giving up digital completely. Most people who love vinyl also stream music when it's convenient. Film photographers often digitize their photos. The goal is finding a good balance that uses digital convenience while keeping the special feeling of analog experiences.</p>
                     
-                    <p>This trend also represents a form of resistance against planned obsolescence and disposable culture. Well-made analog tools—a mechanical watch, a fountain pen, a manual typewriter—can last for generations with proper care. In a world of constantly updating software and quickly outdated devices, this longevity has newfound appeal. The analog movement reminds us that sometimes, the best technology doesn't need to be the newest.</p>
+                    <p>Analog things also last. A well-made watch, pen, or typewriter can work for generations if cared for properly. In a world of constantly updating apps and devices that become outdated quickly, this longevity feels refreshing.</p>
                 </div>
                 
                 <div class="article-questions">
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
-                        <h3>What analog technologies or practices have you incorporated into your digital life, and why?</h3>
+                        <h3>What non-digital activities or items do you enjoy in your life?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do analog experiences differ from their digital counterparts in terms of satisfaction or meaning for you?</h3>
+                        <h3>How do analog experiences feel different from digital ones to you?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What role does physical tangibility play in how you value experiences or possessions?</h3>
+                        <h3>How important is physically touching or holding something to your enjoyment?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you balance the convenience of digital technologies with the intentionality of analog experiences?</h3>
+                        <h3>How do you balance digital convenience with analog enjoyment?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What aspects of digital life contribute to your interest in analog alternatives?</h3>
+                        <h3>What parts of digital life make you appreciate analog alternatives?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do limitations in analog technologies (like finite film exposures) affect your creative process or enjoyment?</h3>
+                        <h3>How do limits in analog activities (like film counts) affect your experience?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What rituals or routines have you developed around analog practices that enhance the experience?</h3>
+                        <h3>What special routines have you created around analog activities?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has engaging with analog technologies changed your relationship with digital tools?</h3>
+                        <h3>How has using analog things changed how you use digital tools?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What values or principles does the analog movement represent to you personally?</h3>
+                        <h3>What values does the analog movement represent to you?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you see the relationship between analog and digital technologies evolving in the future?</h3>
+                        <h3>How do you see digital and analog coexisting in the future?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
@@ -1215,80 +1228,80 @@
             
             <!-- Article 4 -->
             <div class="article">
-                <h3 class="article-title">The New Social: How Digital Communities Are Reshaping Friendship</h3>
-                <div class="article-meta">By Dr. Lisa Park | Social Researcher | Published: June 5, 2023</div>
+                <h3 class="article-title">Friendship in the Digital Age: How We Connect Now</h3>
+                <div class="article-meta">By Dr. Lisa Park | Relationship Expert | Published: June 5, 2023</div>
                 <div class="article-content">
-                    <p>Friendship in the digital age looks dramatically different than it did just a generation ago. While critics often focus on how technology might be isolating us, a more nuanced picture emerges when we examine how digital platforms have enabled new forms of community and connection that transcend geographical boundaries and traditional social limitations.</p>
+                    <p>Making and keeping friends looks different today than it did for previous generations. While some worry that technology isolates us, it's actually creating new ways to connect with people who share our interests, no matter where they live.</p>
                     
-                    <p>Online communities built around shared interests—from niche hobbies to specific health conditions—allow people to find "their people" in ways that were previously impossible. Someone with an obscure interest living in a small town can now find thousands of others who share that passion. These interest-based communities often lead to deep, meaningful connections despite the lack of physical proximity.</p>
+                    <p>Online communities let people find others who love the same things they do. Someone with a unique hobby in a small town can now connect with thousands of people worldwide who share that interest. These connections can become meaningful friendships, even if they never meet in person.</p>
                     
-                    <p>The nature of these digital friendships challenges traditional notions of what constitutes a "real" relationship. Can someone you've never met in person be a true friend? For many, the answer is increasingly yes. The anonymity or semi-anonymity of online interactions can sometimes facilitate more vulnerability and authenticity than face-to-face relationships, where social expectations and judgments might inhibit open sharing.</p>
+                    <p>Digital friendships challenge what we think of as "real" friendship. Can someone you've never met face-to-face be a true friend? For many people today, the answer is yes. Sometimes, the anonymity of online interactions lets people be more open and honest than they might be in person.</p>
                     
-                    <p>Digital communication has also changed the rhythm of friendship. Where friendships once required scheduled phone calls or in-person meetings, they can now be maintained through ongoing, low-stakes interactions—sharing memes, quick text check-ins, reacting to social media posts. This creates a sense of continuous connection that fits well with busy modern lives, though it also raises questions about the depth of these interactions.</p>
+                    <p>The way we maintain friendships has changed too. Instead of scheduled phone calls or visits, we now stay connected through quick texts, shared memes, or social media interactions. This creates a sense of ongoing connection that fits busy lives, though some wonder if these lighter interactions are as meaningful.</p>
                     
-                    <p>Another significant shift is the way digital platforms have enabled the maintenance of far-flung networks. It's now possible to sustain relationships with childhood friends, college roommates, and former colleagues regardless of where life takes everyone. This creates richer, more diverse social networks, though it may also dilute the intensity of local connections.</p>
+                    <p>Technology also helps us keep up with friends who live far away. We can maintain relationships with childhood friends, college roommates, and former coworkers no matter where life takes us. This creates diverse social networks, though it might mean we have fewer deep local connections.</p>
                     
-                    <p>The most successful social adapters seem to be those who blend digital and in-person interactions, using technology to maintain connections but prioritizing face-to-face time when possible. They recognize that different types of relationships serve different needs, and that a diverse social portfolio—including both digital and local connections—provides the richest social life. As we move forward, the challenge will be to use these tools intentionally to enhance rather than replace the fundamental human need for genuine connection.</p>
+                    <p>The healthiest approach seems to be using technology to enhance our social lives, not replace in-person connections. The most satisfied people use digital tools to stay connected while still making time for face-to-face interactions. Different types of friendships serve different needs in our lives.</p>
                 </div>
                 
                 <div class="article-questions">
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
-                        <h3>How has digital communication changed the way you form and maintain friendships?</h3>
+                        <h3>How has technology changed how you make and keep friends?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What advantages do digital friendships or communities offer compared to traditional in-person relationships?</h3>
+                        <h3>What are the benefits of online friendships compared to in-person ones?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you balance online social interactions with face-to-face connections?</h3>
+                        <h3>How do you balance online and in-person social time?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What role do shared interests play in your digital social connections compared to geographical proximity?</h3>
+                        <h3>How important are shared interests versus location in your friendships?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has the ability to maintain distant friendships through digital means affected your social network?</h3>
+                        <h3>How has staying connected with far-away friends changed your social life?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What challenges have you encountered in digital friendships or communities?</h3>
+                        <h3>What challenges have you faced with online friendships or communities?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you determine which relationships to invest in digitally versus in-person?</h3>
+                        <h3>How do you decide which friendships to focus on online versus in person?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What qualities make a digital community particularly valuable or meaningful to you?</h3>
+                        <h3>What makes an online community feel valuable to you?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has your approach to privacy and vulnerability changed in digital versus in-person friendships?</h3>
+                        <h3>How is your openness different in online versus in-person friendships?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What changes would you like to see in how digital platforms facilitate social connections?</h3>
+                        <h3>How could digital platforms better help people connect?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
@@ -1297,80 +1310,80 @@
             
             <!-- Article 5 -->
             <div class="article">
-                <h3 class="article-title">The Gaming Revolution: How Video Games Became Mainstream Entertainment</h3>
-                <div class="article-meta">By Alex Chen | Gaming Journalist | Published: July 18, 2023</div>
+                <h3 class="article-title">More Than Just Games: How Gaming Became Mainstream</h3>
+                <div class="article-meta">By Alex Chen | Gaming Writer | Published: July 18, 2023</div>
                 <div class="article-content">
-                    <p>Once relegated to basements and considered a niche hobby for teenagers, video gaming has transformed into a dominant form of global entertainment that rivals—and in some cases surpasses—film and television in both revenue and cultural impact. This shift represents not just technological advancement but a fundamental change in how we conceptualize entertainment and storytelling.</p>
+                    <p>Video games have come a long way from being just a hobby for teenagers in basements. Today, gaming is a major form of entertainment that competes with movies and TV shows in popularity and cultural impact. This change isn't just about better technology - it's about how we think about games and storytelling.</p>
                     
-                    <p>The democratization of gaming through mobile devices has been a key driver of this transformation. Suddenly, games weren't just for those willing to invest in expensive consoles or gaming PCs—they were accessible to anyone with a smartphone. This expanded the audience dramatically, introducing gaming to demographics that had previously never identified as "gamers." The stereotype of the adolescent male gamer has been thoroughly dismantled as statistics show near-equal participation across genders and strong representation across all age groups.</p>
+                    <p>Mobile gaming made playing accessible to everyone. Suddenly, you didn't need an expensive console or gaming computer - anyone with a smartphone could play games. This brought gaming to people who never thought of themselves as "gamers" before. The old idea that only young men play games has been proven wrong - people of all ages and genders enjoy gaming now.</p>
                     
-                    <p>Another significant development has been the recognition of games as legitimate narrative and artistic mediums. Where early games often prioritized gameplay over story, many contemporary titles offer rich, emotionally resonant narratives that explore complex themes. Games like "The Last of Us," which was recently adapted into a critically acclaimed television series, demonstrate how gaming storytelling has matured to compete with other narrative forms.</p>
+                    <p>Games are now recognized as real art and storytelling. While early games focused mostly on gameplay, many modern games tell deep, emotional stories that explore complex ideas. Games like "The Last of Us" have been turned into successful TV shows, showing how game storytelling has grown up.</p>
                     
-                    <p>The social dimension of gaming has also evolved dramatically. Multiplayer games have created vibrant communities and even new forms of social gathering. During the pandemic, games like "Animal Crossing" became virtual town squares where friends could gather when physical meetings were impossible. Esports has grown into a professional industry with stadium-filling events and millions of online viewers.</p>
+                    <p>Gaming has become more social too. Multiplayer games create communities and new ways to hang out with friends. During the pandemic, games like "Animal Crossing" became virtual gathering places when people couldn't meet in person. Competitive gaming has become a professional sport with huge events and millions of viewers.</p>
                     
-                    <p>Gaming's influence now extends far beyond the screen. Gaming aesthetics, music, and storytelling techniques have influenced film, television, and literature. The line between different forms of media is blurring as franchises expand across games, shows, movies, and books, creating transmedia ecosystems where each platform enhances the others.</p>
+                    <p>Gaming's influence reaches beyond the screen now. Game styles, music, and storytelling have affected movies, TV, and books. The lines between different media are blurring as stories spread across games, shows, and movies, creating richer worlds.</p>
                     
-                    <p>As gaming continues to evolve with technologies like virtual reality and cloud gaming, its position as a central pillar of entertainment seems secure. The question is no longer whether games are legitimate entertainment, but how they will continue to reshape our understanding of storytelling, community, and interactive experience in the years to come.</p>
+                    <p>As gaming continues to grow with new technologies like virtual reality, its place in entertainment seems secure. The question is no longer whether games are "real" entertainment, but how they'll keep changing how we experience stories and connect with others.</p>
                 </div>
                 
                 <div class="article-questions">
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
-                        <h3>How has your relationship with video games changed throughout your life?</h3>
+                        <h3>How has your relationship with video games changed over time?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What role does gaming play in your social life and relationships?</h3>
+                        <h3>What role does gaming play in your social life?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you balance gaming with other forms of entertainment and leisure activities?</h3>
+                        <h3>How do you balance gaming with other free time activities?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What aspects of gaming (story, gameplay, social interaction, etc.) are most important to you and why?</h3>
+                        <h3>What parts of gaming (story, gameplay, social) matter most to you?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How has the perception of gaming in your social circles changed over time?</h3>
+                        <h3>How have people's opinions about gaming changed around you?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What gaming experiences have had the most significant impact on you emotionally or intellectually?</h3>
+                        <h3>What gaming experiences have affected you emotionally or made you think?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you discover new games that match your interests?</h3>
+                        <h3>How do you find new games you might like?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What changes have you noticed in game design and storytelling as gaming has become more mainstream?</h3>
+                        <h3>What changes have you noticed in games as they've become more popular?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>How do you see the relationship between gaming and other forms of entertainment evolving?</h3>
+                        <h3>How do you see gaming's relationship with other entertainment evolving?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
-                        <h3>What potential do you see for gaming as a medium in the future?</h3>
+                        <h3>What possibilities do you see for gaming in the future?</h3>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
@@ -1420,7 +1433,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>GiftCardSurvey</h3>
+                    <h3>Lifestyle Survey</h3>
                     <p>Exploring lifestyle and entertainment trends through thoughtful articles and community perspectives.</p>
                 </div>
                 
@@ -1446,7 +1459,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 GiftCardSurvey. All rights reserved.</p>
+                <p>&copy; 2023 Lifestyle Survey. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1547,7 +1560,7 @@
                     return db.collection("subscribers").add({
                         email: email,
                         subscribedAt: new Date().toISOString(),
-                        source: "GiftCardSurvey"
+                        source: "LifestyleSurvey"
                     });
                 })
                 .then(() => {
