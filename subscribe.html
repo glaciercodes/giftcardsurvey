@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscribe - GiftCardSurvey</title>
+    <title>Subscribe - Lifestyle Insights Community</title>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -17,8 +17,6 @@
             --white: #ffffff;
             --light-gray: #f5f5f5;
             --dark-gray: #333333;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
         }
 
         * {
@@ -168,7 +166,7 @@
             100% { background-position: 200% 0; }
         }
 
-        .gift-icon {
+        .community-icon {
             font-size: 3rem;
             color: var(--primary-green);
             margin-bottom: 20px;
@@ -299,16 +297,16 @@
             border: 1px solid #ff9999;
         }
 
-        .gift-card-animation {
+        .success-animation {
             margin-top: 25px;
             display: none;
             animation: fadeIn 0.8s ease-out;
         }
 
-        .gift-card {
+        .success-card {
             width: 280px;
             height: 160px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--silver) 100%);
+            background: linear-gradient(135deg, var(--light-green) 0%, #e8f8ef 100%);
             border-radius: 12px;
             margin: 0 auto;
             padding: 20px;
@@ -319,13 +317,13 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #333;
+            color: var(--dark-gray);
             font-weight: bold;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(46, 204, 113, 0.3);
         }
 
-        .gift-card::before {
+        .success-card::before {
             content: "";
             position: absolute;
             top: 0;
@@ -342,26 +340,25 @@
             100% { background-position: 200% 200%; }
         }
 
-        .gift-card h3 {
+        .success-card h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #333;
+            color: var(--dark-green);
         }
 
-        .gift-card p {
+        .success-card p {
             font-size: 1rem;
             margin-bottom: 5px;
             color: #555;
         }
 
-        .gift-card .value {
+        .success-card .value {
             font-size: 1.8rem;
-            color: #e74c3c;
+            color: var(--primary-green);
             margin: 5px 0;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
         }
 
-        .congrats-text {
+        .welcome-text {
             margin-top: 20px;
             font-size: 1.2rem;
             font-weight: 600;
@@ -428,6 +425,44 @@
         .benefit-card h3 {
             color: var(--dark-green);
             margin-bottom: 15px;
+        }
+
+        /* Community Stats */
+        .stats-section {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            background-color: var(--white);
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
         }
 
         /* Footer */
@@ -502,7 +537,7 @@
                 padding: 30px 20px;
             }
 
-            .gift-card {
+            .success-card {
                 width: 250px;
                 height: 140px;
             }
@@ -527,7 +562,7 @@
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo">
-                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="GiftCardSurvey" class="logo-image">
+                    <img src="images/Screenshot_20251118_134820_Chrome.png" alt="Lifestyle Insights Community" class="logo-image">
                 </a>
                 
                 <div class="modal-menu" id="modalMenu">
@@ -549,57 +584,86 @@
     <main class="main-content">
         <div class="container">
             <div class="subscribe-container">
-                <div class="gift-icon">
-                    <i class="fas fa-gift"></i>
+                <div class="community-icon">
+                    <i class="fas fa-users"></i>
                 </div>
-                <h1>Subscribe to Be Eligible</h1>
-                <p>Join thousands of participants who have received gift cards by sharing their entertainment preferences. Subscribe now to get notified about new surveys and exclusive gift card opportunities.</p>
+                <h1>Join Our Community</h1>
+                <p>Connect with thousands of members sharing insights about lifestyle, entertainment, and cultural trends. Be part of meaningful conversations that shape our understanding of modern life.</p>
                 
                 <form class="subscribe-form" id="subscribeForm">
                     <input type="email" class="email-input" id="emailInput" placeholder="Enter your email address" required>
                     <button type="submit" class="btn subscribe-btn" id="subscribeBtn">
-                        <span class="btn-text">Subscribe Now</span>
+                        <span class="btn-text">Join Community</span>
                         <span class="processing-text">Processing...</span>
                     </button>
                 </form>
                 
                 <div class="subscribe-message" id="subscribeMessage"></div>
                 
-                <div class="gift-card-animation" id="giftCardAnimation">
-                    <div class="gift-card">
-                        <h3>Gift Card</h3>
-                        <p>Congratulations!</p>
-                        <div class="value">$25</div>
-                        <p>Redeemable at popular retailers</p>
+                <div class="success-animation" id="successAnimation">
+                    <div class="success-card">
+                        <h3>Welcome!</h3>
+                        <p>You're Now Part of</p>
+                        <div class="value">Our Community</div>
+                        <p>Share your perspectives</p>
                     </div>
-                    <div class="congrats-text">
-                        Thank you for subscribing! We are currently processing a gift card for you 🎊🎁
+                    <div class="welcome-text">
+                        Thank you for joining! Check your email for our welcome message.
                     </div>
-                    <a href="index.html" class="btn btn-outline">Take Our Survey</a>
+                    <a href="index.html" class="btn btn-outline">Explore Articles</a>
                 </div>
             </div>
         </div>
     </main>
 
+    <!-- Community Stats -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-container">
+                <h2 class="section-title">Our Growing Community</h2>
+                <p>Join thousands of members who are sharing their perspectives and shaping conversations about modern lifestyle trends.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">15K+</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">42</div>
+                        <div class="stat-label">Countries Represented</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.5K+</div>
+                        <div class="stat-label">Monthly Conversations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">87%</div>
+                        <div class="stat-label">Engagement Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Benefits Section -->
     <section class="benefits-section">
         <div class="container">
-            <h2 class="section-title">Why Subscribe to GiftCardSurvey?</h2>
+            <h2 class="section-title">Why Join Our Community?</h2>
             <div class="benefits-grid">
                 <div class="benefit-card">
                     <div class="benefit-icon">
-                        <i class="fas fa-gift"></i>
+                        <i class="fas fa-comment-alt"></i>
                     </div>
-                    <h3>Exclusive Gift Cards</h3>
-                    <p>Receive gift cards from popular retailers like Amazon, Starbucks, and Target for participating in our surveys.</p>
+                    <h3>Share Your Voice</h3>
+                    <p>Contribute to meaningful discussions about lifestyle trends and cultural shifts that matter to you.</p>
                 </div>
                 
                 <div class="benefit-card">
                     <div class="benefit-icon">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <h3>First Access</h3>
-                    <p>Be the first to know about new survey opportunities and increase your chances of receiving gift cards.</p>
+                    <h3>Stay Informed</h3>
+                    <p>Receive updates on new articles, research findings, and community insights directly to your inbox.</p>
                 </div>
                 
                 <div class="benefit-card">
@@ -607,7 +671,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3>Influence Trends</h3>
-                    <p>Your opinions help shape entertainment and lifestyle trends by providing valuable insights to companies.</p>
+                    <p>Your perspectives help shape our understanding of entertainment and lifestyle preferences.</p>
                 </div>
                 
                 <div class="benefit-card">
@@ -615,7 +679,7 @@
                         <i class="fas fa-clock"></i>
                     </div>
                     <h3>Flexible Participation</h3>
-                    <p>Complete surveys at your own pace, whenever it's convenient for you. No pressure, just honest opinions.</p>
+                    <p>Engage with content at your own pace, whenever it's convenient for you and your schedule.</p>
                 </div>
             </div>
         </div>
@@ -626,8 +690,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>GiftCardSurvey</h3>
-                    <p>Understanding lifestyle and entertainment preferences to enhance user experiences.</p>
+                    <h3>Lifestyle Insights</h3>
+                    <p>Exploring lifestyle and entertainment trends through thoughtful articles and community perspectives.</p>
                 </div>
                 
                 <div class="footer-column">
@@ -643,22 +707,22 @@
                 <div class="footer-column">
                     <h3>Connect With Us</h3>
                     <ul>
-                        <li><a href="https://www.facebook.com/profile.php?id=61582762929958"><i class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="https://x.com/health_hubss?t=j4f-0vi0Sp5hLeecZlxraQ&s=09"><i class="fab fa-twitter"></i> Twitter</a></li>
-                        <li><a href="https://whatsapp.com/channel/0029VaSor7M0LKZHGVh8872O"><i class="fab fa-whatsapp"></i> Whatsapp</a></li>
-                        <li><a href="https://t.me/+0uDfyWxNHo0wMWZk"><i class="fab fa-telegram"></i> Telegram</a></li>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 GiftCardSurvey. All rights reserved.</p>
+                <p>&copy; 2023 Lifestyle Insights Community. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Firebase configuration from realinsightreport (working example)
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
             authDomain: "realinsightreport.firebaseapp.com",
@@ -669,7 +733,7 @@
             measurementId: "G-6LHBN68HMH"
         };
 
-        // Initialize Firebase (using the same pattern as the working example)
+        // Initialize Firebase
         let db;
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
@@ -682,7 +746,7 @@
         const subscribeForm = document.getElementById('subscribeForm');
         const subscribeBtn = document.getElementById('subscribeBtn');
         const subscribeMessage = document.getElementById('subscribeMessage');
-        const giftCardAnimation = document.getElementById('giftCardAnimation');
+        const successAnimation = document.getElementById('successAnimation');
 
         // Modal Menu Toggle
         modalTrigger.addEventListener('click', function() {
@@ -696,7 +760,7 @@
             }
         });
 
-        // Email Subscription (using the same approach as the working example)
+        // Email Subscription
         subscribeForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -715,47 +779,47 @@
             // Show processing state
             subscribeBtn.classList.add('processing');
             
-            // Check if email already exists (same as working example)
+            // Check if email already exists
             db.collection("subscribers")
                 .where("email", "==", email)
                 .get()
                 .then((querySnapshot) => {
                     if (!querySnapshot.empty) {
                         subscribeBtn.classList.remove('processing');
-                        showSubscribeMessage("This email is already subscribed. You're still eligible for gift cards!", "error");
+                        showSubscribeMessage("You're already part of our community! We'll keep you updated on new content.", "success");
                         return;
                     }
                     
-                    // Save to Firebase (same approach as working example)
+                    // Save to Firebase
                     return db.collection("subscribers").add({
                         email: email,
                         subscribedAt: new Date().toISOString(),
-                        source: "GiftCardSurvey",
+                        source: "Lifestyle Insights",
                         page: "subscribe"
                     });
                 })
                 .then(() => {
                     // Hide the form and show success animation
                     subscribeForm.style.display = 'none';
-                    giftCardAnimation.style.display = 'block';
+                    successAnimation.style.display = 'block';
                     
-                    // Scroll to the gift card animation
-                    giftCardAnimation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Scroll to the success animation
+                    successAnimation.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 })
                 .catch((error) => {
                     console.error("Error subscribing: ", error);
                     subscribeBtn.classList.remove('processing');
-                    showSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                    showSubscribeMessage("There was an error processing your request. Please try again.", "error");
                 });
         });
 
-        // Email validation (same function as working example)
+        // Email validation
         function validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
 
-        // Show subscription message (same approach as working example)
+        // Show subscription message
         function showSubscribeMessage(message, type) {
             subscribeMessage.textContent = message;
             subscribeMessage.className = `subscribe-message ${type}`;
