@@ -327,6 +327,24 @@
             font-size: 1.3rem;
         }
 
+        /* Question Tips */
+        .question-tip {
+            background-color: var(--light-green);
+            border-left: 4px solid var(--primary-green);
+            padding: 12px 15px;
+            margin: 10px 0 15px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+        }
+
+        .question-tip i {
+            margin-right: 10px;
+            color: var(--primary-green);
+        }
+
         /* Survey Section */
         .survey-section {
             padding: 60px 0;
@@ -423,6 +441,34 @@
             border-radius: 5px;
             color: var(--dark-green);
             display: none;
+        }
+
+        /* Ad Container Styles */
+        .ad-container {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ad-placeholder {
+            background-color: #f0f0f0;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
         }
 
         /* Subscribe Section */
@@ -792,7 +838,7 @@
                         <a href="terms.html"><i class="fas fa-file-contract"></i> Terms of Service</a>
                         <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
                         <a href="privacy.html"><i class="fas fa-shield"></i> Privacy policy</a>
-                        <a href="subscribe.html"><i class="fas fa-bell"></i> Subscribe for Updates</a>
+                        <a href="subscribe.html"><i class="fas fa-bell"></i> Get more Updates</a>
                     </div>
                 </div>
             </div>
@@ -802,7 +848,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Welcome To Lifestyle & Entertaining Survey</h1>
+            <h1>Welcome To Lifestyle & Entertaining Surveys</h1>
             <p class="subtitle">"Share your thoughts on lifestyle and entertainment topics — your insights help us understand what people really enjoy."</p>
             <a href="#articles" class="btn" id="beginNowBtn">Explore Articles</a>
             
@@ -1004,63 +1050,113 @@
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
                         <h3>How has streaming changed the way you watch TV compared to traditional channels? Consider not just what you watch but how you watch - do you find yourself binging entire seasons, sampling multiple shows at once, or sticking to a more traditional viewing schedule? How has this shift affected your enjoyment of television content and your ability to follow complex storylines?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>We're interested in how your viewing habits have evolved over time. Your perspective helps us understand changing entertainment patterns.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What do you like and dislike about watching full seasons at once versus waiting weekly? Think about the emotional experience of each approach - does binging help you maintain connection with characters and storylines, or does the weekly wait build anticipation and give you time to reflect? How does each method affect your memory of plot details and your overall satisfaction with a series?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>There's no right answer here - we're genuinely curious about your personal preferences and experiences with different viewing approaches.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you decide whether to binge-watch a show or take your time with it? What factors influence this decision - the type of show, your available time, social conversations about it, or something else? Do you have personal rules or habits around binging, and how do you balance the immediate gratification of binging with the potential benefits of spreading out your viewing?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your decision-making process is fascinating to us. Feel free to share any personal rules or habits you've developed around TV viewing.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>Do you talk with friends about shows you're binge-watching? How does that work when everyone might be at different points in the series? Have you developed strategies for having these conversations without spoilers, or do you prefer to watch completely alone to avoid this issue? How has binge-watching affected the social aspect of television viewing in your experience?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>We'd love to hear how binge-watching has changed your social interactions around TV shows. The social dynamics of viewing have transformed dramatically.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>Do you feel differently about characters when you watch many episodes quickly versus weekly? Consider whether rapid viewing creates stronger emotional bonds with characters or if it somehow cheapens the experience. Does the compressed timeline affect how you process character development and emotional arcs, and have you noticed differences in how memorable characters are based on your viewing pace?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>This is a really interesting aspect of viewing psychology. We're curious how pacing affects your emotional connection to characters.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What makes a show perfect for binge-watching in your opinion? Are there specific genres, narrative structures, or pacing styles that work particularly well for marathon viewing? Conversely, what types of shows benefit from weekly viewing in your experience, and why do you think this is the case? How do you identify which approach will work best for a particular series?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your insights help content creators understand what makes a series binge-worthy. What elements keep you hitting "next episode"?</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>Has binge-watching made you more or less patient with slower-paced shows? Consider whether the ability to watch content quickly has changed your tolerance for shows that develop gradually versus those with rapid pacing and frequent plot developments. Have you noticed changes in your attention span or preferences for certain types of storytelling as a result of binge-watching habits?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>We're interested in how streaming has potentially changed our attention spans and appreciation for different storytelling styles.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>Do you remember show details better or worse when binge-watching? Think about whether compressing the viewing experience helps you follow complex plots and remember character connections, or if the lack of time between episodes causes details to blur together. How does your memory of binged shows compare to those you've watched with breaks between episodes?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Memory and comprehension are fascinating aspects of the viewing experience. Your observations here are particularly valuable.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you fit binge-watching into your daily life and responsibilities? Do you schedule extended viewing sessions, or do you incorporate binging into your regular routine in smaller chunks? What strategies have you developed to balance the desire to continue watching with other obligations, and how does this affect your overall viewing experience and enjoyment?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>How we integrate entertainment into our busy lives is an important aspect of modern media consumption. Your approach might help others find balance.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What would you like streaming services to do differently with how they release shows? Consider the various models you've experienced - full season drops, weekly releases, or hybrid approaches. What release strategy creates the most satisfying viewing experience for you personally, and why? Are there innovations or changes you'd like to see streaming platforms implement regarding how content is delivered?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your feedback could influence how streaming services approach content release strategies in the future. What would your ideal model look like?</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ad Space 1 -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code would go here -->
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                    <p>This space is reserved for Google AdSense ads</p>
                 </div>
             </div>
             
@@ -1086,63 +1182,113 @@
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
                         <h3>What does "wellness" mean to you in your daily life? Beyond the common associations with diet and exercise, how do you conceptualize wellness in terms of mental, emotional, and social dimensions? How has your understanding of what it means to be "well" evolved over time, and what experiences or insights have contributed to this evolving perspective on holistic health and wellbeing?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your personal definition of wellness is unique and valuable. We'd love to understand how you conceptualize wellbeing in your own life.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>Which parts of wellness (physical, mental, social) matter most to you and why? Consider how these different dimensions interact in your life - does focusing on one area naturally support others, or do you find yourself needing to consciously balance attention across multiple areas? How do you prioritize your wellness efforts when time and energy are limited, and what informs these prioritization decisions?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Understanding how people balance different aspects of wellness helps us see the full picture of what it means to live well.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you manage your technology use to support your wellness goals? Think about both the benefits technology provides for your wellness journey and the challenges it creates. What specific boundaries or practices have you implemented around device use, notifications, or social media to protect your mental space? How has adjusting your relationship with technology affected your overall sense of wellbeing?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Technology plays such a complex role in modern wellness. Your strategies for balancing its benefits and drawbacks are insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do friends or community help you stay well? Consider the various ways social connections contribute to your wellness - through accountability, emotional support, shared activities, or other means. What role do these relationships play in maintaining your wellness practices during challenging times, and how have you cultivated communities that support rather than undermine your wellbeing goals?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The social dimension of wellness is often overlooked. We're interested in how your relationships support your wellbeing journey.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What personal touches have you added to your wellness routine? Beyond generic advice, what specific adaptations, modifications, or entirely unique practices have you incorporated that make your approach to wellness distinctly yours? How did you discover these personalized elements, and what process of trial and error helped you identify what truly works for your unique needs and lifestyle?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Personalized approaches to wellness are often the most effective. Your unique adaptations could inspire others.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What makes it hard to stick with wellness habits sometimes? Beyond the obvious challenges of time and motivation, what deeper barriers or patterns make consistency difficult? How do you navigate these obstacles when they arise, and what strategies have you found most effective for returning to your wellness practices after falling out of routine?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Understanding the real challenges people face helps create more realistic and sustainable approaches to wellness.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you tell the difference between helpful wellness tips and passing trends? What criteria do you use to evaluate new wellness information, and how do you balance openness to new approaches with skepticism toward potentially unsustainable or ineffective trends? What experiences have helped you develop this discernment regarding wellness advice?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Navigating the overwhelming world of wellness advice requires discernment. Your approach to evaluating information is valuable.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What simple daily habits contribute most to your overall sense of wellbeing? Beyond major lifestyle changes, what small, consistent practices have you found most impactful for maintaining your wellness? How do these simple habits create positive momentum in other areas of your life, and what makes them sustainable amidst the demands of daily responsibilities?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Sometimes the smallest habits make the biggest difference. We'd love to hear about your most impactful daily practices.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How have your background or experiences shaped your approach to wellness? Consider how your cultural heritage, upbringing, personal history, or significant life events have influenced your understanding of what wellness means and how to pursue it. What aspects of your background continue to inform your wellness practices today, either through continuation of traditions or conscious departure from them?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Our backgrounds deeply influence how we approach wellness. Your unique perspective enriches our understanding.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What would you like to see change in how we think about wellness? Beyond individual practices, what cultural, social, or systemic shifts would make genuine wellness more accessible and sustainable for more people? How might we collectively move toward a more balanced, less commercialized, and more inclusive understanding of what it means to live well?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your vision for a healthier society helps us imagine new possibilities for collective wellbeing.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ad Space 2 -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code would go here -->
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                    <p>This space is reserved for Google AdSense ads</p>
                 </div>
             </div>
             
@@ -1168,63 +1314,113 @@
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
                         <h3>What non-digital activities or items do you enjoy in your life? Beyond the obvious examples like books or vinyl records, what specific analog experiences bring you satisfaction or joy? How did you discover these preferences, and what needs do these non-digital activities fulfill that digital alternatives don't quite satisfy? What role do these analog elements play in creating balance in your otherwise digital life?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>We're fascinated by the ways people are rediscovering analog experiences. Your personal favorites might inspire others.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do analog experiences feel different from digital ones to you? Consider the sensory, emotional, and cognitive differences you notice between engaging with physical objects versus digital interfaces. What specific qualities of analog experiences - perhaps the pace, tangibility, or intentionality - create these differences, and how do these contrasting experiences complement each other in your life?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The qualitative differences between analog and digital experiences are subtle but meaningful. Your observations are insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How important is physically touching or holding something to your enjoyment? Think about how physical interaction with objects affects your connection to activities, memories, or creative processes. What aspects of this physical engagement feel meaningful, and how does this tangibility contribute to experiences that feel more "real" or significant compared to purely digital interactions?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The physical dimension of experience is something we're exploring more deeply. Your perspective on tangibility is valuable.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you balance digital convenience with analog enjoyment? Consider the practical strategies you've developed for integrating both digital efficiency and analog richness into your life. What criteria do you use to decide when to reach for analog options versus digital ones, and how has this balance shifted over time as both technologies and your needs have evolved?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Finding the right balance between digital and analog is a modern challenge. Your approach could help others navigate this.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What parts of digital life make you appreciate analog alternatives? Beyond general complaints about screen time, what specific frustrations, limitations, or emotional costs of digital experiences drive your interest in analog options? How do analog activities provide relief from particular aspects of digital life that you find draining or unsatisfying?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Understanding what people find unsatisfying about digital experiences helps us appreciate the value of analog alternatives.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do limits in analog activities (like film counts) affect your experience? Consider whether constraints like finite exposures, slower processes, or physical limitations enhance your engagement or create frustration. How do these limitations influence your approach, attention, and satisfaction compared to the seemingly limitless possibilities of digital alternatives?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Constraints can sometimes enhance creativity and appreciation. Your experience with analog limitations is fascinating.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What special routines have you created around analog activities? Think about the rituals, preparations, or mindful practices you've developed around non-digital pursuits. How do these routines enhance your experience, and what role do they play in transitioning from the pace of digital life to the different rhythm of analog engagement?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The rituals surrounding analog activities are often part of their appeal. Your routines might inspire others to create their own.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How has using analog things changed how you use digital tools? Consider whether engaging with analog options has influenced your relationship with technology in broader ways. Has it changed how you approach digital tasks, your tolerance for certain digital experiences, or your criteria for when technology serves versus detracts from your goals?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The relationship between analog and digital experiences is reciprocal. We're curious how one influences the other in your life.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What values does the analog movement represent to you? Beyond practical benefits, what philosophical, aesthetic, or ethical principles does the preference for analog experiences embody for you personally? How do these values connect to larger concerns about technology, consumer culture, sustainability, or quality of life in the digital age?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The analog movement often represents deeper values beyond just practical preferences. Your perspective on this is meaningful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you see digital and analog coexisting in the future? Looking ahead, what role do you envision for each in a balanced life, and how might the relationship between digital and analog continue to evolve? What developments would you like to see that better integrate the strengths of both approaches while minimizing their respective limitations?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your vision for how digital and analog might better coexist could help shape more balanced technological futures.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ad Space 3 -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code would go here -->
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                    <p>This space is reserved for Google AdSense ads</p>
                 </div>
             </div>
             
@@ -1250,63 +1446,113 @@
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
                         <h3>How has technology changed how you make and keep friends? Consider both the practical mechanics of friendship maintenance and the qualitative experience of these relationships in the digital age. What specific technologies or platforms have most influenced your friendship patterns, and how have these tools altered the initiation, development, and sustainability of your friendships compared to pre-digital era approaches?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Friendship in the digital age looks different for everyone. Your experience helps us understand these evolving social patterns.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What are the benefits of online friendships compared to in-person ones? Beyond the obvious advantage of geographical flexibility, what unique qualities, dynamics, or opportunities do digital friendships offer that might be harder to find in traditional relationships? How do these different types of friendships complement each other in your social ecosystem, and what needs does each particularly well suited to fulfill?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Digital friendships have unique qualities that are worth exploring. Your insights help us appreciate their distinct value.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you balance online and in-person social time? Consider the practical strategies, boundaries, or intentional practices you've developed to maintain this balance. What factors influence how you allocate your social energy across digital and physical spaces, and how has your approach to this balance evolved as both technology and your life circumstances have changed over time?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Balancing digital and in-person connections is a modern challenge. Your strategies might help others find equilibrium.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How important are shared interests versus location in your friendships? Think about how these different bases for connection function in your social life. Has the ability to connect based on interests regardless of location changed how you value or prioritize different types of friendships? How do interest-based and location-based friendships differ in their development, maintenance, and significance in your life?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The basis for friendship has expanded beyond geography. Your experience with different types of connections is insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How has staying connected with far-away friends changed your social life? Consider both the enrichment of maintaining these relationships and any potential trade-offs in terms of local connection investment. How does the ability to sustain distant friendships affect your experience of community, your social support system, and your sense of identity across different phases of your life?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Maintaining distant friendships has become much easier with technology. Your experience with this is particularly relevant today.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What challenges have you faced with online friendships or communities? Beyond technical issues or the lack of physical presence, what specific difficulties have emerged in digital relationships that differ from those in traditional friendships? How have you navigated these challenges, and what strategies have you developed to build trust, resolve conflicts, or maintain connection in digital spaces?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Digital friendships come with unique challenges. Your strategies for navigating these are valuable for others in similar situations.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you decide which friendships to focus on online versus in person? Consider the criteria, instincts, or practical considerations that guide how you allocate your limited social attention across different types of relationships. How do you balance the unique value of each connection type with the practical realities of time, energy, and geographical constraints?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>With limited social energy, we all make choices about where to focus. Your decision-making process is insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What makes an online community feel valuable to you? Beyond shared interests, what specific qualities, norms, or dynamics create a sense of genuine community in digital spaces? How do these valuable online communities differ from those that feel superficial or unsatisfying, and what role do these communities play in your overall social wellbeing?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>What makes a digital community truly valuable is an important question. Your criteria help us understand this better.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How is your openness different in online versus in-person friendships? Consider how the context of digital versus physical interaction affects what you share, how you express yourself, and the pace at which intimacy develops. What factors contribute to these differences in vulnerability, and how do these varying levels of openness serve different needs or purposes in your social life?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>We often show different sides of ourselves in different contexts. Your experience with varying openness is fascinating.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How could digital platforms better help people connect? Looking beyond current features, what innovations, design changes, or philosophical shifts would make digital spaces more conducive to forming and maintaining meaningful friendships? What aspects of human connection are currently poorly served by existing platforms, and how might future technologies better address these gaps?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Your ideas for improving digital connection could inspire better platforms in the future. We're all ears!</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ad Space 4 -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code would go here -->
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                    <p>This space is reserved for Google AdSense ads</p>
                 </div>
             </div>
             
@@ -1332,63 +1578,113 @@
                     <h4>Share your thoughts on this article:</h4>
                     <div class="question-group">
                         <h3>How has your relationship with video games changed over time? Consider both the role games play in your life and how your perception of gaming as an activity has evolved across different life stages. What specific experiences, games, or technological developments have marked significant shifts in this relationship, and how has your approach to gaming matured or transformed as you've grown older?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Gaming relationships evolve throughout our lives. Your journey with games reflects broader changes in how we view this medium.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What role does gaming play in your social life and relationships? Beyond simply playing together, how do games facilitate connection, conversation, or shared experiences with others? How have gaming-related interactions complemented or differed from other forms of social engagement in your life, and what unique social benefits have you found through gaming that might be harder to achieve through other activities?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The social dimension of gaming is often underestimated. Your experience helps us appreciate its full social potential.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you balance gaming with other forms of entertainment and leisure activities? Consider how gaming fits into your broader media diet and how you allocate your limited free time across different entertainment options. What factors influence these choices, and how has the position of gaming relative to other leisure activities shifted as both games and alternative options have evolved?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Gaming now competes with many other entertainment options. Your approach to balancing these choices is insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What aspects of gaming (story, gameplay, social interaction, etc.) are most important to you and why? Think about what specifically draws you to games and sustains your engagement over time. How do these different elements interact in your favorite gaming experiences, and has the balance of what you value most in games shifted as you've encountered different types of gaming experiences?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Different players value different aspects of games. Your preferences help us understand the diverse appeal of gaming.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How have people's opinions about gaming changed around you? Consider the evolution of gaming's cultural perception in your social circles, family, workplace, or society more broadly. What specific changes have you observed in how gaming is discussed, valued, or stigmatized, and what factors do you think have driven these shifting perceptions over time?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The cultural perception of gaming has transformed dramatically. Your observations of this shift are valuable.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What gaming experiences have affected you emotionally or made you think? Beyond entertainment, what games have genuinely moved you, changed your perspective, or stuck with you long after playing? What specific elements of these experiences created this impact, and how do these meaningful gaming moments compare to similarly impactful experiences in other media like books or films?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Games can be profoundly moving experiences. Your most impactful gaming moments reveal the medium's emotional potential.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you discover new games that match your interests? Consider the various channels, platforms, or social connections that introduce you to new gaming experiences. How has your process of game discovery evolved as the number of available games has exploded, and what strategies have you developed for navigating the overwhelming choice while still finding games that genuinely appeal to you?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>With thousands of new games released each year, discovery is a challenge. Your strategies could help other gamers.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What changes have you noticed in game design and storytelling as gaming has become more mainstream? Consider how both the technical capabilities and creative ambitions of games have evolved as the audience has expanded. What specific improvements, innovations, or shifts in approach have you observed, and how have these changes affected your experience as a player?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Game design has evolved significantly as the medium has matured. Your observations of these changes are insightful.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>How do you see gaming's relationship with other forms of entertainment evolving? Looking ahead, how might games continue to influence and be influenced by film, television, literature, and other media? What new hybrid forms or collaborative possibilities do you envision emerging, and how might these developments change how we conceptualize and consume entertainment more broadly?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The boundaries between gaming and other media are blurring. Your vision for future cross-media possibilities is exciting.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
                     
                     <div class="question-group">
                         <h3>What potential do you see for gaming as a medium in the future? Beyond technological improvements, what creative, social, or educational possibilities remain largely untapped in gaming? How might games continue to evolve as a form of expression and connection, and what developments would you most like to see that would expand gaming's positive impact on individuals and society?</h3>
+                        <div class="question-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Gaming's potential extends far beyond entertainment. Your vision for its future impact could help shape the medium's direction.</span>
+                        </div>
                         <textarea class="answer-input" placeholder="Please provide your answer here"></textarea>
                         <div class="word-count">Word count: 0</div>
                     </div>
+                </div>
+            </div>
+            
+            <!-- Ad Space 5 -->
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <!-- Google AdSense Code would go here -->
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                    <p>This space is reserved for Google AdSense ads</p>
                 </div>
             </div>
         </div>
