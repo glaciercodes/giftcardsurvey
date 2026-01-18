@@ -2675,18 +2675,34 @@
             // Set up other event listeners from original code
             setupEventListeners();
         });
+        
         // NEW: Initialize Hot Topics Carousel
 function initHotTopicsCarousel() {
-    // REMOVED: Check if user has dismissed the section before
-    // const isDismissed = localStorage.getItem('hotTopicsDismissed');
-    // if (isDismissed === 'true') {
-    //     hotTopicsSection.style.display = 'none';
-    //     return;
-    // }
-    
     // Create cards
     hotTopicsData.forEach((topic, index) => {
-        // ... rest of the code remains the same
+        const card = document.createElement('div');
+        card.className = 'hot-topic-card';
+        card.setAttribute('data-index', index);
+        card.innerHTML = `
+            <button class="hot-topic-card-close" data-card-index="${index}">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="hot-topic-title">${topic.title}</h3>
+            <div class="hot-topic-content">
+                ${topic.content}
+            </div>
+            <div class="hot-topic-image">
+                <img src="${topic.image}" alt="${topic.title}">
+            </div>
+        `;
+        hotTopicsTrack.appendChild(card);
+        
+        // Create dot
+        const dot = document.createElement('div');
+        dot.className = 'hot-topic-dot';
+        if (index === 0) dot.classList.add('active');
+        dot.setAttribute('data-index', index);
+        hotTopicsDots.appendChild(dot);
     });
     
     // Set up carousel functionality
@@ -2694,198 +2710,198 @@ function initHotTopicsCarousel() {
 }
         
         // NEW: Set up Hot Topics Carousel functionality
-        function setupHotTopicsCarousel() {
-            let currentIndex = 0;
-            const cardWidth = 280; // Card width + gap
-            const totalCards = hotTopicsData.length;
-            let autoSlideInterval;
-            let isAutoSliding = true;
-            let touchStartX = 0;
-            let touchEndX = 0;
-            let isDragging = false;
-            let dragStartX = 0;
-            let dragCurrentX = 0;
-            
-            // Function to move to specific index
-            function goToIndex(index) {
-                currentIndex = index;
-                const translateX = -currentIndex * cardWidth;
-                hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
-                
-                // Update dots
-                document.querySelectorAll('.hot-topic-dot').forEach((dot, i) => {
-                    if (i === currentIndex) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            }
-            
-            // Function to start auto sliding
-            function startAutoSlide() {
-                if (autoSlideInterval) clearInterval(autoSlideInterval);
-                if (!isAutoSliding) return;
-                
-                autoSlideInterval = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % totalCards;
-                    goToIndex(currentIndex);
-                }, 2000); // Auto-slide every 2 seconds
-            }
-            
-            // Function to stop auto sliding temporarily
-            function pauseAutoSlide() {
-                isAutoSliding = false;
-                if (autoSlideInterval) clearInterval(autoSlideInterval);
-            }
-            
-            // Function to resume auto sliding after delay
-            function resumeAutoSlide() {
-                isAutoSliding = true;
-                setTimeout(startAutoSlide, 3000); // Resume after 3 seconds
-            }
-            
-            // Navigation buttons
-            hotTopicsPrev.addEventListener('click', () => {
-                pauseAutoSlide();
-                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-                goToIndex(currentIndex);
-                resumeAutoSlide();
-            });
-            
-            hotTopicsNext.addEventListener('click', () => {
-                pauseAutoSlide();
-                currentIndex = (currentIndex + 1) % totalCards;
-                goToIndex(currentIndex);
-                resumeAutoSlide();
-            });
-            
-            // Dot navigation
-            document.querySelectorAll('.hot-topic-dot').forEach(dot => {
-                dot.addEventListener('click', () => {
-                    pauseAutoSlide();
-                    const index = parseInt(dot.getAttribute('data-index'));
-                    goToIndex(index);
-                    resumeAutoSlide();
-                });
-            });
-            
-            // Card click navigation
-            document.querySelectorAll('.hot-topic-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    // Don't navigate if clicking close button
-                    if (e.target.closest('.hot-topic-card-close')) return;
-                    
-                    pauseAutoSlide();
-                    // Navigate to x.html
-                    window.location.href = 'x.html';
-                });
-            });
-            
-            // Card close buttons
-document.querySelectorAll('.hot-topic-card-close').forEach(button => {
-    button.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent card click event
-        const cardIndex = parseInt(button.getAttribute('data-card-index'));
-        const card = document.querySelector(`.hot-topic-card[data-index="${cardIndex}"]`);
+function setupHotTopicsCarousel() {
+    let currentIndex = 0;
+    const cardWidth = 280; // Card width + gap
+    const totalCards = hotTopicsData.length;
+    let autoSlideInterval;
+    let isAutoSliding = true;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragCurrentX = 0;
+    
+    // Function to move to specific index
+    function goToIndex(index) {
+        currentIndex = index;
+        const translateX = -currentIndex * cardWidth;
+        hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
         
-        // Hide the specific card
-        card.style.opacity = '0';
-        card.style.transform = 'scale(0.9)';
-        setTimeout(() => {
-            card.style.display = 'none';
-            
-            // If all cards are closed, hide the entire section
-            const visibleCards = document.querySelectorAll('.hot-topic-card[style*="display: block"], .hot-topic-card:not([style*="display"])');
-            if (visibleCards.length === 0) {
-                hotTopicsSection.style.display = 'none';
-                // REMOVED localStorage.setItem('hotTopicsDismissed', 'true');
+        // Update dots
+        document.querySelectorAll('.hot-topic-dot').forEach((dot, i) => {
+            if (i === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
             }
-        }, 300);
+        });
+    }
+    
+    // Function to start auto sliding
+    function startAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        if (!isAutoSliding) return;
         
+        autoSlideInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalCards;
+            goToIndex(currentIndex);
+        }, 2000); // Auto-slide every 2 seconds
+    }
+    
+    // Function to stop auto sliding temporarily
+    function pauseAutoSlide() {
+        isAutoSliding = false;
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+    }
+    
+    // Function to resume auto sliding after delay
+    function resumeAutoSlide() {
+        isAutoSliding = true;
+        setTimeout(startAutoSlide, 3000); // Resume after 3 seconds
+    }
+    
+    // Navigation buttons
+    hotTopicsPrev.addEventListener('click', () => {
         pauseAutoSlide();
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        goToIndex(currentIndex);
         resumeAutoSlide();
     });
-});
-
-// Section close button
-closeHotTopics.addEventListener('click', () => {
-    hotTopicsSection.style.display = 'none';
-    // REMOVED localStorage.setItem('hotTopicsDismissed', 'true');
-});
-            // Touch/swipe functionality
-            hotTopicsTrack.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                pauseAutoSlide();
-            });
+    
+    hotTopicsNext.addEventListener('click', () => {
+        pauseAutoSlide();
+        currentIndex = (currentIndex + 1) % totalCards;
+        goToIndex(currentIndex);
+        resumeAutoSlide();
+    });
+    
+    // Dot navigation
+    document.querySelectorAll('.hot-topic-dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+            pauseAutoSlide();
+            const index = parseInt(dot.getAttribute('data-index'));
+            goToIndex(index);
+            resumeAutoSlide();
+        });
+    });
+    
+    // Card click navigation
+    document.querySelectorAll('.hot-topic-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Don't navigate if clicking close button
+            if (e.target.closest('.hot-topic-card-close')) return;
             
-            hotTopicsTrack.addEventListener('touchmove', (e) => {
-                touchEndX = e.touches[0].clientX;
-            });
+            pauseAutoSlide();
+            // Navigate to x.html
+            window.location.href = 'x.html';
+        });
+    });
+    
+    // Card close buttons - TEMPORARY hide only
+    document.querySelectorAll('.hot-topic-card-close').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent card click event
+            const cardIndex = parseInt(button.getAttribute('data-card-index'));
+            const card = document.querySelector(`.hot-topic-card[data-index="${cardIndex}"]`);
             
-            hotTopicsTrack.addEventListener('touchend', () => {
-                const swipeThreshold = 50;
-                const diff = touchStartX - touchEndX;
+            // Temporarily hide the specific card with animation
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                card.style.display = 'none';
                 
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) {
-                        // Swipe left - next
-                        currentIndex = (currentIndex + 1) % totalCards;
-                    } else {
-                        // Swipe right - previous
-                        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-                    }
-                    goToIndex(currentIndex);
+                // If all cards are closed, hide the entire section (temporarily)
+                const visibleCards = document.querySelectorAll('.hot-topic-card[style*="display: block"], .hot-topic-card:not([style*="display"])');
+                if (visibleCards.length === 0) {
+                    hotTopicsSection.style.display = 'none';
                 }
-                resumeAutoSlide();
-            });
+            }, 300);
             
-            // Mouse drag functionality
-            hotTopicsTrack.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                dragStartX = e.clientX;
-                pauseAutoSlide();
-                e.preventDefault();
-            });
-            
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                dragCurrentX = e.clientX;
-                const diff = dragStartX - dragCurrentX;
-                const translateX = -currentIndex * cardWidth - diff;
-                hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
-            });
-            
-            document.addEventListener('mouseup', () => {
-                if (!isDragging) return;
-                isDragging = false;
-                
-                const diff = dragStartX - dragCurrentX;
-                const swipeThreshold = 50;
-                
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) {
-                        // Drag left - next
-                        currentIndex = (currentIndex + 1) % totalCards;
-                    } else {
-                        // Drag right - previous
-                        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-                    }
-                }
-                
-                goToIndex(currentIndex);
-                resumeAutoSlide();
-            });
-            
-            // Start auto sliding initially
-            startAutoSlide();
-            
-            // Pause auto sliding when hovering
-            hotTopicsTrack.addEventListener('mouseenter', pauseAutoSlide);
-            hotTopicsTrack.addEventListener('mouseleave', () => {
-                if (isAutoSliding) startAutoSlide();
-            });
+            pauseAutoSlide();
+            resumeAutoSlide();
+        });
+    });
+    
+    // Section close button - TEMPORARY hide only
+    closeHotTopics.addEventListener('click', () => {
+        hotTopicsSection.style.display = 'none';
+    });
+    
+    // Touch/swipe functionality
+    hotTopicsTrack.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        pauseAutoSlide();
+    });
+    
+    hotTopicsTrack.addEventListener('touchmove', (e) => {
+        touchEndX = e.touches[0].clientX;
+    });
+    
+    hotTopicsTrack.addEventListener('touchend', () => {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next
+                currentIndex = (currentIndex + 1) % totalCards;
+            } else {
+                // Swipe right - previous
+                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            }
+            goToIndex(currentIndex);
         }
+        resumeAutoSlide();
+    });
+    
+    // Mouse drag functionality
+    hotTopicsTrack.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        pauseAutoSlide();
+        e.preventDefault();
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        dragCurrentX = e.clientX;
+        const diff = dragStartX - dragCurrentX;
+        const translateX = -currentIndex * cardWidth - diff;
+        hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
+    });
+    
+    document.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const diff = dragStartX - dragCurrentX;
+        const swipeThreshold = 50;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Drag left - next
+                currentIndex = (currentIndex + 1) % totalCards;
+            } else {
+                // Drag right - previous
+                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            }
+        }
+        
+        goToIndex(currentIndex);
+        resumeAutoSlide();
+    });
+    
+    // Start auto sliding initially
+    startAutoSlide();
+    
+    // Pause auto sliding when hovering
+    hotTopicsTrack.addEventListener('mouseenter', pauseAutoSlide);
+    hotTopicsTrack.addEventListener('mouseleave', () => {
+        if (isAutoSliding) startAutoSlide();
+    });
+}
+                
         
         // Detect user's country using IP
         function detectCountry() {
