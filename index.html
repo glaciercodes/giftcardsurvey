@@ -12,1121 +12,1043 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <style>
         /* Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #000;
-    color: #fff;
-    line-height: 1.6;
-}
-
-a {
-    text-decoration: none;
-    color: #fff;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* Header Styles */
-header {
-    background-color: #000;
-    padding: 15px 0;
-    border-bottom: 1px solid #333;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.hamburger-menu {
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    z-index: 101;
-}
-
-.logo {
-    width: 150px;
-    height: 50px;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #000;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.latest-report {
-    color: #ff6600;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.search-icon {
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Mobile Menu */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100%;
-    background-color: #111;
-    padding: 80px 20px 20px;
-    transition: left 0.3s ease;
-    z-index: 99;
-    overflow-y: auto;
-}
-
-.mobile-menu.active {
-    left: 0;
-}
-
-.mobile-menu-links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.mobile-menu-link {
-    padding: 12px 15px;
-    border-bottom: 1px solid #333;
-    font-size: 18px;
-    transition: color 0.3s;
-}
-
-.mobile-menu-link:hover {
-    color: #ff6600;
-}
-
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 98;
-    display: none;
-}
-
-.menu-overlay.active {
-    display: block;
-}
-
-/* Search Modal */
-.search-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 102;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-
-.search-modal.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.search-container {
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-}
-
-.search-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #ff6600;
-}
-
-.search-box {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-.search-input {
-    flex: 1;
-    padding: 15px;
-    border: 2px solid #ff6600;
-    background-color: #000;
-    color: #fff;
-    font-size: 16px;
-}
-
-.search-button {
-    background-color: #ff6600;
-    color: #fff;
-    border: none;
-    padding: 0 25px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.search-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.search-filter {
-    background-color: #222;
-    color: #fff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.search-filter.active {
-    background-color: #ff6600;
-}
-
-.search-results {
-    text-align: left;
-    max-height: 300px;
-    overflow-y: auto;
-    margin-top: 20px;
-}
-
-.search-result-item {
-    padding: 15px;
-    border-bottom: 1px solid #333;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.search-result-item:hover {
-    background-color: #222;
-}
-
-.search-result-category {
-    color: #ff6600;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-.search-result-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.search-result-snippet {
-    color: #aaa;
-    font-size: 14px;
-}
-
-.close-search {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Category Bar */
-.category-bar {
-    background-color: #111;
-    padding: 15px 0;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-}
-
-.category-bar::-webkit-scrollbar {
-    display: none;
-}
-
-.categories {
-    display: flex;
-    gap: 20px;
-    padding: 0 15px;
-}
-
-.category-btn {
-    background-color: transparent;
-    color: #fff;
-    border: 1px solid #333;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.category-btn.active {
-    background-color: #ff6600;
-    border-color: #ff6600;
-}
-
-/* NEW: Hot Topics Banner Section */
-.hot-topics-section {
-    margin: 30px 0;
-    padding: 20px 0;
-    position: relative;
-}
-
-.hot-topics-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.hot-topics-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #ff6600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.close-hot-topics {
-    background: none;
-    border: none;
-    color: #999;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.3s;
-    padding: 5px;
-}
-
-.close-hot-topics:hover {
-    color: #ff6600;
-}
-
-.hot-topics-carousel {
-    position: relative;
-    overflow: hidden;
-    padding: 10px 0;
-}
-
-.hot-topics-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.5s ease;
-}
-
-.hot-topic-card {
-    flex: 0 0 280px;
-    background: #111;
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.3s ease;
-    border: 1px solid #333;
-    height: 320px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.hot-topic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
-    border-color: #ff6600;
-}
-
-.hot-topic-card-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    border: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    transition: all 0.3s ease;
-}
-
-.hot-topic-card-close:hover {
-    background: #ff6600;
-    transform: scale(1.1);
-}
-
-.hot-topic-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #fff;
-    line-height: 1.4;
-    padding-right: 20px;
-}
-
-.hot-topic-content {
-    flex: 1;
-    margin-bottom: 15px;
-    color: #ccc;
-    font-size: 14px;
-    line-height: 1.5;
-    padding-right: 90px;
-}
-
-.hot-topic-image {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.hot-topic-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.hot-topic-card:hover .hot-topic-image img {
-    transform: scale(1.05);
-}
-
-.hot-topics-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 102, 0, 0.9);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.hot-topics-section:hover .hot-topics-nav {
-    opacity: 1;
-}
-
-.hot-topics-prev {
-    left: 10px;
-}
-
-.hot-topics-next {
-    right: 10px;
-}
-
-.hot-topics-nav:hover {
-    background: #ff6600;
-}
-
-.hot-topics-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.hot-topic-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #333;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.hot-topic-dot.active {
-    background: #ff6600;
-}
-
-/* Content Styles */
-.content {
-    padding: 30px 0;
-}
-
-.article {
-    margin-bottom: 50px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #333;
-}
-
-.category-label {
-    color: #ff6600;
-    font-size: 14px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.category-label::before {
-    content: "●";
-    margin-right: 5px;
-}
-
-.article-title {
-    font-size: 24px;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-/* FIXED: Featured image styling */
-.featured-image {
-    width: 100%;
-    margin: 20px 0;
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-.featured-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-}
-
-.article-meta {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.author-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.author-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.author-name {
-    font-weight: 600;
-}
-
-.date {
-    color: #999;
-    font-size: 14px;
-}
-
-.share-section {
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.share-label {
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 5px;
-}
-
-.share-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.share-btn {
-    color: #ff6600;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-}
-
-.share-text {
-    font-size: 10px;
-    color: #999;
-}
-
-.article-content {
-    margin-bottom: 20px;
-}
-
-.article-content p {
-    margin-bottom: 15px;
-}
-
-.article-content strong {
-    font-weight: 700;
-    color: #ff6600;
-}
-
-/* NEW: Video Styling for Christmas article */
-.country-video {
-    margin: 25px 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
-}
-
-.country-video video {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.video-caption {
-    text-align: center;
-    font-size: 14px;
-    color: #999;
-    margin-top: 8px;
-    font-style: italic;
-    padding: 0 10px;
-}
-
-.country-section {
-    margin: 40px 0;
-}
-
-.country-title {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: #ff6600;
-    border-left: 4px solid #ff6600;
-    padding-left: 10px;
-}
-
-.highlight-box {
-    background-color: #111;
-    border: 1px solid #333;
-    border-left: 4px solid #ff6600;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 4px;
-}
-
-.highlight-title {
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #ff6600;
-    font-size: 16px;
-}
-
-.highlight-box ul {
-    list-style-position: inside;
-}
-
-.highlight-box li {
-    margin-bottom: 8px;
-    padding-left: 5px;
-}
-
-.comments-link {
-    color: #ff6600;
-    font-weight: 600;
-}
-
-/* Contact Email Section */
-.contact-section {
-    padding: 30px 0;
-    border-top: 1px solid #333;
-    text-align: center;
-}
-
-.contact-title {
-    font-size: 22px;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.contact-email {
-    color: #ff6600;
-    font-size: 18px;
-}
-
-/* Recently Added Section */
-.recently-added {
-    padding: 30px 0;
-    border-top: 1px solid #333;
-}
-
-.section-title {
-    font-size: 22px;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.recent-articles {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.recent-article {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #222;
-}
-
-.recent-img {
-    width: 80px;
-    height: 60px;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 10px;
-    flex-shrink: 0;
-}
-
-.recent-content {
-    flex: 1;
-}
-
-.recent-title {
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.recent-time {
-    color: #999;
-    font-size: 12px;
-}
-
-.recent-share {
-    color: #ff6600;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    flex-shrink: 0;
-}
-
-.recent-share-text {
-    font-size: 10px;
-    color: #999;
-}
-
-/* Go Up Button */
-.go-up {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background-color: #ff6600;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 90;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-
-.go-up.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.go-up i {
-    color: #000;
-    font-size: 20px;
-}
-
-/* Footer */
-footer {
-    background-color: #111;
-    padding: 40px 0 20px;
-    border-top: 1px solid #333;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.subscribe-section {
-    text-align: center;
-}
-
-.subscribe-title {
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-.subscribe-form {
-    display: flex;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.email-input {
-    flex: 1;
-    padding: 12px 15px;
-    border: 1px solid #333;
-    background-color: #000;
-    color: #fff;
-}
-
-.subscribe-btn {
-    background-color: #ff6600;
-    color: #fff;
-    border: none;
-    padding: 0 20px;
-    cursor: pointer;
-    height: 40px;
-}
-
-.footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.footer-link {
-    color: #ff6600;
-}
-
-.copyright {
-    text-align: center;
-    margin-top: 30px;
-    color: #666;
-    font-size: 14px;
-}
-
-/* Subscription Message Styles */
-.subscription-message {
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    text-align: center;
-    display: none;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.subscription-message.success {
-    background: rgba(46, 204, 113, 0.1);
-    color: #2ecc71;
-    border: 1px solid #2ecc71;
-}
-
-.subscription-message.error {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
-    border: 1px solid #e74c3c;
-}
-
-.subscription-message.info {
-    background: rgba(52, 152, 219, 0.1);
-    color: #3498db;
-    border: 1px solid #3498db;
-}
-
-/* Horizontal Scrolling Sections */
-.horizontal-section {
-    margin: 50px 0;
-    padding: 30px 0;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
-}
-
-.horizontal-title {
-    font-size: 22px;
-    margin-bottom: 20px;
-    font-weight: 700;
-    color: #ff6600;
-}
-
-.scroll-container {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px 0;
-    -webkit-overflow-scrolling: touch;
-}
-
-.scroll-container::-webkit-scrollbar {
-    display: none;
-}
-
-.scroll-content {
-    display: inline-flex;
-    gap: 20px;
-}
-
-.scroll-card {
-    width: 280px;
-    background-color: #111;
-    border-radius: 10px;
-    padding: 20px;
-    display: inline-block;
-    white-space: normal;
-    vertical-align: top;
-    border: 1px solid #333;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.scroll-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2);
-}
-
-.scroll-img {
-    width: 100%;
-    height: 160px;
-    background-color: #333;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    overflow: hidden;
-}
-
-.scroll-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.scroll-card-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.scroll-card-content {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #ccc;
-    margin-bottom: 15px;
-    height: 80px;
-    overflow: hidden;
-}
-
-.scroll-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.read-more {
-    color: #ff6600;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.scroll-share {
-    color: #ff6600;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* Mobile Responsive */
-@media (min-width: 768px) {
-    .article-title {
-        font-size: 28px;
-    }
-    
-    .featured-image {
-        height: 350px;
-    }
-    
-    .featured-image img {
-        height: 350px;
-    }
-    
-    .country-video {
-        max-width: 800px;
-        margin: 25px auto;
-    }
-    
-    .recent-articles {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-    
-    .footer-content {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-    
-    .subscribe-section {
-        text-align: left;
-    }
-    
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .latest-report {
-        font-size: 16px;
-    }
-    
-    .hot-topic-card {
-        flex: 0 0 300px;
-    }
-    
-    .hot-topic-content {
-        padding-right: 100px;
-    }
-    
-    .hot-topic-image {
-        width: 90px;
-        height: 90px;
-    }
-}
-
-@media (max-width: 767px) {
-    .header-right {
-        gap: 15px;
-    }
-    
-    .latest-report {
-        font-size: 12px;
-    }
-    
-    .subscribe-form {
-        flex-direction: column;
-    }
-    
-    .scroll-card {
-        width: 260px;
-    }
-    
-    .country-video video {
-        max-height: 300px;
-    }
-    
-    .country-title {
-        font-size: 20px;
-    }
-    
-    .hot-topics-title {
-        font-size: 20px;
-    }
-    
-    .hot-topic-card {
-        flex: 0 0 250px;
-        height: 300px;
-    }
-    
-    .hot-topic-content {
-        padding-right: 85px;
-        font-size: 13px;
-    }
-    
-    .hot-topic-image {
-        width: 70px;
-        height: 70px;
-        bottom: 10px;
-        right: 10px;
-    }
-    
-    .hot-topics-nav {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .hot-topic-card {
-        flex: 0 0 220px;
-        height: 280px;
-    }
-    
-    .hot-topic-title {
-        font-size: 16px;
-    }
-    
-    .hot-topic-content {
-        padding-right: 75px;
-        font-size: 12px;
-    }
-    
-    .hot-topic-image {
-        width: 60px;
-        height: 60px;
-        bottom: 8px;
-        right: 8px;
-    }
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .search-icon {
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Search Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 102;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .search-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .search-container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .search-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ff6600;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-filter {
+            background-color: #222;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-filter.active {
+            background-color: #ff6600;
+        }
+        
+        .search-results {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background-color: #222;
+        }
+        
+        .search-result-category {
+            color: #ff6600;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-snippet {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .close-search {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Category Bar */
+        .category-bar {
+            background-color: #111;
+            padding: 15px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-bar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 20px;
+            padding: 0 15px;
+        }
+        
+        .category-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background-color: #ff6600;
+            border-color: #ff6600;
+        }
+        
+        /* NEW: Hot Topics Banner Section */
+        .hot-topics-banner {
+            margin: 30px 0;
+            position: relative;
+            display: block;
+        }
+        
+        .hot-topics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+        
+        .hot-topics-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .close-banner {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s;
+        }
+        
+        .close-banner:hover {
+            color: #ff6600;
+        }
+        
+        .hot-topics-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #111;
+            border: 1px solid #333;
+        }
+        
+        .hot-topics-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            padding: 0;
+            min-height: 180px;
+        }
+        
+        .topic-card {
+            flex: 0 0 100%;
+            padding: 20px;
+            background: #111;
+            border-right: 1px solid #333;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topic-card:hover {
+            background-color: #1a1a1a;
+        }
+        
+        .topic-card:last-child {
+            border-right: none;
+        }
+        
+        .topic-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+            padding-right: 40px;
+        }
+        
+        .topic-content {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 60px;
+            flex: 1;
+        }
+        
+        .topic-image {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+        }
+        
+        .topic-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .carousel-nav:hover {
+            background: rgba(255, 102, 0, 0.8);
+        }
+        
+        .carousel-nav.prev {
+            left: 10px;
+        }
+        
+        .carousel-nav.next {
+            right: 10px;
+        }
+        
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #333;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .carousel-dot.active {
+            background: #ff6600;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 0 0 30px;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .category-label {
+            color: #ff6600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-label::before {
+            content: "●";
+            margin-right: 5px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        /* FIXED: Featured image styling */
+        .featured-image {
+            width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 20px;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        /* NEW: Video Styling for Christmas article */
+        .country-video {
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+        }
+        
+        .country-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-caption {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-top: 8px;
+            font-style: italic;
+            padding: 0 10px;
+        }
+        
+        .country-section {
+            margin: 40px 0;
+        }
+        
+        .country-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ff6600;
+            border-left: 4px solid #ff6600;
+            padding-left: 10px;
+        }
+        
+        .highlight-box {
+            background-color: #111;
+            border: 1px solid #333;
+            border-left: 4px solid #ff6600;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ff6600;
+            font-size: 16px;
+        }
+        
+        .highlight-box ul {
+            list-style-position: inside;
+        }
+        
+        .highlight-box li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        .comments-link {
+            color: #ff6600;
+            font-weight: 600;
+        }
+        
+        /* Contact Email Section */
+        .contact-section {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .contact-email {
+            color: #ff6600;
+            font-size: 18px;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .recent-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Go Up Button */
+        .go-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .go-up.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-up i {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+          height: 40px 
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
+        /* Horizontal Scrolling Sections */
+        .horizontal-section {
+            margin: 50px 0;
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        
+        .horizontal-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .scroll-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scroll-content {
+            display: inline-flex;
+            gap: 20px;
+        }
+        
+        .scroll-card {
+            width: 280px;
+            background-color: #111;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            white-space: normal;
+            vertical-align: top;
+            border: 1px solid #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .scroll-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2);
+        }
+        
+        .scroll-img {
+            width: 100%;
+            height: 160px;
+            background-color: #333;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            overflow: hidden;
+        }
+        
+        .scroll-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scroll-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .scroll-card-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ccc;
+            margin-bottom: 15px;
+            height: 80px;
+            overflow: hidden;
+        }
+        
+        .scroll-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .scroll-share {
+            color: #ff6600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 28px;
+            }
+            
+            .featured-image {
+                height: 350px;
+            }
+            
+            .featured-image img {
+                height: 350px;
+            }
+            
+            .country-video {
+                max-width: 800px;
+                margin: 25px auto;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .latest-report {
+                font-size: 16px;
+            }
+            
+            /* Hot Topics Desktop */
+            .topic-card {
+                flex: 0 0 50%;
+            }
+            
+            .carousel-nav {
+                display: flex;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-right {
+                gap: 15px;
+            }
+            
+            .latest-report {
+                font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .scroll-card {
+                width: 260px;
+            }
+            
+            .country-video video {
+                max-height: 300px;
+            }
+            
+            .country-title {
+                font-size: 20px;
+            }
+            
+            /* Hot Topics Mobile */
+            .carousel-nav {
+                display: none;
+            }
+            
+            .hot-topics-title {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1200,33 +1122,30 @@ footer {
         </div>
     </div>
 
-    <!-- NEW: Hot Topics Banner Section -->
-    <div class="container hot-topics-section" id="hot-topics-section">
+    <!-- NEW: Hot Topics Now Banner -->
+    <div class="container hot-topics-banner" id="hot-topics-banner">
         <div class="hot-topics-header">
-            <h2 class="hot-topics-title">
-                Hot Topics Now 🔥
-            </h2>
-            <button class="close-hot-topics" id="close-hot-topics">
+            <h2 class="hot-topics-title">Hot Topics Now 🔥</h2>
+            <button class="close-banner" id="close-banner">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
         <div class="hot-topics-carousel">
-            <button class="hot-topics-nav hot-topics-prev">
+            <button class="carousel-nav prev" id="prev-btn">
                 <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-nav next" id="next-btn">
+                <i class="fas fa-chevron-right"></i>
             </button>
             
             <div class="hot-topics-track" id="hot-topics-track">
-                <!-- Cards will be inserted here by JavaScript -->
+                <!-- Cards will be populated by JavaScript -->
             </div>
-            
-            <button class="hot-topics-nav hot-topics-next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
         </div>
         
-        <div class="hot-topics-dots" id="hot-topics-dots">
-            <!-- Dots will be inserted here by JavaScript -->
+        <div class="carousel-dots" id="carousel-dots">
+            <!-- Dots will be populated by JavaScript -->
         </div>
     </div>
 
@@ -2489,70 +2408,78 @@ footer {
         }
         const db = firebase.firestore();
 
-        // NEW: Hot Topics Data and Functionality
+        // NEW: Hot Topics Data
         const hotTopicsData = [
             {
                 id: 1,
                 title: "How to jump 1",
-                content: "Mastering the vertical jump requires explosive power from your legs and core. Focus on squat exercises, plyometric training, and proper landing techniques. Consistency and gradual progression are key to improving your jumping ability safely and effectively.",
-                image: "https://images.unsplash.com/photo-1594736797933-d0de0a2c5d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Master the basics of vertical jumping with proper form, strength training, and plyometric exercises to maximize your height and efficiency.",
+                image: "https://images.unsplash.com/photo-1511984804822-e16ba72f5840?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "x.html"
             },
             {
                 id: 2,
                 title: "How to jump 2",
-                content: "For basketball players, jumping higher improves rebounding and blocking shots. Incorporate box jumps, depth jumps, and resistance band training into your routine. Proper warm-up and recovery are essential to prevent injuries and maximize performance gains.",
-                image: "https://images.unsplash.com/photo-1544919982-b61976a0d7ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Advanced techniques for explosive power development including depth jumps, box jumps, and weighted squat variations for athletes.",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "y.html"
             },
             {
                 id: 3,
                 title: "How to jump 3",
-                content: "Parkour enthusiasts need dynamic jumping skills. Practice precision jumps, wall jumps, and distance jumps on safe surfaces. Develop spatial awareness and learn to read obstacles before attempting complex jumps in urban environments.",
-                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Olympic athlete secrets: proper warm-up routines, recovery strategies, and mental preparation for maximum jumping performance.",
+                image: "https://images.unsplash.com/photo-1576678927484-cc9079570c5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "v.html"
             },
             {
                 id: 4,
                 title: "How to jump 4",
-                content: "High jump techniques involve the Fosbury Flop approach. Master the curved approach, proper takeoff, and arching over the bar. Work on flexibility, speed, and timing to clear greater heights in track and field competitions.",
-                image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Overcoming plateaus with periodization training, nutrition optimization, and technique refinement for consistent improvement.",
+                image: "https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "x.html"
             },
             {
                 id: 5,
                 title: "How to jump 5",
-                content: "Long jump requires explosive power and precise technique. Focus on the approach run, takeoff board accuracy, flight phase, and landing. Develop sprinting speed and leg strength to maximize your jumping distance.",
-                image: "https://images.unsplash.com/photo-1600861194941-5e03b3cce287?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Basketball dunking techniques: specific exercises and drills to increase vertical jump for dunking success on the court.",
+                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "y.html"
             },
             {
                 id: 6,
                 title: "How to jump 6",
-                content: "Ski jumping combines technique, courage, and aerodynamics. Learn the in-run position, takeoff timing, flight posture, and telemark landing. Weather conditions and hill size significantly impact jumping performance and safety.",
-                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Parkour jumping fundamentals: learning to jump efficiently across different terrains and obstacles with safety techniques.",
+                image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "v.html"
             },
             {
                 id: 7,
                 title: "How to jump 7",
-                content: "Bungee jumping requires mental preparation and safety checks. Choose reputable operators with certified equipment. Follow instructions carefully regarding body position and enjoy the adrenaline rush while maintaining safety protocols.",
-                image: "https://images.unsplash.com/photo-1544551763-77efc0c4d0dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Long jump techniques for track athletes: approach runs, takeoff mechanics, and flight position optimization strategies.",
+                image: "https://images.unsplash.com/photo-1552674605-db6ffd8facb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "x.html"
             },
             {
                 id: 8,
                 title: "How to jump 8",
-                content: "Trampoline jumping develops air awareness and body control. Master basic bounces, seat drops, and knee drops before attempting flips. Always use safety nets and spotters when learning new trampoline skills.",
-                image: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                content: "Injury prevention while jumping: common mistakes to avoid, proper landing techniques, and recovery protocols for jumpers.",
+                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
+                link: "y.html"
             }
         ];
 
+        // DOM elements for Hot Topics
+        const hotTopicsBanner = document.getElementById('hot-topics-banner');
+        const closeBannerBtn = document.getElementById('close-banner');
+        const hotTopicsTrack = document.getElementById('hot-topics-track');
+        const carouselDots = document.getElementById('carousel-dots');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
         // DOM elements for footer subscription
         const footerSubscribeForm = document.getElementById('footer-subscribe-form');
         const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
         const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
-        
-        // Hot Topics elements
-        const hotTopicsSection = document.getElementById('hot-topics-section');
-        const hotTopicsTrack = document.getElementById('hot-topics-track');
-        const hotTopicsDots = document.getElementById('hot-topics-dots');
-        const closeHotTopics = document.getElementById('close-hot-topics');
-        const hotTopicsPrev = document.querySelector('.hot-topics-prev');
-        const hotTopicsNext = document.querySelector('.hot-topics-next');
         
         // User data
         let userCountry = "Unknown";
@@ -2695,13 +2622,21 @@ footer {
             }
         ];
 
+        // NEW: Hot Topics Carousel Variables
+        let currentSlide = 0;
+        let autoSlideInterval;
+        let isUserInteracting = false;
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Detect user's country
             detectCountry();
             
             // Initialize Hot Topics Carousel
-            initHotTopicsCarousel();
+            initializeHotTopicsCarousel();
             
             // Set up event listeners for footer subscription
             footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
@@ -2711,231 +2646,203 @@ footer {
         });
         
         // NEW: Initialize Hot Topics Carousel
-function initHotTopicsCarousel() {
-    // Create cards
-    hotTopicsData.forEach((topic, index) => {
-        const card = document.createElement('div');
-        card.className = 'hot-topic-card';
-        card.setAttribute('data-index', index);
-        card.innerHTML = `
-            <button class="hot-topic-card-close" data-card-index="${index}">
-                <i class="fas fa-times"></i>
-            </button>
-            <h3 class="hot-topic-title">${topic.title}</h3>
-            <div class="hot-topic-content">
-                ${topic.content}
-            </div>
-            <div class="hot-topic-image">
-                <img src="${topic.image}" alt="${topic.title}">
-            </div>
-        `;
-        hotTopicsTrack.appendChild(card);
-        
-        // Create dot
-        const dot = document.createElement('div');
-        dot.className = 'hot-topic-dot';
-        if (index === 0) dot.classList.add('active');
-        dot.setAttribute('data-index', index);
-        hotTopicsDots.appendChild(dot);
-    });
-    
-    // Set up carousel functionality
-    setupHotTopicsCarousel();
-}
-        
-        // NEW: Set up Hot Topics Carousel functionality
-function setupHotTopicsCarousel() {
-    let currentIndex = 0;
-    const cardWidth = 280; // Card width + gap
-    const totalCards = hotTopicsData.length;
-    let autoSlideInterval;
-    let isAutoSliding = true;
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let isDragging = false;
-    let dragStartX = 0;
-    let dragCurrentX = 0;
-    
-    // Function to move to specific index
-    function goToIndex(index) {
-        currentIndex = index;
-        const translateX = -currentIndex * cardWidth;
-        hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
-        
-        // Update dots
-        document.querySelectorAll('.hot-topic-dot').forEach((dot, i) => {
-            if (i === currentIndex) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
+        function initializeHotTopicsCarousel() {
+            // Check if banner should be shown (based on localStorage)
+            const bannerHidden = localStorage.getItem('hotTopicsBannerHidden');
+            if (bannerHidden === 'true') {
+                hotTopicsBanner.style.display = 'none';
+                return;
             }
-        });
-    }
-    
-    // Function to start auto sliding
-    function startAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        if (!isAutoSliding) return;
+            
+            // Create cards
+            hotTopicsData.forEach((topic, index) => {
+                const card = document.createElement('div');
+                card.className = 'topic-card';
+                card.setAttribute('data-index', index);
+                card.innerHTML = `
+                    <h3 class="topic-title">${topic.title}</h3>
+                    <div class="topic-content">${topic.content}</div>
+                    <div class="topic-image">
+                        <img src="${topic.image}" alt="${topic.title}">
+                    </div>
+                `;
+                
+                // Add click event to navigate
+                card.addEventListener('click', function() {
+                    window.location.href = topic.link;
+                });
+                
+                hotTopicsTrack.appendChild(card);
+            });
+            
+            // Create dots
+            hotTopicsData.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot';
+                dot.setAttribute('data-index', index);
+                if (index === 0) dot.classList.add('active');
+                
+                dot.addEventListener('click', function() {
+                    goToSlide(index);
+                    resetAutoSlide();
+                });
+                
+                carouselDots.appendChild(dot);
+            });
+            
+            // Set up navigation buttons
+            prevBtn.addEventListener('click', function() {
+                prevSlide();
+                resetAutoSlide();
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                nextSlide();
+                resetAutoSlide();
+            });
+            
+            // Set up touch/swipe events
+            setupTouchEvents();
+            
+            // Start auto sliding
+            startAutoSlide();
+        }
         
-        autoSlideInterval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % totalCards;
-            goToIndex(currentIndex);
-        }, 2000); // Auto-slide every 2 seconds
-    }
-    
-    // Function to stop auto sliding temporarily
-    function pauseAutoSlide() {
-        isAutoSliding = false;
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-    }
-    
-    // Function to resume auto sliding after delay
-    function resumeAutoSlide() {
-        isAutoSliding = true;
-        setTimeout(startAutoSlide, 3000); // Resume after 3 seconds
-    }
-    
-    // Navigation buttons
-    hotTopicsPrev.addEventListener('click', () => {
-        pauseAutoSlide();
-        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-        goToIndex(currentIndex);
-        resumeAutoSlide();
-    });
-    
-    hotTopicsNext.addEventListener('click', () => {
-        pauseAutoSlide();
-        currentIndex = (currentIndex + 1) % totalCards;
-        goToIndex(currentIndex);
-        resumeAutoSlide();
-    });
-    
-    // Dot navigation
-    document.querySelectorAll('.hot-topic-dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-            pauseAutoSlide();
-            const index = parseInt(dot.getAttribute('data-index'));
-            goToIndex(index);
-            resumeAutoSlide();
-        });
-    });
-    
-    // Card click navigation
-    document.querySelectorAll('.hot-topic-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-            // Don't navigate if clicking close button
-            if (e.target.closest('.hot-topic-card-close')) return;
+        // NEW: Carousel Functions
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            const track = document.getElementById('hot-topics-track');
+            const cardWidth = 100; // Percentage for mobile
+            const translateX = -(currentSlide * cardWidth);
+            track.style.transform = `translateX(${translateX}%)`;
             
-            pauseAutoSlide();
-            // Navigate to x.html
-            window.location.href = 'x.html';
-        });
-    });
-    
-    // Card close buttons - TEMPORARY hide only
-    document.querySelectorAll('.hot-topic-card-close').forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent card click event
-            const cardIndex = parseInt(button.getAttribute('data-card-index'));
-            const card = document.querySelector(`.hot-topic-card[data-index="${cardIndex}"]`);
+            // Update active dot
+            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % hotTopicsData.length;
+            goToSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + hotTopicsData.length) % hotTopicsData.length;
+            goToSlide(currentSlide);
+        }
+        
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 2000); // Change every 2 seconds
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+        
+        function resetAutoSlide() {
+            stopAutoSlide();
+            isUserInteracting = true;
             
-            // Temporarily hide the specific card with animation
-            card.style.opacity = '0';
-            card.style.transform = 'scale(0.9)';
+            // Resume auto sliding after 3 seconds of no interaction
             setTimeout(() => {
-                card.style.display = 'none';
-                
-                // If all cards are closed, hide the entire section (temporarily)
-                const visibleCards = document.querySelectorAll('.hot-topic-card[style*="display: block"], .hot-topic-card:not([style*="display"])');
-                if (visibleCards.length === 0) {
-                    hotTopicsSection.style.display = 'none';
-                }
-            }, 300);
+                isUserInteracting = false;
+                startAutoSlide();
+            }, 3000);
+        }
+        
+        // NEW: Touch/Swipe Events
+        function setupTouchEvents() {
+            const track = document.getElementById('hot-topics-track');
             
-            pauseAutoSlide();
-            resumeAutoSlide();
+            track.addEventListener('touchstart', handleTouchStart, { passive: true });
+            track.addEventListener('touchmove', handleTouchMove, { passive: true });
+            track.addEventListener('touchend', handleTouchEnd);
+            
+            // Mouse events for desktop
+            track.addEventListener('mousedown', handleMouseDown);
+            track.addEventListener('mousemove', handleMouseMove);
+            track.addEventListener('mouseup', handleMouseUp);
+            track.addEventListener('mouseleave', handleMouseLeave);
+        }
+        
+        function handleTouchStart(e) {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            stopAutoSlide();
+        }
+        
+        function handleTouchMove(e) {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+            
+            // Only prevent default if we're actually dragging horizontally
+            if (Math.abs(diff) > 10) {
+                e.preventDefault();
+            }
+        }
+        
+        function handleTouchEnd(e) {
+            if (!isDragging) return;
+            
+            const diff = startX - currentX;
+            const threshold = 50; // Minimum swipe distance
+            
+            if (diff > threshold) {
+                // Swipe left - next slide
+                nextSlide();
+            } else if (diff < -threshold) {
+                // Swipe right - previous slide
+                prevSlide();
+            }
+            
+            isDragging = false;
+            resetAutoSlide();
+        }
+        
+        function handleMouseDown(e) {
+            startX = e.clientX;
+            isDragging = true;
+            stopAutoSlide();
+        }
+        
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            currentX = e.clientX;
+        }
+        
+        function handleMouseUp(e) {
+            if (!isDragging) return;
+            
+            const diff = startX - currentX;
+            const threshold = 50; // Minimum drag distance
+            
+            if (diff > threshold) {
+                // Drag left - next slide
+                nextSlide();
+            } else if (diff < -threshold) {
+                // Drag right - previous slide
+                prevSlide();
+            }
+            
+            isDragging = false;
+            resetAutoSlide();
+        }
+        
+        function handleMouseLeave() {
+            if (isDragging) {
+                isDragging = false;
+                resetAutoSlide();
+            }
+        }
+        
+        // NEW: Close Banner Functionality
+        closeBannerBtn.addEventListener('click', function() {
+            hotTopicsBanner.style.display = 'none';
+            // Save preference to localStorage
+            localStorage.setItem('hotTopicsBannerHidden', 'true');
         });
-    });
-    
-    // Section close button - TEMPORARY hide only
-    closeHotTopics.addEventListener('click', () => {
-        hotTopicsSection.style.display = 'none';
-    });
-    
-    // Touch/swipe functionality
-    hotTopicsTrack.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        pauseAutoSlide();
-    });
-    
-    hotTopicsTrack.addEventListener('touchmove', (e) => {
-        touchEndX = e.touches[0].clientX;
-    });
-    
-    hotTopicsTrack.addEventListener('touchend', () => {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe left - next
-                currentIndex = (currentIndex + 1) % totalCards;
-            } else {
-                // Swipe right - previous
-                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-            }
-            goToIndex(currentIndex);
-        }
-        resumeAutoSlide();
-    });
-    
-    // Mouse drag functionality
-    hotTopicsTrack.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        dragStartX = e.clientX;
-        pauseAutoSlide();
-        e.preventDefault();
-    });
-    
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        dragCurrentX = e.clientX;
-        const diff = dragStartX - dragCurrentX;
-        const translateX = -currentIndex * cardWidth - diff;
-        hotTopicsTrack.style.transform = `translateX(${translateX}px)`;
-    });
-    
-    document.addEventListener('mouseup', () => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const diff = dragStartX - dragCurrentX;
-        const swipeThreshold = 50;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Drag left - next
-                currentIndex = (currentIndex + 1) % totalCards;
-            } else {
-                // Drag right - previous
-                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-            }
-        }
-        
-        goToIndex(currentIndex);
-        resumeAutoSlide();
-    });
-    
-    // Start auto sliding initially
-    startAutoSlide();
-    
-    // Pause auto sliding when hovering
-    hotTopicsTrack.addEventListener('mouseenter', pauseAutoSlide);
-    hotTopicsTrack.addEventListener('mouseleave', () => {
-        if (isAutoSliding) startAutoSlide();
-    });
-}
-                
         
         // Detect user's country using IP
         function detectCountry() {
