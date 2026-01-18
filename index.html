@@ -2675,46 +2675,23 @@
             // Set up other event listeners from original code
             setupEventListeners();
         });
-        
         // NEW: Initialize Hot Topics Carousel
-        function initHotTopicsCarousel() {
-            // Check if user has dismissed the section before
-            const isDismissed = localStorage.getItem('hotTopicsDismissed');
-            if (isDismissed === 'true') {
-                hotTopicsSection.style.display = 'none';
-                return;
-            }
-            
-            // Create cards
-            hotTopicsData.forEach((topic, index) => {
-                const card = document.createElement('div');
-                card.className = 'hot-topic-card';
-                card.setAttribute('data-index', index);
-                card.innerHTML = `
-                    <button class="hot-topic-card-close" data-card-index="${index}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <h3 class="hot-topic-title">${topic.title}</h3>
-                    <div class="hot-topic-content">
-                        ${topic.content}
-                    </div>
-                    <div class="hot-topic-image">
-                        <img src="${topic.image}" alt="${topic.title}">
-                    </div>
-                `;
-                hotTopicsTrack.appendChild(card);
-                
-                // Create dot
-                const dot = document.createElement('div');
-                dot.className = 'hot-topic-dot';
-                if (index === 0) dot.classList.add('active');
-                dot.setAttribute('data-index', index);
-                hotTopicsDots.appendChild(dot);
-            });
-            
-            // Set up carousel functionality
-            setupHotTopicsCarousel();
-        }
+function initHotTopicsCarousel() {
+    // REMOVED: Check if user has dismissed the section before
+    // const isDismissed = localStorage.getItem('hotTopicsDismissed');
+    // if (isDismissed === 'true') {
+    //     hotTopicsSection.style.display = 'none';
+    //     return;
+    // }
+    
+    // Create cards
+    hotTopicsData.forEach((topic, index) => {
+        // ... rest of the code remains the same
+    });
+    
+    // Set up carousel functionality
+    setupHotTopicsCarousel();
+}
         
         // NEW: Set up Hot Topics Carousel functionality
         function setupHotTopicsCarousel() {
@@ -2806,37 +2783,36 @@
             });
             
             // Card close buttons
-            document.querySelectorAll('.hot-topic-card-close').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent card click event
-                    const cardIndex = parseInt(button.getAttribute('data-card-index'));
-                    const card = document.querySelector(`.hot-topic-card[data-index="${cardIndex}"]`);
-                    
-                    // Hide the specific card
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.9)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                        
-                        // If all cards are closed, hide the entire section
-                        const visibleCards = document.querySelectorAll('.hot-topic-card[style*="display: block"], .hot-topic-card:not([style*="display"])');
-                        if (visibleCards.length === 0) {
-                            hotTopicsSection.style.display = 'none';
-                            localStorage.setItem('hotTopicsDismissed', 'true');
-                        }
-                    }, 300);
-                    
-                    pauseAutoSlide();
-                    resumeAutoSlide();
-                });
-            });
+document.querySelectorAll('.hot-topic-card-close').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent card click event
+        const cardIndex = parseInt(button.getAttribute('data-card-index'));
+        const card = document.querySelector(`.hot-topic-card[data-index="${cardIndex}"]`);
+        
+        // Hide the specific card
+        card.style.opacity = '0';
+        card.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            card.style.display = 'none';
             
-            // Section close button
-            closeHotTopics.addEventListener('click', () => {
+            // If all cards are closed, hide the entire section
+            const visibleCards = document.querySelectorAll('.hot-topic-card[style*="display: block"], .hot-topic-card:not([style*="display"])');
+            if (visibleCards.length === 0) {
                 hotTopicsSection.style.display = 'none';
-                localStorage.setItem('hotTopicsDismissed', 'true');
-            });
-            
+                // REMOVED localStorage.setItem('hotTopicsDismissed', 'true');
+            }
+        }, 300);
+        
+        pauseAutoSlide();
+        resumeAutoSlide();
+    });
+});
+
+// Section close button
+closeHotTopics.addEventListener('click', () => {
+    hotTopicsSection.style.display = 'none';
+    // REMOVED localStorage.setItem('hotTopicsDismissed', 'true');
+});
             // Touch/swipe functionality
             hotTopicsTrack.addEventListener('touchstart', (e) => {
                 touchStartX = e.touches[0].clientX;
