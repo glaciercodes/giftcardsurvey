@@ -303,11 +303,15 @@
             border-color: #ff6600;
         }
         
-        /* NEW: Hot Topics Banner Section */
+        /* NEW: Hot Topics Banner */
         .hot-topics-banner {
-            margin: 30px 0;
             position: relative;
-            display: block;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            margin: 30px 15px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 0;
+            overflow: hidden;
         }
         
         .hot-topics-header {
@@ -315,20 +319,22 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            padding: 0 5px;
         }
         
         .hot-topics-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: #ff6600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .close-banner {
             background: none;
             border: none;
             color: #999;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             padding: 5px;
             transition: color 0.3s;
@@ -340,63 +346,61 @@
         
         .hot-topics-carousel {
             position: relative;
-            width: 100%;
             overflow: hidden;
-            background: #111;
-            border: 1px solid #333;
+            height: 160px;
         }
         
         .hot-topics-track {
             display: flex;
+            gap: 15px;
+            position: absolute;
+            left: 0;
             transition: transform 0.5s ease;
-            padding: 0;
-            min-height: 180px;
+            height: 100%;
         }
         
-        .topic-card {
-            flex: 0 0 100%;
-            padding: 20px;
-            background: #111;
-            border-right: 1px solid #333;
+        .hot-topic-card {
+            flex: 0 0 280px;
+            background-color: #222;
+            padding: 15px;
             position: relative;
             cursor: pointer;
-            transition: background-color 0.3s;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
+            border: 1px solid #444;
+            border-radius: 0;
+            height: 100%;
+            transition: all 0.3s ease;
         }
         
-        .topic-card:hover {
-            background-color: #1a1a1a;
-        }
-        
-        .topic-card:last-child {
-            border-right: none;
+        .hot-topic-card:hover {
+            background-color: #2a2a2a;
+            border-color: #ff6600;
+            transform: translateY(-2px);
         }
         
         .topic-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 700;
             color: #fff;
-            padding-right: 40px;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
         
-        .topic-content {
+        .topic-writeup {
             font-size: 14px;
             color: #ccc;
-            line-height: 1.5;
-            margin-bottom: 60px;
-            flex: 1;
+            line-height: 1.4;
+            margin-bottom: 40px;
         }
         
         .topic-image {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 0;
             overflow: hidden;
+            border: 1px solid #444;
         }
         
         .topic-image img {
@@ -405,60 +409,9 @@
             object-fit: cover;
         }
         
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            border: none;
-            color: #fff;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: background-color 0.3s;
-        }
-        
-        .carousel-nav:hover {
-            background: rgba(255, 102, 0, 0.8);
-        }
-        
-        .carousel-nav.prev {
-            left: 10px;
-        }
-        
-        .carousel-nav.next {
-            right: 10px;
-        }
-        
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .carousel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #333;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .carousel-dot.active {
-            background: #ff6600;
-        }
-        
         /* Content Styles */
         .content {
-            padding: 0 0 30px;
+            padding: 30px 0;
         }
         
         .article {
@@ -1005,13 +958,12 @@
                 font-size: 16px;
             }
             
-            /* Hot Topics Desktop */
-            .topic-card {
-                flex: 0 0 50%;
+            .hot-topics-banner {
+                margin: 30px auto;
             }
             
-            .carousel-nav {
-                display: flex;
+            .hot-topic-card {
+                flex: 0 0 320px;
             }
         }
         
@@ -1040,13 +992,16 @@
                 font-size: 20px;
             }
             
-            /* Hot Topics Mobile */
-            .carousel-nav {
-                display: none;
+            .hot-topic-card {
+                flex: 0 0 250px;
             }
             
-            .hot-topics-title {
-                font-size: 20px;
+            .topic-title {
+                font-size: 15px;
+            }
+            
+            .topic-writeup {
+                font-size: 13px;
             }
         }
     </style>
@@ -1123,31 +1078,91 @@
     </div>
 
     <!-- NEW: Hot Topics Now Banner -->
-    <div class="container hot-topics-banner" id="hot-topics-banner">
+    <section class="hot-topics-banner" id="hot-topics-banner">
         <div class="hot-topics-header">
-            <h2 class="hot-topics-title">Hot Topics Now 🔥</h2>
+            <h2 class="hot-topics-title">
+                <i class="fas fa-fire"></i> Hot Topics Now 🔥
+            </h2>
             <button class="close-banner" id="close-banner">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        
         <div class="hot-topics-carousel">
-            <button class="carousel-nav prev" id="prev-btn">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="carousel-nav next" id="next-btn">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            
             <div class="hot-topics-track" id="hot-topics-track">
-                <!-- Cards will be populated by JavaScript -->
+                <!-- Card 1 -->
+                <div class="hot-topic-card" data-url="x.html">
+                    <h3 class="topic-title">How to jump 1</h3>
+                    <p class="topic-writeup">Master the basics of jumping techniques with proper form and safety measures for beginners starting their fitness journey.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=100&h=100&fit=crop" alt="Jumping exercise">
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="hot-topic-card" data-url="y.html">
+                    <h3 class="topic-title">How to jump 2</h3>
+                    <p class="topic-writeup">Advanced jumping techniques for athletes looking to improve their vertical leap and explosive power in sports.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=100&h=100&fit=crop" alt="Basketball jump">
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="hot-topic-card" data-url="v.html">
+                    <h3 class="topic-title">How to jump 3</h3>
+                    <p class="topic-writeup">Learn parkour jumping skills for urban environments with safety tips and progressive training methods.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1544033527-b192da88d947?w=100&h=100&fit=crop" alt="Parkour jump">
+                    </div>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="hot-topic-card" data-url="x.html">
+                    <h3 class="topic-title">How to jump 4</h3>
+                    <p class="topic-writeup">Jumping for dance performances: techniques for graceful leaps and landings in various dance styles.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=100&h=100&fit=crop" alt="Dance jump">
+                    </div>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="hot-topic-card" data-url="y.html">
+                    <h3 class="topic-title">How to jump 5</h3>
+                    <p class="topic-writeup">Ski jumping fundamentals: from beginner slopes to advanced techniques for winter sports enthusiasts.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1543321269-9d86d3680e1c?w=100&h=100&fit=crop" alt="Ski jump">
+                    </div>
+                </div>
+                
+                <!-- Card 6 -->
+                <div class="hot-topic-card" data-url="v.html">
+                    <h3 class="topic-title">How to jump 6</h3>
+                    <p class="topic-writeup">High jump training programs for track and field athletes focusing on technique and strength development.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=100&h=100&fit=crop" alt="High jump">
+                    </div>
+                </div>
+                
+                <!-- Card 7 -->
+                <div class="hot-topic-card" data-url="x.html">
+                    <h3 class="topic-title">How to jump 7</h3>
+                    <p class="topic-writeup">Bungee jumping safety guide: what to expect and how to prepare for your first extreme jumping experience.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop" alt="Bungee jump">
+                    </div>
+                </div>
+                
+                <!-- Card 8 -->
+                <div class="hot-topic-card" data-url="y.html">
+                    <h3 class="topic-title">How to jump 8</h3>
+                    <p class="topic-writeup">Long jump mastery: techniques for maximizing distance with proper run-up and landing strategies.</p>
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=100&h=100&fit=crop" alt="Long jump">
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="carousel-dots" id="carousel-dots">
-            <!-- Dots will be populated by JavaScript -->
-        </div>
-    </div>
+    </section>
 
     <!-- Content -->
     <div class="container content">
@@ -2408,74 +2423,6 @@
         }
         const db = firebase.firestore();
 
-        // NEW: Hot Topics Data
-        const hotTopicsData = [
-            {
-                id: 1,
-                title: "How to jump 1",
-                content: "Master the basics of vertical jumping with proper form, strength training, and plyometric exercises to maximize your height and efficiency.",
-                image: "https://images.unsplash.com/photo-1511984804822-e16ba72f5840?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "x.html"
-            },
-            {
-                id: 2,
-                title: "How to jump 2",
-                content: "Advanced techniques for explosive power development including depth jumps, box jumps, and weighted squat variations for athletes.",
-                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "y.html"
-            },
-            {
-                id: 3,
-                title: "How to jump 3",
-                content: "Olympic athlete secrets: proper warm-up routines, recovery strategies, and mental preparation for maximum jumping performance.",
-                image: "https://images.unsplash.com/photo-1576678927484-cc9079570c5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "v.html"
-            },
-            {
-                id: 4,
-                title: "How to jump 4",
-                content: "Overcoming plateaus with periodization training, nutrition optimization, and technique refinement for consistent improvement.",
-                image: "https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "x.html"
-            },
-            {
-                id: 5,
-                title: "How to jump 5",
-                content: "Basketball dunking techniques: specific exercises and drills to increase vertical jump for dunking success on the court.",
-                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "y.html"
-            },
-            {
-                id: 6,
-                title: "How to jump 6",
-                content: "Parkour jumping fundamentals: learning to jump efficiently across different terrains and obstacles with safety techniques.",
-                image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "v.html"
-            },
-            {
-                id: 7,
-                title: "How to jump 7",
-                content: "Long jump techniques for track athletes: approach runs, takeoff mechanics, and flight position optimization strategies.",
-                image: "https://images.unsplash.com/photo-1552674605-db6ffd8facb5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "x.html"
-            },
-            {
-                id: 8,
-                title: "How to jump 8",
-                content: "Injury prevention while jumping: common mistakes to avoid, proper landing techniques, and recovery protocols for jumpers.",
-                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80",
-                link: "y.html"
-            }
-        ];
-
-        // DOM elements for Hot Topics
-        const hotTopicsBanner = document.getElementById('hot-topics-banner');
-        const closeBannerBtn = document.getElementById('close-banner');
-        const hotTopicsTrack = document.getElementById('hot-topics-track');
-        const carouselDots = document.getElementById('carousel-dots');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        
         // DOM elements for footer subscription
         const footerSubscribeForm = document.getElementById('footer-subscribe-form');
         const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
@@ -2622,227 +2569,109 @@
             }
         ];
 
-        // NEW: Hot Topics Carousel Variables
-        let currentSlide = 0;
-        let autoSlideInterval;
-        let isUserInteracting = false;
-        let startX = 0;
-        let currentX = 0;
-        let isDragging = false;
-
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Detect user's country
             detectCountry();
             
-            // Initialize Hot Topics Carousel
-            initializeHotTopicsCarousel();
-            
             // Set up event listeners for footer subscription
             footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            
+            // Initialize Hot Topics Carousel
+            initHotTopicsCarousel();
             
             // Set up other event listeners from original code
             setupEventListeners();
         });
         
-        // NEW: Initialize Hot Topics Carousel
-        function initializeHotTopicsCarousel() {
-            // Check if banner should be shown (based on localStorage)
-            const bannerHidden = localStorage.getItem('hotTopicsBannerHidden');
-            if (bannerHidden === 'true') {
-                hotTopicsBanner.style.display = 'none';
-                return;
+        // NEW: Hot Topics Carousel Functionality
+        function initHotTopicsCarousel() {
+            const track = document.getElementById('hot-topics-track');
+            const cards = document.querySelectorAll('.hot-topic-card');
+            const banner = document.getElementById('hot-topics-banner');
+            const closeBtn = document.getElementById('close-banner');
+            
+            if (!track || !cards.length) return;
+            
+            const cardWidth = cards[0].offsetWidth + 15; // width + gap
+            const totalCards = cards.length;
+            let currentIndex = 0;
+            let autoSlideInterval;
+            let userInteracted = false;
+            let interactionTimeout;
+            
+            // Function to update carousel position
+            function updateCarousel() {
+                const offset = -currentIndex * cardWidth;
+                track.style.transform = `translateX(${offset}px)`;
             }
             
-            // Create cards
-            hotTopicsData.forEach((topic, index) => {
-                const card = document.createElement('div');
-                card.className = 'topic-card';
-                card.setAttribute('data-index', index);
-                card.innerHTML = `
-                    <h3 class="topic-title">${topic.title}</h3>
-                    <div class="topic-content">${topic.content}</div>
-                    <div class="topic-image">
-                        <img src="${topic.image}" alt="${topic.title}">
-                    </div>
-                `;
+            // Function to move to next card
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % totalCards;
+                updateCarousel();
+            }
+            
+            // Function to start auto-sliding
+            function startAutoSlide() {
+                if (autoSlideInterval) clearInterval(autoSlideInterval);
+                autoSlideInterval = setInterval(nextSlide, 2000); // Change every 2 seconds
+            }
+            
+            // Function to handle user interaction
+            function handleUserInteraction() {
+                userInteracted = true;
                 
-                // Add click event to navigate
+                // Clear existing timeout
+                if (interactionTimeout) clearTimeout(interactionTimeout);
+                
+                // Stop auto-sliding
+                if (autoSlideInterval) {
+                    clearInterval(autoSlideInterval);
+                    autoSlideInterval = null;
+                }
+                
+                // Resume auto-sliding after 3 seconds
+                interactionTimeout = setTimeout(() => {
+                    userInteracted = false;
+                    startAutoSlide();
+                }, 3000);
+            }
+            
+            // Add click event to cards for navigation
+            cards.forEach(card => {
                 card.addEventListener('click', function() {
-                    window.location.href = topic.link;
+                    const url = this.getAttribute('data-url');
+                    if (url) {
+                        window.location.href = url;
+                    }
                 });
-                
-                hotTopicsTrack.appendChild(card);
             });
             
-            // Create dots
-            hotTopicsData.forEach((_, index) => {
-                const dot = document.createElement('button');
-                dot.className = 'carousel-dot';
-                dot.setAttribute('data-index', index);
-                if (index === 0) dot.classList.add('active');
-                
-                dot.addEventListener('click', function() {
-                    goToSlide(index);
-                    resetAutoSlide();
+            // Add event listeners for user interaction
+            track.addEventListener('mouseenter', handleUserInteraction);
+            track.addEventListener('touchstart', handleUserInteraction);
+            
+            // Close banner functionality
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    banner.style.display = 'none';
                 });
-                
-                carouselDots.appendChild(dot);
-            });
+            }
             
-            // Set up navigation buttons
-            prevBtn.addEventListener('click', function() {
-                prevSlide();
-                resetAutoSlide();
-            });
-            
-            nextBtn.addEventListener('click', function() {
-                nextSlide();
-                resetAutoSlide();
-            });
-            
-            // Set up touch/swipe events
-            setupTouchEvents();
-            
-            // Start auto sliding
+            // Start auto-sliding
             startAutoSlide();
-        }
-        
-        // NEW: Carousel Functions
-        function goToSlide(slideIndex) {
-            currentSlide = slideIndex;
-            const track = document.getElementById('hot-topics-track');
-            const cardWidth = 100; // Percentage for mobile
-            const translateX = -(currentSlide * cardWidth);
-            track.style.transform = `translateX(${translateX}%)`;
             
-            // Update active dot
-            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
+            // Update carousel on window resize
+            window.addEventListener('resize', function() {
+                // Recalculate card width
+                const newCardWidth = cards[0].offsetWidth + 15;
+                if (cardWidth !== newCardWidth) {
+                    cardWidth = newCardWidth;
+                    updateCarousel();
+                }
             });
         }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % hotTopicsData.length;
-            goToSlide(currentSlide);
-        }
-        
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + hotTopicsData.length) % hotTopicsData.length;
-            goToSlide(currentSlide);
-        }
-        
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(nextSlide, 2000); // Change every 2 seconds
-        }
-        
-        function stopAutoSlide() {
-            clearInterval(autoSlideInterval);
-        }
-        
-        function resetAutoSlide() {
-            stopAutoSlide();
-            isUserInteracting = true;
-            
-            // Resume auto sliding after 3 seconds of no interaction
-            setTimeout(() => {
-                isUserInteracting = false;
-                startAutoSlide();
-            }, 3000);
-        }
-        
-        // NEW: Touch/Swipe Events
-        function setupTouchEvents() {
-            const track = document.getElementById('hot-topics-track');
-            
-            track.addEventListener('touchstart', handleTouchStart, { passive: true });
-            track.addEventListener('touchmove', handleTouchMove, { passive: true });
-            track.addEventListener('touchend', handleTouchEnd);
-            
-            // Mouse events for desktop
-            track.addEventListener('mousedown', handleMouseDown);
-            track.addEventListener('mousemove', handleMouseMove);
-            track.addEventListener('mouseup', handleMouseUp);
-            track.addEventListener('mouseleave', handleMouseLeave);
-        }
-        
-        function handleTouchStart(e) {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-            stopAutoSlide();
-        }
-        
-        function handleTouchMove(e) {
-            if (!isDragging) return;
-            currentX = e.touches[0].clientX;
-            const diff = startX - currentX;
-            
-            // Only prevent default if we're actually dragging horizontally
-            if (Math.abs(diff) > 10) {
-                e.preventDefault();
-            }
-        }
-        
-        function handleTouchEnd(e) {
-            if (!isDragging) return;
-            
-            const diff = startX - currentX;
-            const threshold = 50; // Minimum swipe distance
-            
-            if (diff > threshold) {
-                // Swipe left - next slide
-                nextSlide();
-            } else if (diff < -threshold) {
-                // Swipe right - previous slide
-                prevSlide();
-            }
-            
-            isDragging = false;
-            resetAutoSlide();
-        }
-        
-        function handleMouseDown(e) {
-            startX = e.clientX;
-            isDragging = true;
-            stopAutoSlide();
-        }
-        
-        function handleMouseMove(e) {
-            if (!isDragging) return;
-            currentX = e.clientX;
-        }
-        
-        function handleMouseUp(e) {
-            if (!isDragging) return;
-            
-            const diff = startX - currentX;
-            const threshold = 50; // Minimum drag distance
-            
-            if (diff > threshold) {
-                // Drag left - next slide
-                nextSlide();
-            } else if (diff < -threshold) {
-                // Drag right - previous slide
-                prevSlide();
-            }
-            
-            isDragging = false;
-            resetAutoSlide();
-        }
-        
-        function handleMouseLeave() {
-            if (isDragging) {
-                isDragging = false;
-                resetAutoSlide();
-            }
-        }
-        
-        // NEW: Close Banner Functionality
-        closeBannerBtn.addEventListener('click', function() {
-            hotTopicsBanner.style.display = 'none';
-            // Save preference to localStorage
-            localStorage.setItem('hotTopicsBannerHidden', 'true');
-        });
         
         // Detect user's country using IP
         function detectCountry() {
@@ -2984,19 +2813,20 @@
                 });
             });
 
-// Add click functionality to horizontal section cards
-document.querySelectorAll('.scroll-card').forEach(card => {
-    card.addEventListener('click', function(e) {
-        // Only redirect if not clicking on share button or read more link
-        if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
-            // Get the read more link from this card
-            const readMoreLink = this.querySelector('.read-more');
-            if (readMoreLink && readMoreLink.href) {
-                window.location.href = readMoreLink.href;
-            }
-        }
-    });
-});
+            // Add click functionality to horizontal section cards
+            document.querySelectorAll('.scroll-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Only redirect if not clicking on share button or read more link
+                    if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
+                        // Get the read more link from this card
+                        const readMoreLink = this.querySelector('.read-more');
+                        if (readMoreLink && readMoreLink.href) {
+                            window.location.href = readMoreLink.href;
+                        }
+                    }
+                });
+            });
+            
             // Latest Report functionality
             const latestReportLink = document.getElementById('latest-report-link');
             const recentlyAddedSection = document.getElementById('recently-added');
