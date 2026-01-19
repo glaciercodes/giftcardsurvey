@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kora Reporters</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -193,6 +193,7 @@
             background-color: #000;
             color: #fff;
             font-size: 16px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .search-button {
@@ -202,6 +203,7 @@
             padding: 0 25px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .search-filters {
@@ -217,7 +219,7 @@
             color: #fff;
             border: none;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 0; /* Sharp edges - changed from 20px to 0 */
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -293,7 +295,7 @@
             color: #fff;
             border: 1px solid #333;
             padding: 8px 20px;
-            border-radius: 20px;
+            border-radius: 0; /* Sharp edges - changed from 20px to 0 */
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -303,14 +305,13 @@
             border-color: #ff6600;
         }
         
-        /* NEW: Hot Topics Banner */
-        .hot-topics-banner {
+        /* Hot Topics Banner */
+        .hot-topics-section {
+            margin: 20px 0;
             position: relative;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            margin: 30px 15px;
-            padding: 20px;
             border: 1px solid #333;
-            border-radius: 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
             overflow: hidden;
         }
         
@@ -319,91 +320,109 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6600;
         }
         
         .hot-topics-title {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: bold;
             color: #ff6600;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         
-        .close-banner {
-            background: none;
+        .close-hot-topics {
+            background: #ff6600;
+            color: #000;
             border: none;
-            color: #999;
-            font-size: 20px;
+            width: 28px;
+            height: 28px;
             cursor: pointer;
-            padding: 5px;
-            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            border-radius: 0; /* Sharp edges */
         }
         
-        .close-banner:hover {
-            color: #ff6600;
+        .close-hot-topics:hover {
+            background: #ff4500;
         }
         
         .hot-topics-carousel {
             position: relative;
+            width: 100%;
             overflow: hidden;
-            height: 160px;
+            padding: 10px 0;
         }
         
         .hot-topics-track {
             display: flex;
             gap: 15px;
-            position: absolute;
-            left: 0;
             transition: transform 0.5s ease;
-            height: 100%;
+            width: max-content;
         }
         
         .hot-topic-card {
-            flex: 0 0 280px;
-            background-color: #222;
+            width: 220px;
+            flex-shrink: 0;
+            background-color: #111;
+            border: 1px solid #333;
             padding: 15px;
             position: relative;
             cursor: pointer;
-            border: 1px solid #444;
-            border-radius: 0;
-            height: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0; /* Sharp edges */
         }
         
         .hot-topic-card:hover {
-            background-color: #2a2a2a;
+            transform: translateY(-5px);
             border-color: #ff6600;
-            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
         }
         
-        .topic-title {
+        .hot-topic-title {
             font-size: 16px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ff6600;
             line-height: 1.3;
         }
         
-        .topic-writeup {
-            font-size: 14px;
-            color: #ccc;
+        .hot-topic-date {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .hot-topic-content {
+            font-size: 13px;
             line-height: 1.4;
+            color: #ccc;
+            flex-grow: 1;
             margin-bottom: 40px;
         }
         
-        .topic-image {
+        .hot-topic-image {
             position: absolute;
             bottom: 15px;
             right: 15px;
-            width: 50px;
-            height: 50px;
-            border-radius: 0;
+            width: 60px;
+            height: 60px;
             overflow: hidden;
-            border: 1px solid #444;
+            border: 1px solid #333;
+            border-radius: 0; /* Sharp edges */
         }
         
-        .topic-image img {
+        .hot-topic-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -439,12 +458,12 @@
             font-weight: 700;
         }
         
-        /* FIXED: Featured image styling */
+        /* Featured image styling */
         .featured-image {
             width: 100%;
             margin: 20px 0;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .featured-image img {
@@ -464,7 +483,7 @@
         .author-img {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
             background-color: #333;
             display: flex;
             align-items: center;
@@ -478,7 +497,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
         }
         
         .author-info {
@@ -542,10 +561,10 @@
             color: #ff6600;
         }
         
-        /* NEW: Video Styling for Christmas article */
+        /* Video Styling for Christmas article */
         .country-video {
             margin: 25px 0;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
         }
@@ -583,7 +602,7 @@
             border-left: 4px solid #ff6600;
             padding: 20px;
             margin: 20px 0;
-            border-radius: 4px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .highlight-title {
@@ -661,6 +680,14 @@
             color: #999;
             font-size: 10px;
             flex-shrink: 0;
+            border-radius: 0; /* Sharp edges */
+        }
+        
+        .recent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0; /* Sharp edges */
         }
         
         .recent-content {
@@ -700,7 +727,7 @@
             width: 50px;
             height: 50px;
             background-color: #ff6600;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -755,6 +782,7 @@
             border: 1px solid #333;
             background-color: #000;
             color: #fff;
+            border-radius: 0; /* Sharp edges */
         }
         
         .subscribe-btn {
@@ -763,7 +791,8 @@
             border: none;
             padding: 0 20px;
             cursor: pointer;
-          height: 40px 
+            height: 40px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .footer-links {
@@ -787,7 +816,7 @@
         /* Subscription Message Styles */
         .subscription-message {
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             margin-top: 20px;
             text-align: center;
             display: none;
@@ -848,7 +877,7 @@
         .scroll-card {
             width: 280px;
             background-color: #111;
-            border-radius: 10px;
+            border-radius: 0; /* Sharp edges */
             padding: 20px;
             display: inline-block;
             white-space: normal;
@@ -866,7 +895,7 @@
             width: 100%;
             height: 160px;
             background-color: #333;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -879,6 +908,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 0; /* Sharp edges */
         }
         
         .scroll-card-title {
@@ -957,14 +987,6 @@
             .latest-report {
                 font-size: 16px;
             }
-            
-            .hot-topics-banner {
-                margin: 30px auto;
-            }
-            
-            .hot-topic-card {
-                flex: 0 0 320px;
-            }
         }
         
         @media (max-width: 767px) {
@@ -993,15 +1015,7 @@
             }
             
             .hot-topic-card {
-                flex: 0 0 250px;
-            }
-            
-            .topic-title {
-                font-size: 15px;
-            }
-            
-            .topic-writeup {
-                font-size: 13px;
+                width: 200px;
             }
         }
     </style>
@@ -1077,92 +1091,20 @@
         </div>
     </div>
 
-    <!-- NEW: Hot Topics Now Banner -->
-    <section class="hot-topics-banner" id="hot-topics-banner">
+    <!-- NEW: Hot Topics Banner -->
+    <div class="container hot-topics-section" id="hot-topics-banner">
         <div class="hot-topics-header">
-            <h2 class="hot-topics-title">
-                <i class="fas fa-fire"></i> Hot Topics Now 🔥
-            </h2>
-            <button class="close-banner" id="close-banner">
-                <i class="fas fa-times"></i>
-            </button>
+            <div class="hot-topics-title">
+                Hot Topics Now 🔥
+            </div>
+            <button class="close-hot-topics" id="close-hot-topics">X</button>
         </div>
         <div class="hot-topics-carousel">
             <div class="hot-topics-track" id="hot-topics-track">
-                <!-- Card 1 -->
-                <div class="hot-topic-card" data-url="x.html">
-                    <h3 class="topic-title">How to jump 1</h3>
-                    <p class="topic-writeup">Master the basics of jumping techniques with proper form and safety measures for beginners starting their fitness journey.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=100&h=100&fit=crop" alt="Jumping exercise">
-                    </div>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="hot-topic-card" data-url="y.html">
-                    <h3 class="topic-title">How to jump 2</h3>
-                    <p class="topic-writeup">Advanced jumping techniques for athletes looking to improve their vertical leap and explosive power in sports.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=100&h=100&fit=crop" alt="Basketball jump">
-                    </div>
-                </div>
-                
-                <!-- Card 3 -->
-                <div class="hot-topic-card" data-url="v.html">
-                    <h3 class="topic-title">How to jump 3</h3>
-                    <p class="topic-writeup">Learn parkour jumping skills for urban environments with safety tips and progressive training methods.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1544033527-b192da88d947?w=100&h=100&fit=crop" alt="Parkour jump">
-                    </div>
-                </div>
-                
-                <!-- Card 4 -->
-                <div class="hot-topic-card" data-url="x.html">
-                    <h3 class="topic-title">How to jump 4</h3>
-                    <p class="topic-writeup">Jumping for dance performances: techniques for graceful leaps and landings in various dance styles.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=100&h=100&fit=crop" alt="Dance jump">
-                    </div>
-                </div>
-                
-                <!-- Card 5 -->
-                <div class="hot-topic-card" data-url="y.html">
-                    <h3 class="topic-title">How to jump 5</h3>
-                    <p class="topic-writeup">Ski jumping fundamentals: from beginner slopes to advanced techniques for winter sports enthusiasts.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1543321269-9d86d3680e1c?w=100&h=100&fit=crop" alt="Ski jump">
-                    </div>
-                </div>
-                
-                <!-- Card 6 -->
-                <div class="hot-topic-card" data-url="v.html">
-                    <h3 class="topic-title">How to jump 6</h3>
-                    <p class="topic-writeup">High jump training programs for track and field athletes focusing on technique and strength development.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=100&h=100&fit=crop" alt="High jump">
-                    </div>
-                </div>
-                
-                <!-- Card 7 -->
-                <div class="hot-topic-card" data-url="x.html">
-                    <h3 class="topic-title">How to jump 7</h3>
-                    <p class="topic-writeup">Bungee jumping safety guide: what to expect and how to prepare for your first extreme jumping experience.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop" alt="Bungee jump">
-                    </div>
-                </div>
-                
-                <!-- Card 8 -->
-                <div class="hot-topic-card" data-url="y.html">
-                    <h3 class="topic-title">How to jump 8</h3>
-                    <p class="topic-writeup">Long jump mastery: techniques for maximizing distance with proper run-up and landing strategies.</p>
-                    <div class="topic-image">
-                        <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=100&h=100&fit=crop" alt="Long jump">
-                    </div>
-                </div>
+                <!-- Cards will be populated by JavaScript -->
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Content -->
     <div class="container content">
@@ -2569,109 +2511,80 @@
             }
         ];
 
+        // Hot Topics Data
+        const hotTopicsData = [
+            {
+                title: "How to jump 1",
+                content: "Learn the proper jumping techniques and form to maximize your jumping height and distance safely.",
+                date: "Jan 18, 2026",
+                image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8anVtcGluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                link: "x.html"
+            },
+            {
+                title: "How to jump 2",
+                content: "Discover essential strength exercises that will improve your jumping power and overall athletic performance.",
+                date: "Jan 17, 2026",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RyZW5ndGglMjB0cmFpbmluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                link: "y.html"
+            },
+            {
+                title: "How to jump 3",
+                content: "Understand the physics behind jumping and how to apply this knowledge for better jumping results.",
+                date: "Jan 16, 2026",
+                image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXhlcmNpc2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
+                link: "v.html"
+            },
+            {
+                title: "How to jump 4",
+                content: "Follow this step-by-step guide to mastering different types of jumps for various sports and activities.",
+                date: "Jan 15, 2026",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8anVtcHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                link: "x.html"
+            },
+            {
+                title: "How to jump 5",
+                content: "Nutrition tips that will fuel your muscles for optimal jumping performance and recovery.",
+                date: "Jan 14, 2026",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bnV0cml0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+                link: "y.html"
+            },
+            {
+                title: "How to jump 6",
+                content: "Common jumping mistakes to avoid and how to correct them for safer, more effective training.",
+                date: "Jan 13, 2026",
+                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWlzdGFrZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+                link: "v.html"
+            },
+            {
+                title: "How to jump 7",
+                content: "Advanced jumping techniques for athletes looking to take their performance to the next competitive level.",
+                date: "Jan 12, 2026",
+                image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BvcnRzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+                link: "x.html"
+            },
+            {
+                title: "How to jump 8",
+                content: "Training programs and schedules designed specifically for improving vertical jump over time.",
+                date: "Jan 11, 2026",
+                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhaW5pbmclMjBwcm9ncmFtfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+                link: "y.html"
+            }
+        ];
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Detect user's country
             detectCountry();
             
+            // Set up Hot Topics carousel
+            initializeHotTopics();
+            
             // Set up event listeners for footer subscription
             footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
-            
-            // Initialize Hot Topics Carousel
-            initHotTopicsCarousel();
             
             // Set up other event listeners from original code
             setupEventListeners();
         });
-        
-        // NEW: Hot Topics Carousel Functionality
-        function initHotTopicsCarousel() {
-            const track = document.getElementById('hot-topics-track');
-            const cards = document.querySelectorAll('.hot-topic-card');
-            const banner = document.getElementById('hot-topics-banner');
-            const closeBtn = document.getElementById('close-banner');
-            
-            if (!track || !cards.length) return;
-            
-            const cardWidth = cards[0].offsetWidth + 15; // width + gap
-            const totalCards = cards.length;
-            let currentIndex = 0;
-            let autoSlideInterval;
-            let userInteracted = false;
-            let interactionTimeout;
-            
-            // Function to update carousel position
-            function updateCarousel() {
-                const offset = -currentIndex * cardWidth;
-                track.style.transform = `translateX(${offset}px)`;
-            }
-            
-            // Function to move to next card
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % totalCards;
-                updateCarousel();
-            }
-            
-            // Function to start auto-sliding
-            function startAutoSlide() {
-                if (autoSlideInterval) clearInterval(autoSlideInterval);
-                autoSlideInterval = setInterval(nextSlide, 2000); // Change every 2 seconds
-            }
-            
-            // Function to handle user interaction
-            function handleUserInteraction() {
-                userInteracted = true;
-                
-                // Clear existing timeout
-                if (interactionTimeout) clearTimeout(interactionTimeout);
-                
-                // Stop auto-sliding
-                if (autoSlideInterval) {
-                    clearInterval(autoSlideInterval);
-                    autoSlideInterval = null;
-                }
-                
-                // Resume auto-sliding after 3 seconds
-                interactionTimeout = setTimeout(() => {
-                    userInteracted = false;
-                    startAutoSlide();
-                }, 3000);
-            }
-            
-            // Add click event to cards for navigation
-            cards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const url = this.getAttribute('data-url');
-                    if (url) {
-                        window.location.href = url;
-                    }
-                });
-            });
-            
-            // Add event listeners for user interaction
-            track.addEventListener('mouseenter', handleUserInteraction);
-            track.addEventListener('touchstart', handleUserInteraction);
-            
-            // Close banner functionality
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    banner.style.display = 'none';
-                });
-            }
-            
-            // Start auto-sliding
-            startAutoSlide();
-            
-            // Update carousel on window resize
-            window.addEventListener('resize', function() {
-                // Recalculate card width
-                const newCardWidth = cards[0].offsetWidth + 15;
-                if (cardWidth !== newCardWidth) {
-                    cardWidth = newCardWidth;
-                    updateCarousel();
-                }
-            });
-        }
         
         // Detect user's country using IP
         function detectCountry() {
@@ -2758,6 +2671,101 @@
             }, type === 'success' ? 8000 : 5000);
         }
 
+        // Hot Topics Carousel Functionality
+        function initializeHotTopics() {
+            const hotTopicsTrack = document.getElementById('hot-topics-track');
+            const closeHotTopicsBtn = document.getElementById('close-hot-topics');
+            const hotTopicsBanner = document.getElementById('hot-topics-banner');
+            
+            // Check if banner was previously closed
+            if (localStorage.getItem('hotTopicsClosed') === 'true') {
+                hotTopicsBanner.style.display = 'none';
+                return;
+            }
+            
+            // Create and populate cards
+            hotTopicsData.forEach((topic, index) => {
+                const card = document.createElement('div');
+                card.className = 'hot-topic-card';
+                card.innerHTML = `
+                    <div class="hot-topic-title">${topic.title}</div>
+                    <div class="hot-topic-date">${topic.date}</div>
+                    <div class="hot-topic-content">${topic.content}</div>
+                    <div class="hot-topic-image">
+                        <img src="${topic.image}" alt="${topic.title}">
+                    </div>
+                `;
+                
+                // Add click event to navigate to link
+                card.addEventListener('click', function() {
+                    window.location.href = topic.link;
+                });
+                
+                hotTopicsTrack.appendChild(card);
+            });
+            
+            // Auto-slide functionality
+            let currentPosition = 0;
+            let slideInterval;
+            let isPaused = false;
+            const cardWidth = 220;
+            const gap = 15;
+            const cardCount = hotTopicsData.length;
+            const totalWidth = (cardWidth + gap) * cardCount;
+            
+            function startAutoSlide() {
+                slideInterval = setInterval(() => {
+                    if (!isPaused) {
+                        currentPosition -= (cardWidth + gap);
+                        if (currentPosition <= -totalWidth) {
+                            currentPosition = 0;
+                        }
+                        hotTopicsTrack.style.transform = `translateX(${currentPosition}px)`;
+                    }
+                }, 2000); // Slide every 2 seconds
+            }
+            
+            function stopAutoSlide() {
+                clearInterval(slideInterval);
+                isPaused = true;
+            }
+            
+            function resumeAutoSlide() {
+                if (isPaused) {
+                    isPaused = false;
+                    startAutoSlide();
+                }
+            }
+            
+            // Pause on hover/touch
+            hotTopicsTrack.addEventListener('mouseenter', stopAutoSlide);
+            hotTopicsTrack.addEventListener('touchstart', stopAutoSlide);
+            
+            // Resume after 3 seconds of no interaction
+            hotTopicsTrack.addEventListener('mouseleave', function() {
+                setTimeout(resumeAutoSlide, 3000);
+            });
+            hotTopicsTrack.addEventListener('touchend', function() {
+                setTimeout(resumeAutoSlide, 3000);
+            });
+            
+            // Close button functionality
+            closeHotTopicsBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hotTopicsBanner.style.display = 'none';
+                localStorage.setItem('hotTopicsClosed', 'true');
+            });
+            
+            // Start auto-sliding
+            startAutoSlide();
+            
+            // Ensure section loads fast by loading images with priority
+            const hotTopicImages = document.querySelectorAll('.hot-topic-image img');
+            hotTopicImages.forEach(img => {
+                img.loading = 'eager'; // Load images eagerly for faster display
+            });
+        }
+
         // Original functionality from the first code
         function setupEventListeners() {
             // Share functionality - only share the title
@@ -2813,20 +2821,19 @@
                 });
             });
 
-            // Add click functionality to horizontal section cards
-            document.querySelectorAll('.scroll-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Only redirect if not clicking on share button or read more link
-                    if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
-                        // Get the read more link from this card
-                        const readMoreLink = this.querySelector('.read-more');
-                        if (readMoreLink && readMoreLink.href) {
-                            window.location.href = readMoreLink.href;
-                        }
-                    }
-                });
-            });
-            
+// Add click functionality to horizontal section cards
+document.querySelectorAll('.scroll-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Only redirect if not clicking on share button or read more link
+        if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
+            // Get the read more link from this card
+            const readMoreLink = this.querySelector('.read-more');
+            if (readMoreLink && readMoreLink.href) {
+                window.location.href = readMoreLink.href;
+            }
+        }
+    });
+});
             // Latest Report functionality
             const latestReportLink = document.getElementById('latest-report-link');
             const recentlyAddedSection = document.getElementById('recently-added');
